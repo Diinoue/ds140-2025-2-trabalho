@@ -1,7 +1,8 @@
-# ds140-2025-2-trabalho
-Trabalho da disciplina DS140 - Desenvolvimento Web II
+# Trabalho da disciplina DS140 - Desenvolvimento Web II
 
-Cauã Henrique Dias Barbosa GRR 20230951
-Diogo Hiroshi Inoue GRR 20230952
-João Pedro Queiroz Deger GRR 20230941
-Vitor Higen Mares de Souza GRR 20230937
+| Nome                       | GRR      |
+|----------------------------|----------|
+| Cauã Henrique Dias Barbosa | 20230951 |
+| Diogo Hiroshi Inoue        | 20230952 |
+| João Pedro Queiroz Deger   | 20230941 |
+| Vitor Higen Mares de Souza | 20230937 |
