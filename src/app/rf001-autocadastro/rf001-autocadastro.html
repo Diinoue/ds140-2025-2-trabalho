@@ -1,0 +1,26 @@
+<h2>Autocadastro</h2>
+<form [formGroup]="formularioAutoCadastro" (ngSubmit)="onSubmit()">
+  <label>CPF:</label>
+  <input formControlName="cpf" placeholder="Somente números">
+  @if (formularioAutoCadastro.get('cpf')?.invalid && formularioAutoCadastro.get('cpf')?.touched) {
+    <div>CPF inválido</div>
+  }
+
+  <label>Nome:</label>
+  <input formControlName="nome">
+
+  <label>Email:</label>
+  <input formControlName="email">
+  @if (formularioAutoCadastro.get('email')?.invalid && formularioAutoCadastro.get('email')?.touched) {
+    <div>Email inválido</div>
+  }
+
+  <label>CEP:</label>
+  <input formControlName="cep" placeholder="Somente números">
+
+  <label>Telefone:</label>
+  <input formControlName="telefone" placeholder="DDD + número">
+
+  <button type="submit" [disabled]="formularioAutoCadastro.invalid">Cadastrar</button>
+  
+</form>
