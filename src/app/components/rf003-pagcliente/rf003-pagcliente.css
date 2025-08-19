@@ -1,0 +1,15 @@
+h1{
+    padding: auto;
+    text-align: center;
+   background-color: aqua;
+   border-radius: 15%;
+}
+
+h2{
+    padding: auto;
+    text-align: center;
+   background-color: rgb(29, 220, 245);
+   border-radius: 40%;
+   display: inline;
+   margin-left: 22%;
+}
