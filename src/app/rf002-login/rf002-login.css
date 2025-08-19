@@ -1,0 +1,52 @@
+.loginBox{
+    display:flex;
+    flex-direction: column;
+    width: 400px;
+    background-color: antiquewhite;
+}
+
+.logintext{
+    display:flex;
+    justify-content: center;
+}   
+
+.login  {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fundo{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+
+}
+
+.loginForm{
+    display:table;
+}
+
+.login-field{
+    display:table;
+    margin: 15px 30px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
+
+#entrar{
+    height: 30px;
+    width: 100px;
+}
+
+label {
+    padding-right: 20px;
+}
+
+label,input {
+    display: table-cell;
+}
+    
