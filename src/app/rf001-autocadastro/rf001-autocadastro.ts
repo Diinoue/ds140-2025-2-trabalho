@@ -12,15 +12,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   styleUrl: './rf001-autocadastro.css'
 })
 export class Rf001Autocadastro {
+
   formularioAutoCadastro: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.formularioAutoCadastro = this.fb.group({
-      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]], // 11 digits
+      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],  // 8 digits
-      telefone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]], // 10-11 digits
+      cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], 
+      telefone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]], 
     });
   }
 
