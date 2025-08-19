@@ -4,6 +4,7 @@ import { Rf004SolicitacaoComponent } from './rf004-solicitacao/rf004-solicitacao
 import { Rf001Autocadastro } from './rf001-autocadastro/rf001-autocadastro';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Rf002Login } from "./rf002-login/rf002-login";
+import { Rf003Pagcliente } from "./components/rf003-pagcliente/rf003-pagcliente";
 
 
 @Component({
@@ -14,7 +15,8 @@ import { Rf002Login } from "./rf002-login/rf002-login";
     ReactiveFormsModule,
     Rf001Autocadastro,
     FormsModule,
-    Rf002Login
+    Rf002Login,
+    Rf003Pagcliente
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

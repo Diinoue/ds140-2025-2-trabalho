@@ -35,7 +35,10 @@ export class Rf004SolicitacaoComponent implements OnInit {
     this.solicitacoes.push(novaSolicitacao);
     
     console.log('Dados da nova solicitação:', novaSolicitacao);
-    
+
+    const copiar = novaSolicitacao;
+    console.log(copiar);
+
     this.descricaoEquipamento = '';
     this.categoriaEquipamento = '';
     this.descricaoDefeito = '';
