@@ -5,6 +5,8 @@ import { Rf001Autocadastro } from './rf001-autocadastro/rf001-autocadastro';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Rf002Login } from "./rf002-login/rf002-login";
 import { Rf003Pagcliente } from "./components/rf003-pagcliente/rf003-pagcliente";
+import { Rf005Mostrarorcamento } from './components/rf005-mostrarorcamento/rf005-mostrarorcamento';
+import { Rf005MostrarOrcamentoCliente } from "./rf005-mostrar-orcamento-cliente/rf005-mostrar-orcamento-cliente";
 
 
 @Component({
@@ -16,7 +18,9 @@ import { Rf003Pagcliente } from "./components/rf003-pagcliente/rf003-pagcliente"
     Rf001Autocadastro,
     FormsModule,
     Rf002Login,
-    Rf003Pagcliente
+    Rf003Pagcliente,
+    Rf005Mostrarorcamento,
+    Rf005MostrarOrcamentoCliente
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

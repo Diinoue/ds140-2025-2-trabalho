@@ -1,0 +1,35 @@
+.solicitacao{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.botoes{
+    display:flex;
+    justify-content: space-around;
+    width:600px;
+    
+}
+
+#yes{
+    background-color: darkgreen;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#yes:hover{
+    background-color: rgb(72, 161, 72);
+}
+
+#no{
+    background-color: red;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#no:hover{
+    background-color: rgb(255, 80, 80);
+}

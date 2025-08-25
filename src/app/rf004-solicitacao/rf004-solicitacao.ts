@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Solicitacaoservice } from '../services/solicitacaoservice';
 
 @Component({
   selector: 'app-rf004-solicitacao',
@@ -14,11 +15,10 @@ export class Rf004SolicitacaoComponent implements OnInit {
   descricaoEquipamento: string = '';
   categoriaEquipamento: string = '';
   descricaoDefeito: string = '';
-
   categorias: string[] = ['Notebook', 'Impressora', 'Desktop', 'Mouse', 'Teclado'];
   solicitacoes: any[] = [];
 
-  constructor() { }
+  constructor(private solicitacaoService: Solicitacaoservice) {}
 
   ngOnInit(): void {
   }
@@ -32,12 +32,8 @@ export class Rf004SolicitacaoComponent implements OnInit {
       estado: 'ABERTA'
     };
     
-    this.solicitacoes.push(novaSolicitacao);
-    
-    console.log('Dados da nova solicitação:', novaSolicitacao);
-
-    const copiar = novaSolicitacao;
-    console.log(copiar);
+    this.solicitacaoService.addSolicitacao(novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
+    this.solicitacoes = this.solicitacaoService.getSolicitacoes();   
 
     this.descricaoEquipamento = '';
     this.categoriaEquipamento = '';

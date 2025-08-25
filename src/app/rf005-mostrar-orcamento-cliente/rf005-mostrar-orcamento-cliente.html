@@ -1,0 +1,16 @@
+<button (click)="rf005showSolicitacoes()">Testar</button>
+
+<h3>Orçamentos propostos:</h3>
+<ul>
+    @for (s of solicitacoes; track s; let i = $index){
+        <div class="solicitacao">
+        <li>
+            {{s.dataHora | date:'short'}} - {{s.descricaoEquipamento}} ({{s.categoriaEquipamento}}) - <b>PREÇO ORÇADO:  R$</b>
+        </li>
+        <div class="botoes">
+        <button type="button" id="yes">Aprovar Serviço</button>
+        <button type="button" id="no">Rejeitar Serviço</button>
+        </div>
+        </div>
+    }
+</ul>

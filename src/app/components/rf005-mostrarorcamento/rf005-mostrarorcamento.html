@@ -1,0 +1,31 @@
+<!--
+RF005 - Mostrar orçamento: Após a empresa apresentar um orçamento, o usuário deve poder aprovar ou rejeitar o serviço.
+Deve ser apresentada uma tela contendo todos os dados da solicitação e o preço orçado, com destaque.
+Deve ser apresentado um botão para Aprovar o Serviço e outro para Rejeitar o Serviço.
+
+PROBLEMAS:
+
+- A lista de solicitações não exibe automaticamente, somente após clicar o botão de teste;
+- Ainda não há uma maneira de verificar se orcamento é um inteiro
+-->
+
+<button (click)="rf005showSolicitacoes()">Testar</button>
+
+<h3>Solicitações pendentes</h3>
+<ul>
+    @for (s of solicitacoes; track s; let i = $index){
+        <li>
+            {{i}} {{s.dataHora | date:'short'}} - {{s.descricaoEquipamento}} ({{s.categoriaEquipamento}}) - Estado: {{s.estado}}
+            <form
+            name="formOrcamento{{i}}"
+            class="formOrcamento"
+            [formGroup]="formOrcamentoDois"
+            (ngSubmit)="addOrcamento()">
+                <label for="orcamento">| Apresentar orçamento:</label>
+                <input type="number" formControlName="orcamento" placeholder="Valor">
+                <input type="submit" value="Confirmar">
+                {{ formOrcamentoDois.value.preco }}
+            </form>
+        </li>
+    }
+</ul>
