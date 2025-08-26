@@ -14,4 +14,6 @@ export class Solicitacaoservice {
   getSolicitacoes(): any{
     return this.solicitacoes;
   }  
+
+  
 }

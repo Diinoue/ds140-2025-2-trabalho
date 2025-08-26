@@ -13,19 +13,15 @@ PROBLEMAS:
 
 <h3>Solicitações pendentes</h3>
 <ul>
-    @for (s of solicitacoes; track s; let i = $index){
-        <li>
-            {{i}} {{s.dataHora | date:'short'}} - {{s.descricaoEquipamento}} ({{s.categoriaEquipamento}}) - Estado: {{s.estado}}
-            <form
-            name="formOrcamento{{i}}"
-            class="formOrcamento"
-            [formGroup]="formOrcamentoDois"
-            (ngSubmit)="addOrcamento()">
-                <label for="orcamento">| Apresentar orçamento:</label>
-                <input type="number" formControlName="orcamento" placeholder="Valor">
-                <input type="submit" value="Confirmar">
-                {{ formOrcamentoDois.value.preco }}
-            </form>
-        </li>
-    }
+@for (s of solicitacoes; track s; let i = $index){
+  <li >
+    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }}
+<form [formGroup]="forms[i]" (ngSubmit)="addOrcamento(i)">
+  <label>| Apresentar orçamento:</label>
+  <input type="number" formControlName="orcamento" placeholder="Valor">
+  <input type="submit" value="Confirmar">
+</form>
+
+  </li>
+  }
 </ul>

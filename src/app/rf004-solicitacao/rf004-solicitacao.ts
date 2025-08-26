@@ -17,7 +17,6 @@ export class Rf004SolicitacaoComponent implements OnInit {
   descricaoDefeito: string = '';
   categorias: string[] = ['Notebook', 'Impressora', 'Desktop', 'Mouse', 'Teclado'];
   solicitacoes: any[] = [];
-
   constructor(private solicitacaoService: Solicitacaoservice) {}
 
   ngOnInit(): void {
@@ -29,7 +28,8 @@ export class Rf004SolicitacaoComponent implements OnInit {
       descricaoEquipamento: this.descricaoEquipamento,
       categoriaEquipamento: this.categoriaEquipamento,
       descricaoDefeito: this.descricaoDefeito,
-      estado: 'ABERTA'
+      estado: 'ABERTA',
+      orcamento: null
     };
     
     this.solicitacaoService.addSolicitacao(novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
