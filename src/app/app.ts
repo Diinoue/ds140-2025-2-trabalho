@@ -7,6 +7,7 @@ import { Rf002Login } from "./rf002-login/rf002-login";
 import { Rf003Pagcliente } from "./components/rf003-pagcliente/rf003-pagcliente";
 import { Rf005Mostrarorcamento } from './components/rf005-mostrarorcamento/rf005-mostrarorcamento';
 import { Rf005MostrarOrcamentoCliente } from "./rf005-mostrar-orcamento-cliente/rf005-mostrar-orcamento-cliente";
+import { RF008VisualizarServico } from './rf008-visualizar-servico/rf008-visualizar-servico';
 
 
 @Component({
@@ -20,7 +21,8 @@ import { Rf005MostrarOrcamentoCliente } from "./rf005-mostrar-orcamento-cliente/
     Rf002Login,
     Rf003Pagcliente,
     Rf005Mostrarorcamento,
-    Rf005MostrarOrcamentoCliente
+    Rf005MostrarOrcamentoCliente,
+    RF008VisualizarServico
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

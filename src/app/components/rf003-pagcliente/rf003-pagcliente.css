@@ -1,15 +1,29 @@
+.Pag-cliente{
+    display:flex;
+    flex-direction: column;
+    width: 1200px;  
+     height: 200px;
+    background-color: antiquewhite;
+    
+
+}
+
+
 h1{
-    padding: auto;
-    text-align: center;
    background-color: aqua;
-   border-radius: 15%;
+   border-radius: 100%;
+   border-color: black;
+    text-align: center;
+   
+
 }
 
 h2{
     padding: auto;
-    text-align: center;
    background-color: rgb(29, 220, 245);
    border-radius: 40%;
    display: inline;
-   margin-left: 22%;
+   border-color: black;
+   margin-left: 20%;
+
 }

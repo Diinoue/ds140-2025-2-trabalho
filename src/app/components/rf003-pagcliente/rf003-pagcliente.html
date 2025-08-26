@@ -1,7 +1,19 @@
 
+ <div class="Pag-cliente">
 <h1>Requisições</h1>
-
-<h2>ID</h2> 
-<h2>HORA</h2>
-<h2>STATUS</h2>
+    <div class="HUD">
+      <h2>ID</h2> 
+      <h2>HORA</h2>
+      <h2>STATUS</h2>
+    </div>
 <p>rf003-pag-inicial works!</p>
+ </div>
+<button (click)="metdado_serivice()">teste</button>
+ <ul>
+  @for (s of solicitacoes; track s; let i = $index)
+  {
+    <li >
+    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }}
+    </li>
+  }
+</ul>
