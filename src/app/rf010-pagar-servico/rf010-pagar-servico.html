@@ -1,1 +1,11 @@
-<p>rf010-pagar-servico works!</p>
+<div class="card">
+
+<p><strong>Data:</strong> {{ solicitacoes[0].dataHora}}</p>
+<p><strong>Equipamento:</strong> {{ solicitacoes[0].descricaoEquipamento }}</p>
+<p><strong>Categoria:</strong> {{ solicitacoes[0].categoriaEquipamento }}</p>
+<p><strong>Defeito:</strong> {{ solicitacoes[0].descricaoDefeito }}</p>
+<p><strong>Estado:</strong> {{ solicitacoes[0].estado }}</p>
+<p><strong>Orçamento:</strong> {{ solicitacoes[0].valorOrcado }}</p>
+<button (click)="confirmarPagamento()" [disabled]="solicitacoes[0].orcamento === null"> Confirmar Pagamento </button>
+
+</div>
