@@ -14,7 +14,10 @@ export class Rf003Pagcliente
   solicitacoes: any[] = [];
 
   constructor(private solicitacaoService: Solicitacaoservice) {} 
-
+teste()
+{
+  console.log("aaaaa");
+}
   ngOnInit(): void {}
 
   metdado_serivice() 

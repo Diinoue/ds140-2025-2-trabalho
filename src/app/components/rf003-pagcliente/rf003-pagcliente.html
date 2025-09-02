@@ -13,7 +13,7 @@
  <ul>
   @for (s of solicitacoes; track s; let i = $index)
   {
-    <li >
+    <li (click)="teste()">
     {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - Defeito: {{ s.descricaoDefeito | slice:0:30 }}
     </li>
   }

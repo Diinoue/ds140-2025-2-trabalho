@@ -1,1 +1,22 @@
 <p>rf008-visualizar-servico works!</p>
+
+
+ <div class="VisuClient">
+<h1>Requisições</h1>
+    <div class="HUD">
+      <h3>ID</h3> 
+      <h3>HORA</h3>
+      <h3>TIPO</h3>
+      <h3>STATUS</h3>
+    </div>
+<p>rf003-pag-inicial works!</p>
+ </div>
+<button (click)="metdado_serivice()">teste</button>
+ <ul>
+  @for (s of solicitacoes; track s; let i = $index)
+  {
+    <li (click)="teste()">
+    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - Defeito: {{ s.descricaoDefeito | slice:0:30 }}
+    </li>
+  }
+</ul>
