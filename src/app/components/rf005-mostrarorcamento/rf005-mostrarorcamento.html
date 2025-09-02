@@ -14,11 +14,17 @@ PROBLEMAS:
 <h3>Solicitações pendentes</h3>
 <ul>
 @for (s of solicitacoes; track s; let i = $index){
-  <li >
-    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - 
-    {{ cliente.cpf }} - {{ cliente.nome }} - {{ cliente.email }} - {{ cliente.cep }} - {{ cliente.telefone }} - Orçamento: {{ s.orcamento }}
+  <li>
+    ID: {{ i }} 
+    Data: {{ s.dataHora | date:'short' }} 
+    Categoria: ({{ s.categoriaEquipamento }}) 
+    Estado: {{ s.estado }} 
+    Descrição: {{ s.descricaoEquipamento }} 
+    Cliente: {{ cliente.nome }}  |  CPF: {{ cliente.cpf }} 
+    Email: {{ cliente.email }}  |  CEP: {{ cliente.cep }}  |  Telefone: {{ cliente.telefone }} 
+    Orçamento: {{ s.orcamento }}
 <form [formGroup]="forms[i]" (ngSubmit)="addOrcamento(i)">
-  <label>| Apresentar orçamento:</label>
+  <label>Apresentar orçamento: </label>
   <input type="number" formControlName="orcamento" placeholder="Valor">
   <input type="submit" value="Confirmar">
 </form>
