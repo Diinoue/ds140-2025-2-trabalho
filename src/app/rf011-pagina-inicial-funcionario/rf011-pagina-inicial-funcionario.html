@@ -1,0 +1,24 @@
+<!-- RF011 - Página Inicial de Funcionário: Devem ser mostradas todas as solicitações no estado ABERTA,
+ pois necessitam de atenção imediata do funcionário.
+ Devem ser mostradas data/hora da abertura, nome do cliente, e descrição do produto, limitado a 30 caracteres.
+ Para estas solicitações deve ser apresentado um botão para Efetuar Orçamento (RF012).
+ -->
+<h1>RF 011 - Página Inicial de Funcionario - Solicitações em Aberto</h1>
+
+@for(s of solicitacoes; track s){
+    @if(s.estado == 'ABERTA'){
+        <li>
+            <span>{{s.dataHora | date:'short'}} - </span>
+            <span> <!-- nome do cliente--> </span>
+            <span id="descEq">
+                {{ s.descricaoEquipamento | slice:0:30 }}
+                {{s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
+            </span> <!-- 30 characteres-->
+            <button class="botoes">Efetuar Orçamento</button>
+        </li>
+
+    }
+    <div class="solicitacao">
+
+    </div>
+}
