@@ -29,7 +29,7 @@ export class Rf004SolicitacaoComponent implements OnInit {
       categoriaEquipamento: this.categoriaEquipamento,
       descricaoDefeito: this.descricaoDefeito,
       estado: 'ABERTA',
-      orcamento: null
+      orcamento: 0
     };
     
     this.solicitacaoService.addSolicitacao(novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
