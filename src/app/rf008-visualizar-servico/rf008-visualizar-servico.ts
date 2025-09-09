@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DatePipe, SlicePipe } from '@angular/common';
-import { Solicitacaoservice } from '../../services/solicitacaoservice';
+import { Solicitacaoservice } from '../services/solicitacaoservice';
 
 @Component({
   selector: 'app-rf008-visualizar-servico',

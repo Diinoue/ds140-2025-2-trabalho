@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rf013-visualizar-solicitacoes',
   standalone: true,
+   imports:[CommonModule],
   templateUrl: './rf013-visualizar-solicitacoes.html',
   styleUrls: ['./rf013-visualizar-solicitacoes.css'],
 })

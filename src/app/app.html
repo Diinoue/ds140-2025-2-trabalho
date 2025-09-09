@@ -1,10 +1,13 @@
 <div class="app-container">
-  <!--<app-rf001-autocadastro></app-rf001-autocadastro>!-->
-  <app-rf004-solicitacao></app-rf004-solicitacao>
-  <!--<app-rf005-mostrar-orcamento-cliente/>!-->
-  <app-rf005-mostrarorcamento/>
-  <!--<app-rf003-pagcliente></app-rf003-pagcliente>!-->
-  <!--<app-rf005-mostrarorcamento/>!-->
-  <!--<app-rf010-pagar-servico></app-rf010-pagar-servico>!-->
 
+<nav><!-- nav= div, mas usado para navegações  -->
+  <a routerLink="/autocadastro">Autocadastro</a>
+  <a routerLink="/login">Login</a>
+  <a routerLink="/solicitacao">Solicitação</a>
+  <a routerLink="/cliente">Cliente</a>
+  <a routerLink="/orcamentos">Orçamentos</a>
+  <a routerLink="/servicos">Serviços</a>
+</nav>
+
+<router-outlet></router-outlet>  
 </div> 
