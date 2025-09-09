@@ -11,6 +11,7 @@ import { Rf005MostrarOrcamentoCliente } from "./rf005-mostrar-orcamento-cliente/
 import { RF008VisualizarServico } from './rf008-visualizar-servico/rf008-visualizar-servico';
 import { Rf010PagarServico } from './rf010-pagar-servico/rf010-pagar-servico';
 import { Rf013VisualizarSolicitacoes } from './rf013-visualizar-solicitacoes/rf013-visualizar-solicitacoes';
+import { Rf014EfetuarManutencao } from './rf014-efetuar-manutencao/rf014-efetuar-manutencao';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import { Rf013VisualizarSolicitacoes } from './rf013-visualizar-solicitacoes/rf0
     RF008VisualizarServico,
     Rf010PagarServico,
     Rf013VisualizarSolicitacoes,
+    Rf014EfetuarManutencao,
     RouterOutlet,  
     RouterLink,    
     CommonModule  

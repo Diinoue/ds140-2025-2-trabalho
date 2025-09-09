@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Efetuar Manutenção - Solicitação #{{ solicitacao.id }}</h2>
+
+  <section class="dados-solicitacao">
+    <p><b>Cliente:</b> {{ solicitacao.cliente }}</p>
+    <p><b>Problema:</b> {{ solicitacao.descricao }}</p>
+    <p><b>Estado Atual:</b> {{ solicitacao.estado }}</p>
+  </section>
+
+@if (!manutencaoEfetuada) {
+  <div>
+    <h3>Registrar Manutenção</h3>
+
+    <label>
+      Descrição da Manutenção:
+      <textarea [(ngModel)]="descricaoManutencao"></textarea>
+    </label>
+
+    <label>
+      Orientações para o Cliente:
+      <textarea [(ngModel)]="orientacoesCliente"></textarea>
+    </label>
+
+    <button (click)="efetuarManutencao()">Efetuar Manutenção</button>
+    <button (click)="redirecionarManutencao()">Redirecionar</button>
+  </div>
+} @else {
+  <div class="sucesso">
+    ✅ Manutenção registrada! <br />
+    Estado alterado para <b>{{ solicitacao.estado }}</b>
+  </div>
+}
