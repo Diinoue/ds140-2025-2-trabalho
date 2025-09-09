@@ -1,29 +1,34 @@
 <!-- RF002 - Login: Qualquer pessoa cadastrada (qualquer perfil) pode fazer login no sistema informando seu e-mail e senha.
  O sistema automaticamente identifica o perfil do usuário. -->
-
+<div class="loginPopup">
  <div class="loginBox">
     <div class="logintext">
         <h1>Login</h1>
     </div>
+
+    <div class="loginFormDiv">
         <form 
         class="loginForm"
         [formGroup]="loginForm"
         (ngSubmit)="handleSubmit()">
-            <div class="login-field">
+
+            <div class="form-group">
                 <label for="email">E-mail:
-                    <input id="email" type="text" formControlName="email" placeholder="seuemail@email.com" required />
+                    <input id="email" class="form-control" type="email" formControlName="email" placeholder="seuemail@email.com" required />
                 </label>
             </div>
 
-            <div class="login-field">
+            <div class="form-group">
                 <label for="senha">Senha:
-                    <input id="password" type="password" formControlName="password" placeholder="Senha" required/>
+                    <input id="password" class="form-control" type="password" formControlName="password" placeholder="Senha" required/>
                 </label>
             </div>
+            
         <div class="btn">
-        <button type="submit" id="entrar">Entrar</button>
+        <button type="submit" class="btn btn-primary"id="entrar">Entrar</button>
         </div>
         </form>
+    </div>
 </div>
     <!--
     <p>Email: {{ loginForm.value.email }} </p>
