@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DatePipe, SlicePipe } from '@angular/common';
 import { Solicitacaoservice } from '../services/solicitacaoservice';
+import { Solicitacao } from '../shared/models/solicitacao.model';
 
 @Component({
   selector: 'app-rf008-visualizar-servico',
@@ -10,7 +11,7 @@ import { Solicitacaoservice } from '../services/solicitacaoservice';
 })
 export class RF008VisualizarServico {
 
-  solicitacoes: any[] = [];
+  solicitacoes: Solicitacao[] = [];
 
   constructor(private solicitacaoService: Solicitacaoservice) {} 
 teste()

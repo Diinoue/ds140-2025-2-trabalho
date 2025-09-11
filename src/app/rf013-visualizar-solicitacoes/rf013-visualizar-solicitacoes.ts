@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Solicitacaoservice } from '../services/solicitacaoservice';
+import { Solicitacao } from '../shared/models/solicitacao.model';
 
 @Component({
   selector: 'app-rf013-visualizar-solicitacoes',
@@ -8,21 +10,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './rf013-visualizar-solicitacoes.html',
   styleUrls: ['./rf013-visualizar-solicitacoes.css'],
 })
-export class Rf013VisualizarSolicitacoes {
-  
-  solicitacoes = [
-    { id: 1, titulo: 'Troca de monitor', status: 'Aberta' },
-    { id: 2, titulo: 'Conserto de impressora', status: 'Aprovada' },
-    { id: 3, titulo: 'Licença de software', status: 'Rejeitada' },
-  ];
+export class Rf013VisualizarSolicitacoes implements OnInit{
+    solicitacoes: Solicitacao[] = [];
 
+  constructor(private solicitacaoService: Solicitacaoservice) {}
+
+    ngOnInit(): void {
+      this.solicitacoes = this.listarTodos();
+    }
   
-  getStatusClass(status: string): string {
-    const classes: Record<string, string> = {
-      Aberta: 'text-blue-500',
-      Aprovada: 'text-green-500',
-      Rejeitada: 'text-red-500',
-    };
-    return classes[status] ?? 'text-gray-500';
-  }
+    listarTodos(): Solicitacao[] {
+      return this.solicitacaoService.listarTodos();
+    }
+
+
+    
 }

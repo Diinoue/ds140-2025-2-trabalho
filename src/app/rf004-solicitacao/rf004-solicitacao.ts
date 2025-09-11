@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Solicitacaoservice } from '../services/solicitacaoservice';
+import { Solicitacao } from '../shared/models/solicitacao.model';
 
 @Component({
   selector: 'app-rf004-solicitacao',
@@ -16,24 +17,34 @@ export class Rf004SolicitacaoComponent implements OnInit {
   categoriaEquipamento: string = '';
   descricaoDefeito: string = '';
   categorias: string[] = ['Notebook', 'Impressora', 'Desktop', 'Mouse', 'Teclado'];
-  solicitacoes: any[] = [];
+  solicitacoes: Solicitacao[] = [];
+  novaSolicitacao: Solicitacao = new Solicitacao();
   constructor(private solicitacaoService: Solicitacaoservice) {}
 
   ngOnInit(): void {
+    this.solicitacoes = this.listarTodos();
+  }
+
+  listarTodos(): Solicitacao[] {
+    return this.solicitacaoService.listarTodos();
   }
 
   enviarSolicitacao(): void {
-    const novaSolicitacao = {
+    this.novaSolicitacao = {
+      ID: this.solicitacoes.length,
       dataHora: new Date(),
       descricaoEquipamento: this.descricaoEquipamento,
       categoriaEquipamento: this.categoriaEquipamento,
       descricaoDefeito: this.descricaoDefeito,
       estado: 'ABERTA',
-      orcamento: 0
+      orcamento: 0,
+      clienteCPF: '111',
+      valorOrcado: 0,
+      dataDePagamento: new Date()
     };
-    
-    this.solicitacaoService.addSolicitacao(novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
-    this.solicitacoes = this.solicitacaoService.getSolicitacoes();   
+
+    this.solicitacaoService.inserir(this.novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
+    this.solicitacoes = this.listarTodos();   
 
     this.descricaoEquipamento = '';
     this.categoriaEquipamento = '';

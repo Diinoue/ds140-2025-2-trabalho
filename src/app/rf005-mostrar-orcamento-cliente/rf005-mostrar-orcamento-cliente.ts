@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Solicitacaoservice } from '../services/solicitacaoservice';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Solicitacao } from '../shared/models/solicitacao.model';
 
 @Component({
   selector: 'app-rf005-mostrar-orcamento-cliente',
@@ -12,8 +13,7 @@ import { Router } from '@angular/router';
 })
 export class Rf005MostrarOrcamentoCliente implements OnInit {
  
-  solicitacoes: any[] = [];
- 
+  solicitacoes: Solicitacao[] = [];
   motivoRejeicao: string = "";
 
   
@@ -24,45 +24,37 @@ export class Rf005MostrarOrcamentoCliente implements OnInit {
 
 
   ngOnInit(): void {
-   
-    this.rf005showSolicitacoes();
+    this.listarTodos();
   }
 
-  
-  rf005showSolicitacoes() {
-    this.solicitacoes = this.solicitacaoService.getSolicitacoes();
+  listarTodos(): Solicitacao[] {
+    return this.solicitacaoService.listarTodos();
   }
 
- 
-  aprovarServico(solicitacao: any): void {
-    
-
+  aprovarServico(solicitacao: Solicitacao): void {
     alert(`Serviço Aprovado no Valor R$ ${solicitacao.valorOrcado}`);
-    
-  
-    solicitacao.status = 'APROVADA';
-   
+    solicitacao.estado = 'APROVADA';
+
+    this.solicitacaoService.atualizar(solicitacao);
+
     this.router.navigate(['/rf003']);
   }
 
-
-  rejeitarServico(solicitacao: any): void {
-
+  rejeitarServico(solicitacao: Solicitacao): void {
     const motivo = prompt("Por favor, informe o motivo da rejeição:");
  
     if (motivo && motivo.trim() !== '') {
       
       alert("Serviço Rejeitado!");
-      
-    
-      solicitacao.status = 'REJEITADA';
-      
-    
+      solicitacao.estado = 'REJEITADA';
+      this.solicitacaoService.atualizar(solicitacao);
+
       this.router.navigate(['/rf003']);
 
     } else {
    
       alert("O motivo da rejeição é obrigatório.");
+
     }
   }
 }
