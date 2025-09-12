@@ -4,4 +4,5 @@ export class Cliente {
     public email: string = '';
     public cep: string = '';
     public telefone: string = '';
+    public senha: string = '';
 }
