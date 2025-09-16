@@ -8,7 +8,8 @@ import { Rf005Mostrarorcamento } from './components/rf005-mostrarorcamento/rf005
 import { RF008VisualizarServico } from './rf008-visualizar-servico/rf008-visualizar-servico';
 import { Rf010PagarServico } from './rf010-pagar-servico/rf010-pagar-servico';
 import { Rf013VisualizarSolicitacoes } from './rf013-visualizar-solicitacoes/rf013-visualizar-solicitacoes';
-
+import { Rf014EfetuarManutencao } from './rf014-efetuar-manutencao/rf014-efetuar-manutencao';
+import { RF018CRUDFuncionarios } from './rf018-crud-funcionarios/rf018-crud-funcionarios';
 export const routes: Routes = 
 [
     {path: 'autocadastro', component:Rf001Autocadastro},
@@ -18,8 +19,10 @@ export const routes: Routes =
     {path: 'orcamentos', component: Rf005MostrarOrcamentoCliente },
     {path: 'servicos', component: RF008VisualizarServico },
     {path: 'Mostrarorcamento', component: Rf005Mostrarorcamento },
-    {path: 'PagarServico/:id', component: Rf010PagarServico },
+    {path: 'PagarServico', component: Rf010PagarServico },
     {path: 'VisualizarSolicitacoes', component: Rf013VisualizarSolicitacoes },
+    {path: 'EfetuarManutencao', component: Rf014EfetuarManutencao},
+    {path: 'CRUDFuncionario',component: RF018CRUDFuncionarios},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ]
