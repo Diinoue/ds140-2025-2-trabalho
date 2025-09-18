@@ -24,14 +24,13 @@ constructor(
   ngOnInit(): void {
     let id = +this.route.snapshot.params['id'];
     const res = this.solicitacaoService.buscarPorId(id);
-    if (res !== undefined){
-      this.solicitacao = res;
-      const res2 = this.clienteService.buscarPorId(this.solicitacao.clienteCPF);
-      if (res2 !== undefined) this.cliente = res2;
-      else throw new Error ("Pessoa não encontrada: id = " + id);
-    }
-    else
-      throw new Error ("Pessoa não encontrada: id = " + id);
+    if (res !== undefined) this.solicitacao = res;
+    else throw new Error ("Pessoa não encontrada: id = " + id);
+
+    const res2 = this.clienteService.buscarPorId(this.solicitacao.clienteCPF);
+    if (res2 !== undefined) this.cliente = res2;
+    else throw new Error ("Pessoa não encontrada: id = " + id);
+    
   }
 
 confirmarPagamento() {

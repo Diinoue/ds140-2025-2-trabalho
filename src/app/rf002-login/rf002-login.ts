@@ -11,8 +11,6 @@ import { Clienteservice } from '../services/clienteservice';
 export class Rf002Login {
 
   constructor(private clienteService: Clienteservice) {
-    email: '';
-
   }
 
   loginForm = new FormGroup({
@@ -21,15 +19,9 @@ export class Rf002Login {
   });
 
   handleSubmit (){
-    if(this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!)){
+    this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!)
       alert(
         'Login realizado com sucesso'
       )
-    }
-    else {
-      alert(
-        'Erro ao logar'
-      )
-    }
   }
 }
