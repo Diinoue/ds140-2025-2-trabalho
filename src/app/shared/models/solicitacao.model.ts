@@ -5,7 +5,6 @@ export class Solicitacao {
     public categoriaEquipamento: string = '';
     public descricaoDefeito: string = '';
     public estado: string = '';
-    public orcamento: number = 0;
     public clienteCPF: string = '';
     public valorOrcado: number = 0;
     public dataDePagamento: Date = new Date();

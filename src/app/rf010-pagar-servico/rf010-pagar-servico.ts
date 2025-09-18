@@ -4,10 +4,11 @@ import { Solicitacao } from '../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../shared/models/cliente.model';
 import { Clienteservice } from '../services/clienteservice';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-rf010-pagar-servico',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './rf010-pagar-servico.html',
   styleUrl: './rf010-pagar-servico.css'
 })

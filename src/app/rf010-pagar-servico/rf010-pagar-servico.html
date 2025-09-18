@@ -4,8 +4,9 @@
 <p><strong>Categoria:</strong> {{ solicitacao.categoriaEquipamento }}</p>
 <p><strong>Defeito:</strong> {{ solicitacao.descricaoDefeito }}</p>
 <p><strong>Estado:</strong> {{ solicitacao.estado }}</p>
+<p><strong>Data da solicitação:</strong> {{ solicitacao.dataHora | date:'short' }}</p>
 <p><strong>Orçamento:</strong> {{ solicitacao.valorOrcado }}</p>
-<p><strong>Cliente:</strong> {{ cliente.nome }}</p>
-<button (click)="confirmarPagamento()" [disabled]="solicitacao.orcamento === null"> Confirmar Pagamento </button>
+
+<button (click)="confirmarPagamento()" [disabled]="solicitacao.valorOrcado === 0"> Confirmar Pagamento </button>
 
 </div>

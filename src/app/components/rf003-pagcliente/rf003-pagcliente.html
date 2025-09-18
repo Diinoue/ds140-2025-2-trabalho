@@ -7,7 +7,7 @@
   @for (s of solicitacoes; track s; let i = $index)
   {
     <li>
-    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - Defeito: {{ s.descricaoDefeito | slice:0:30 }} - Cliente: {{ s.clienteCPF }}
+    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - Defeito: {{ s.descricaoDefeito | slice:0:30 }}
     </li>
     <a href="PagarServico/{{s.ID}}" title="Visualizar" alt="Visualizar"
     class="btn btn-xs btn-info">
