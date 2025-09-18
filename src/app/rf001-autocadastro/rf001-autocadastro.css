@@ -1,31 +1,8 @@
-html, body { margin: 0; padding: 0; height: 100% }
-
-.signUpBackground {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    height: 100vh;
-    background-color: rgb(56, 68, 230);
+.background-signup {
+    background: linear-gradient(220deg,rgba(47, 144, 235, 1) 0%, rgba(255, 89, 255, 1) 90%);
 }
 
-.signUpForm {
-    display: flex;
-
-
-    background-color: white;
-    border: solid;
-    border-color: black;
-    border-radius: 10px;
-    border-width: 1px;
-}
-
-.signUpFields {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-
-#registrar {
-    display: inline-block;
+.card-registration {
+    border-radius: 15px;
+    background-color: #eee;
 }
