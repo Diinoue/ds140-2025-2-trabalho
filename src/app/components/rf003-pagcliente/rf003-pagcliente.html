@@ -1,19 +1,17 @@
-
- <div class="Pag-cliente">
-<h1>Requisições</h1>
-    <div class="HUD">
-      <h2>ID</h2> 
-      <h2>HORA</h2>
-      <h2>TIPO</h2>
-      <h2>STATUS</h2>
-    </div>
- </div>
-<button (click)="metdado_serivice()">teste</button>
  <ul>
+  <a href="solicitacao" title="Novo" alt="Novo"
+  class="btn btn-xs btn-success">
+  <i class="fa fa-plus" aria-hidden="true"></i> Novo
+  </a>
+
   @for (s of solicitacoes; track s; let i = $index)
   {
-    <li (click)="teste()">
-    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - Defeito: {{ s.descricaoDefeito | slice:0:30 }}
+    <li>
+    {{ i }} {{ s.dataHora | date:'short' }} - {{ s.descricaoEquipamento }} ({{ s.categoriaEquipamento }}) - Estado: {{ s.estado }} - Defeito: {{ s.descricaoDefeito | slice:0:30 }} - Cliente: {{ s.clienteCPF }}
     </li>
+    <a href="PagarServico/{{s.ID}}" title="Visualizar" alt="Visualizar"
+    class="btn btn-xs btn-info">
+    <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
+    </a>
   }
 </ul>

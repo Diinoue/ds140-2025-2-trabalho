@@ -19,7 +19,7 @@ export const routes: Routes =
     {path: 'orcamentos', component: Rf005MostrarOrcamentoCliente },
     {path: 'servicos', component: RF008VisualizarServico },
     {path: 'Mostrarorcamento', component: Rf005Mostrarorcamento },
-    {path: 'PagarServico', component: Rf010PagarServico },
+    {path: 'PagarServico/:id', component: Rf010PagarServico },
     {path: 'VisualizarSolicitacoes', component: Rf013VisualizarSolicitacoes },
     {path: 'EfetuarManutencao', component: Rf014EfetuarManutencao},
     {path: 'CRUDFuncionario',component: RF018CRUDFuncionarios},

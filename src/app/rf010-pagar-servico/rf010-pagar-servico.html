@@ -5,6 +5,7 @@
 <p><strong>Defeito:</strong> {{ solicitacao.descricaoDefeito }}</p>
 <p><strong>Estado:</strong> {{ solicitacao.estado }}</p>
 <p><strong>Orçamento:</strong> {{ solicitacao.valorOrcado }}</p>
+<p><strong>Cliente:</strong> {{ cliente.telefone }}</p>
 <button (click)="confirmarPagamento()" [disabled]="solicitacao.orcamento === null"> Confirmar Pagamento </button>
 
 </div>

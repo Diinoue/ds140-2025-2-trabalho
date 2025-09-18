@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe, SlicePipe } from '@angular/common';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
+import { Solicitacao } from '../../shared/models/solicitacao.model';
 
 @Component
   ({
@@ -9,19 +10,17 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
   templateUrl: './rf003-pagcliente.html',
   styleUrl: './rf003-pagcliente.css'
   })
-export class Rf003Pagcliente 
+export class Rf003Pagcliente implements OnInit
 {
-  solicitacoes: any[] = [];
+  solicitacoes: Solicitacao[] = [];
 
   constructor(private solicitacaoService: Solicitacaoservice) {} 
-teste()
-{
-  console.log("aaaaa");
-}
-  ngOnInit(): void {}
 
-  metdado_serivice() 
-  {
-    this.solicitacoes = this.solicitacaoService.getSolicitacoes();
+  ngOnInit(): void {
+    this.solicitacoes = this.listarTodos();
+  }
+
+  listarTodos(): Solicitacao[] {
+    return this.solicitacaoService.listarTodos();
   }
 }
