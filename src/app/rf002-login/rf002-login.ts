@@ -21,9 +21,15 @@ export class Rf002Login {
   });
 
   handleSubmit (){
-    this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!)
-    alert(
-      this.loginForm.value.email + ' | ' + this.loginForm.value.password
-    )
+    if(this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!)){
+      alert(
+        'Login realizado com sucesso'
+      )
+    }
+    else {
+      alert(
+        'Erro ao logar'
+      )
+    }
   }
 }
