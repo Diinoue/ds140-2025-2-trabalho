@@ -3,61 +3,65 @@
         
     <h2 class="row my-5 justify-content-center">Solicitar nova manutenção</h2>
 
-      <!-- Formmulário de enviar solicitação -->
-      <form (ngSubmit)="enviarSolicitacao()">
+    <!-- Formulário de enviar solicitação -->
+    <form #form="ngForm" (ngSubmit)="enviarSolicitacao()">
+      
+      <div class="row justify-content-center">
         
-        <div class="row justify-content-center">
-          
-          <!-- Campo descrição equipamento -->
-            <div class="col-3">
-                <label class="form-label" for="descText">Descrição do Equipamento:</label>
-                <input type="text" id="descText" class="form-control"
-                [(ngModel)]="descricaoEquipamento" name="descricaoEquipamento" required>
-            </div>
-          
+        <!-- Campo descrição equipamento -->
+        <div class="col-3">
+          <label class="form-label" for="descText">Descrição do Equipamento:</label>
+          <input 
+            type="text" 
+            id="descText" 
+            class="form-control"
+            [(ngModel)]="descricaoEquipamento" 
+            name="descricaoEquipamento" 
+            required>
+        </div>
+      
         <!-- Campo categoria equipamento -->
         <div class="col-3">
           <label class="form-label">Categoria do Equipamento:</label>
-            <select class="form-select" [(ngModel)]="categoriaEquipamento"
-            name="categoriaEquipamento" required>
-                <option value="" disabled selected>Selecione uma categoria</option>
-                <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
-            </select>
+          <select 
+            class="form-select" 
+            [(ngModel)]="categoriaEquipamento"
+            name="categoriaEquipamento" 
+            required>
+              <option value="" disabled selected>Selecione uma categoria</option>
+              <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
+          </select>
         </div>
-        <!-- Campo descrição do defeito -->
-        </div>
+      </div>
 
-        <div class="row justify-content-center">
-          <div class="col-6">
-            <div class="form-outline">
-              <label class="form-label" for="descDefeito">Descrição do Defeito:</label>
-                <!-- Botão registrar -->
-                <textarea id="descDefeito" class="form-control"
-                [(ngModel)]="descricaoDefeito" name="descricaoDefeito"
-                required></textarea>
-                
-            </div>
+      <!-- Campo descrição do defeito -->
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <div class="form-outline">
+            <label class="form-label" for="descDefeito">Descrição do Defeito:</label>
+            <textarea 
+              id="descDefeito" 
+              class="form-control"
+              [(ngModel)]="descricaoDefeito" 
+              name="descricaoDefeito"
+              required></textarea>
           </div>
         </div>
+      </div>
 
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <button class=" my-4 px-xl-4 btn btn-success" type="submit">Registrar Solicitação</button>  
-          </div>
+      <!-- Botão -->
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button 
+            class="my-4 px-xl-4 btn btn-success" 
+            type="submit" 
+            [disabled]="form.invalid">
+              Registrar Solicitação
+          </button>  
         </div>
+      </div>
 
-      </form>
+    </form>
 
   </div>
 </section>
-<!--
-Listagem de solicitações
-ESSA FUNCIONALIDADE VAI SER REMOVIDADA DEPOIS PARA SER COLOCADA NA RF003
--->
-<h3>Solicitações Registradas:</h3>
-<ul>
-  <li *ngFor="let s of solicitacoes">
-    {{s.dataHora | date:'short'}} - {{s.descricaoEquipamento}} ({{s.categoriaEquipamento}}) - Estado: {{s.estado}}
-  </li>
-</ul>
-

@@ -20,6 +20,7 @@ constructor(
   private solicitacaoService: Solicitacaoservice,
   private route: ActivatedRoute,
   private clienteService: Clienteservice,
+  private router: Router,
 ) {}
 
   ngOnInit(): void {
@@ -35,10 +36,42 @@ constructor(
   }
 
 confirmarPagamento() {
-  this.solicitacao.estado = 'PAGA';
-  this.solicitacao.dataDePagamento = new Date();
-  this.solicitacaoService.atualizar(this.solicitacao);
+
 }
 
+
+  aprovarServico() {
+    alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valorOrcado}`);
+    this.solicitacao.estado = 'APROVADA';
+    this.solicitacaoService.atualizar(this.solicitacao);
+    this.router.navigate(['cliente']);
+  }
+
+  rejeitarServico() {
+    const motivo = prompt('Informe o motivo da rejeição:');
+    if (motivo !== null && motivo.trim() !== '') {
+      alert('Serviço rejeitado');
+      this.solicitacao.motivo = motivo;
+      this.solicitacao.estado = 'REJEITADA';
+      this.solicitacaoService.atualizar(this.solicitacao);
+      this.router.navigate(['cliente']);
+    }
+  }
+
+  resgatarServico() {
+    this.solicitacao.estado = 'APROVADA';
+    this.solicitacaoService.atualizar(this.solicitacao);
+    console.log('Histórico: serviço resgatado em', new Date());
+    alert('Serviço resgatado e aprovado novamente');
+      this.router.navigate(['cliente']);
+
+  }
+
+  pagarServico() {
+    this.solicitacao.estado = 'PAGA';
+    this.solicitacao.dataDePagamento = new Date();
+    this.solicitacaoService.atualizar(this.solicitacao);
+    alert('Serviço Pago');
+  }
   
 }

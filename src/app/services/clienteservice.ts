@@ -40,13 +40,16 @@ export class Clienteservice {
     localStorage[LS_CHAVE] = JSON.stringify(clientes);
   }
 
-  salvarLogin(email: string, senha: string) : void {
+  salvarLogin(email: string, senha: string) : boolean {
     const clientes = this.listarTodos();
+    let teste: boolean = false;
     clientes.forEach( (obj, index, objs) => {
       if(email === obj.email && senha === obj.senha){
         localStorage["login"] = obj.cpf;  
+        teste = true;
       }
     });
+    return teste;
   }
 
   getLogin() : any {

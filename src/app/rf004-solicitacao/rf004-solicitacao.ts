@@ -5,6 +5,7 @@ import { Solicitacaoservice } from '../services/solicitacaoservice';
 import { Solicitacao } from '../shared/models/solicitacao.model';
 import { Clienteservice } from '../services/clienteservice';
 import { Cliente } from '../shared/models/cliente.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rf004-solicitacao',
@@ -20,7 +21,11 @@ export class Rf004SolicitacaoComponent implements OnInit {
   categorias: string[] = ['Notebook', 'Impressora', 'Desktop', 'Mouse', 'Teclado'];
   solicitacoes: Solicitacao[] = [];
   novaSolicitacao: Solicitacao = new Solicitacao();
-  constructor(private solicitacaoService: Solicitacaoservice, private clienteService: Clienteservice) {
+  constructor(
+    private solicitacaoService: Solicitacaoservice, 
+    private clienteService: Clienteservice,
+    private router: Router,
+  ) {
   }
 
   ngOnInit(): void {
@@ -38,10 +43,11 @@ export class Rf004SolicitacaoComponent implements OnInit {
       descricaoEquipamento: this.descricaoEquipamento,
       categoriaEquipamento: this.categoriaEquipamento,
       descricaoDefeito: this.descricaoDefeito,
-      estado: 'ABERTA',
+      estado: 'ORCADA',
       valorOrcado: 0,
       clienteCPF: this.clienteService.getLogin(),
-      dataDePagamento: new Date()
+      dataDePagamento: new Date(),
+      motivo: ''
     };
 
     this.solicitacaoService.inserir(this.novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
@@ -50,5 +56,6 @@ export class Rf004SolicitacaoComponent implements OnInit {
     this.descricaoEquipamento = '';
     this.categoriaEquipamento = '';
     this.descricaoDefeito = '';
+    this.router.navigate(['cliente']);
   }
 }

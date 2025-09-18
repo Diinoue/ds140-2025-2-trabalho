@@ -8,4 +8,5 @@ export class Solicitacao {
     public clienteCPF: string = '';
     public valorOrcado: number = 0;
     public dataDePagamento: Date = new Date();
+    public motivo: string = '';
 }

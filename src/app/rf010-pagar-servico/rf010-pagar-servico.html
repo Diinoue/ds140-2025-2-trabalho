@@ -1,12 +1,27 @@
 <div class="card">
-<!-- está dando algume erro ao puxar a classe solicitao <p><strong>Data:</strong> {{ solicitacoes[0].dataHora}}</p> -->
-<p><strong>Equipamento:</strong> {{ solicitacao.descricaoEquipamento }}</p>
-<p><strong>Categoria:</strong> {{ solicitacao.categoriaEquipamento }}</p>
-<p><strong>Defeito:</strong> {{ solicitacao.descricaoDefeito }}</p>
-<p><strong>Estado:</strong> {{ solicitacao.estado }}</p>
-<p><strong>Data da solicitação:</strong> {{ solicitacao.dataHora | date:'short' }}</p>
-<p><strong>Orçamento:</strong> {{ solicitacao.valorOrcado }}</p>
+  <p><strong>Equipamento:</strong> {{ solicitacao.descricaoEquipamento }}</p>
+  <p><strong>Categoria:</strong> {{ solicitacao.categoriaEquipamento }}</p>
+  <p><strong>Defeito:</strong> {{ solicitacao.descricaoDefeito }}</p>
+  <p><strong>Estado:</strong> {{ solicitacao.estado }}</p>
+  <p><strong>Data da solicitação:</strong> {{ solicitacao.dataHora | date:'short' }}</p>
+  <p><strong>Orçamento:</strong> {{ solicitacao.valorOrcado }}</p>
 
-<button (click)="confirmarPagamento()" [disabled]="solicitacao.valorOrcado === 0"> Confirmar Pagamento </button>
+<!-- Estado: ORCADA -->
+@if (solicitacao.estado === 'ORCADA') {
+  <button (click)="aprovarServico()">Aprovar Serviço</button>
+  <button (click)="rejeitarServico()">Rejeitar Serviço</button>
+}
+
+<!-- Estado: REJEITADA -->
+@if (solicitacao.estado === 'REJEITADA') {
+  <button (click)="resgatarServico()">Resgatar Serviço</button>
+}
+
+<!-- Estado: ARRUMADA -->
+@if (solicitacao.estado === 'ARRUMADA') {
+  <button (click)="pagarServico()">Pagar Serviço</button>
+}
+
+<!-- Estado: APROVADA = sem botões -->
 
 </div>
