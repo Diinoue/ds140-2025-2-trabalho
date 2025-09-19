@@ -8,6 +8,7 @@ import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Cliente } from '../../shared/models/cliente.model';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
+import { AlteracaoLog } from '../../shared/models/alteracao-log';
 
 @Component({
   selector: 'app-rf014-efetuar-manutencao',
@@ -22,6 +23,8 @@ export class Rf014EfetuarManutencao implements OnInit{
   funcionarios: Funcionario[] = [];
   func: string = '';
   mostrarSelecao = false;
+  alteracao: AlteracaoLog = new AlteracaoLog();
+  alteracaoHist: AlteracaoLog[] = [];
 
 
 constructor(
@@ -48,10 +51,27 @@ constructor(
   efetuarManutencao() {
     this.solicitacao.estado = 'ARRUMADA';
     this.solicitacaoService.atualizar(this.solicitacao);
+    this.registrarAlteracao('Manutenção Efetuada');
     this.router.navigate(['funcionario']);
   }
 
   redirecionarManutencao() {
     
   }
+
+  salvarOrcamento(solicitacao: any) {
+    this.solicitacao.estado = 'ORCADA';
+    this.solicitacaoService.atualizar(solicitacao);
+    this.registrarAlteracao('Serviço Orçado');
+
+  }
+
+  registrarAlteracao(desc : string) {
+    this.alteracao.solicitacaoID = this.solicitacao.ID;
+    this.alteracao.data = new Date();
+    this.alteracao.descricao = desc;
+    this.solicitacaoService.addAlteracao(this.alteracao);
+    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
+  }
+
 }

@@ -5,6 +5,8 @@
     <p><b>Cliente:</b> {{ cliente.nome }}</p>
     <p><b>Problema:</b> {{ solicitacao.descricaoDefeito }}</p>
     <p><b>Estado Atual:</b> {{ solicitacao.estado }}</p>
+    <p><b>Orçamento:</b> {{ solicitacao.valorOrcado }}</p>
+
   </section>
 
   <div>
@@ -36,10 +38,26 @@
   }
 }
 
-<!-- Estado: REJEITADA -->
+<!-- Estado: ABERTA -->
 @if (solicitacao.estado === 'ABERTA') {
+  <div class="mb-3">
+    <label class="form-label">Orçamento:</label>
+    <input 
+      type="number" 
+      class="form-control"
+      [(ngModel)]="solicitacao.valorOrcado"
+      name="orcamento" 
+      placeholder="Digite o valor do orçamento"
+      required
+    />
+  </div>
 
+  <button 
+    class="btn btn-success mt-2"
+    (click)="salvarOrcamento(solicitacao)">
+    Salvar Orçamento
+  </button>
 }
-<!-- Estado: APROVADA = sem botões -->
+
 
   </div>

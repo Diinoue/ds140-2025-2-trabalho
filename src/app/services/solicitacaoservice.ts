@@ -52,6 +52,7 @@ export class Solicitacaoservice {
 
   
   addAlteracao(alteracao: AlteracaoLog): void {
+    
     const alteracaoHist = this.getAlteracao();
     alteracaoHist.push(alteracao);
     localStorage["alt"] = JSON.stringify(alteracaoHist);    
@@ -66,6 +67,7 @@ export class Solicitacaoservice {
     const alteracaoHist = this.getAlteracao();
     return alteracaoHist.filter(a => a.solicitacaoID === ID);
   }
+
 
 
 }

@@ -8,15 +8,15 @@
 @for(s of solicitacoes; track s; let i = $index){
     @if(s.estado == 'ABERTA'){
         <li>
+            <span> Estado: {{s.estado}} - </span>
             <span> Data: {{s.dataHora | date:'short'}} - </span>
             <span> Cliente: {{ s.clienteNome }} - </span>
             <span id="descEq">  Descrição: 
                 {{ s.descricaoEquipamento | slice:0:30 }}
                 {{ s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
                 {{ s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
-
             </span> <!-- 30 characteres-->
-            <a href="/{{s.ID}}" title="Visualizar" alt="Visualizar"
+            <a href="EfetuarManutencao/{{s.ID}}" title="Visualizar" alt="Visualizar"
             class="btn btn-xs btn-info">
             <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
             </a>
@@ -30,6 +30,7 @@
 @for(s of solicitacoes; track s; let i = $index){
     @if(s.estado == 'APROVADA'){
         <li>
+            <span> Estado: {{s.estado}} - </span>
             <span> Data: {{s.dataHora | date:'short'}} - </span>
             <span> Cliente: {{ s.clienteNome }} - </span>
             <span id="descEq">  Descrição: 
@@ -38,7 +39,7 @@
                 {{ s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
 
             </span> <!-- 30 characteres-->
-            <a href="/{{s.ID}}" title="Visualizar" alt="Visualizar"
+            <a href="EfetuarManutencao/{{s.ID}}" title="Visualizar" alt="Visualizar"
             class="btn btn-xs btn-info">
             <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
             </a>
