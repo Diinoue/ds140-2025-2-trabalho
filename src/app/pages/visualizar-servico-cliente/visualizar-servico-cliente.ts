@@ -38,15 +38,14 @@ constructor(
     if (res2 !== undefined) this.cliente = res2;
     else throw new Error ("Pessoa não encontrada: id = " + id);
     
-    const alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
-
+    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }
 
   aprovarServico() {
     alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valorOrcado}`);
     this.solicitacao.estado = 'APROVADA';
     this.solicitacaoService.atualizar(this.solicitacao);
-    this.registrarAlteracao("Serviço Aprovado");
+    this.registrarAlteracao('Serviço Aprovado');
     this.router.navigate(['cliente']);
   }
 
@@ -57,7 +56,7 @@ constructor(
       this.solicitacao.motivo = motivo;
       this.solicitacao.estado = 'REJEITADA';
       this.solicitacaoService.atualizar(this.solicitacao);
-      this.registrarAlteracao("Serviço Rejeitado");
+      this.registrarAlteracao('Serviço Rejeitado');
       this.router.navigate(['cliente']);
     }
   }
@@ -65,7 +64,7 @@ constructor(
   resgatarServico() {
     this.solicitacao.estado = 'APROVADA';
     this.solicitacaoService.atualizar(this.solicitacao);
-    this.registrarAlteracao("Serviço Resgatado");
+    this.registrarAlteracao('Serviço Resgatado');
     console.log('Histórico: serviço resgatado em', new Date());
     alert('Serviço resgatado e aprovado novamente');
       this.router.navigate(['cliente']);
@@ -75,7 +74,7 @@ constructor(
     this.solicitacao.estado = 'PAGA';
     this.solicitacao.dataDePagamento = new Date();
     this.solicitacaoService.atualizar(this.solicitacao);
-    this.registrarAlteracao("Serviço Pago");
+    this.registrarAlteracao('Serviço Pago');
     alert('Serviço Pago');
   }
   

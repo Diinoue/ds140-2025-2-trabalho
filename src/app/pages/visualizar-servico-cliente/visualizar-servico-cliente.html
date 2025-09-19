@@ -6,19 +6,6 @@
   <p><strong>Data da solicitação:</strong> {{ solicitacao.dataHora | date:'short' }}</p>
   <p><strong>Orçamento:</strong> {{ solicitacao.valorOrcado }}</p>
 
-<div>
-  @if (alteracaoHist && alteracaoHist.length > 0) {
-    <h4>Histórico de Alterações:</h4>
-    <ul>
-      @for (alt of alteracaoHist; track alt) {
-        <li>
-          {{ alt.data | date:'short' }} - {{ alt.descricao }}
-        </li>
-      }
-    </ul>
-  }
-</div>
-
 <!-- Estado: ORCADA -->
 @if (solicitacao.estado === 'ORCADA') {
   <button (click)="aprovarServico()">Aprovar Serviço</button>
@@ -37,4 +24,15 @@
 
 <!-- Estado: APROVADA = sem botões -->
 
+</div>
+
+<div>
+    <h4>Histórico de Alterações:</h4>
+    <ul>
+      @for (alt of alteracaoHist; track alt) {
+        <li>
+          {{ alt.data | date:'short' }} - {{ alt.descricao }}
+        </li>
+      }
+    </ul>
 </div>
