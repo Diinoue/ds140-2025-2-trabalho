@@ -52,6 +52,10 @@ export class Clienteservice {
     return teste;
   }
 
+  clearLogin() : void {
+    localStorage["login"] = null; 
+  }
+
   getLogin() : any {
     const login = localStorage["login"];
     return login;
