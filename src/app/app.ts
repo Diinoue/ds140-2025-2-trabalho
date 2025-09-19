@@ -30,7 +30,9 @@ export class AppComponent implements OnInit{
   
   ngOnInit(): void {}
   
-  
+  sair(): void {
+    this.clienteService.clearLogin();
+  }
   
   title = 'ds140-2025-2-trabalho';
 }

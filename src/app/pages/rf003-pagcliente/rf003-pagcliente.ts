@@ -3,7 +3,6 @@ import { DatePipe, SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 
-
 @Component
   ({
   selector: 'app-rf003-pagcliente',

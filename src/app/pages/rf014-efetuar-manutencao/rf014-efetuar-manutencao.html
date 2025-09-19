@@ -36,9 +36,23 @@
   }
 }
 
-<!-- Estado: REJEITADA -->
-@if (solicitacao.estado === 'ABERTA') {
+<!-- Estado: ABERTA -->
+@if (solicitacao.estado === 'ORCADA') {
+  <!-- Início Formulário Orçamento -->
+  <form>
+    <div class="form-group row">
+      <label for="propostaOrcamento" class="col-form-label col-md-3">Valor proposto do orçamento: </label>
+        <div class="col-md-2">
+          <input type="number" class="form-control" id="propostaOrcamento" placeholder="Valor">
+        </div>
+              
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary">Realizar proposta</button>
+      </div>
+    </div>
 
+    <!-- Fim Form Orçamento -->
+  </form>
 }
 <!-- Estado: APROVADA = sem botões -->
 
