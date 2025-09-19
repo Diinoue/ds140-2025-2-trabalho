@@ -38,12 +38,12 @@ export class Rf004SolicitacaoComponent implements OnInit {
 
   enviarSolicitacao(): void {
     this.novaSolicitacao = {
-      ID: this.solicitacoes.length,
+      ID: 0,
       dataHora: new Date(),
       descricaoEquipamento: this.descricaoEquipamento,
       categoriaEquipamento: this.categoriaEquipamento,
       descricaoDefeito: this.descricaoDefeito,
-      estado: 'ORCADA',
+      estado: 'ABERTA',
       valorOrcado: 0,
       clienteCPF: this.clienteService.getLogin(),
       dataDePagamento: new Date(),

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Solicitacao } from '../shared/models/solicitacao.model';
+import { AlteracaoLog } from '../shared/models/alteracao-log';
 
 const LS_CHAVE = "solicitacoes";
 
@@ -8,15 +9,7 @@ const LS_CHAVE = "solicitacoes";
 })
 export class Solicitacaoservice {
   solicitacoes: any[] = [];
-
-  addSolicitacao(solicitacao: any): void {
-      this.solicitacoes.push(solicitacao);
-      // console.log('Dados da nova solicitação:', solicitacao);
-  }
-
-  getSolicitacoes(): any{
-    return this.solicitacoes;
-  }  
+  alteracoes: any[] = [];
 
   listarTodos(): Solicitacao[] {
     const solicitacoes = localStorage[LS_CHAVE];
@@ -49,6 +42,24 @@ export class Solicitacaoservice {
     let solicitacoes = this.listarTodos();
     solicitacoes = solicitacoes.filter(Solicitacao => Solicitacao.ID !== id);
     localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
+  }
+
+
+  
+  addAlteracao(alteracao: AlteracaoLog): void {
+    const alteracaoHist = this.getAlteracao();
+    alteracaoHist.push(alteracao);
+    localStorage["alt"] = JSON.stringify(alteracaoHist);    
+  }
+
+  getAlteracao() : AlteracaoLog[] {
+    const alteracaoHist = localStorage["alt"];
+    return alteracaoHist ? JSON.parse(alteracaoHist) : [];
+  }
+
+  getAlteracaoByService(ID: number): AlteracaoLog[] {
+    const alteracaoHist = this.getAlteracao();
+    return alteracaoHist.filter(a => a.solicitacaoID === ID);
   }
 
 

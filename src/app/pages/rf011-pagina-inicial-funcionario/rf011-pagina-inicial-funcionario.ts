@@ -13,6 +13,5 @@ export class Rf011PaginaInicialFuncionario {
   solicitacoes: any[] = [];
 
 constructor (private solicitacaoService: Solicitacaoservice){
-  this.solicitacoes = this.solicitacaoService.getSolicitacoes();
 }
 }
