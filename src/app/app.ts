@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-/* import { Rf001Autocadastro } from './pages/rf001-autocadastro/rf001-autocadastro';
-import { Rf002Login } from "./pages/rf002-login/rf002-login";
-import { Rf003Pagcliente } from "./pages/rf003-pagcliente/rf003-pagcliente";
-import { Rf004SolicitacaoComponent } from './pages/rf004-solicitacao/rf004-solicitacao';
-import { Rf010PagarServico } from './pages/rf010-pagar-servico/rf010-pagar-servico';
-import { Rf014EfetuarManutencao } from './pages/rf014-efetuar-manutencao/rf014-efetuar-manutencao'; */
+import { Clienteservice } from './services/clienteservice';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +23,14 @@ import { Rf014EfetuarManutencao } from './pages/rf014-efetuar-manutencao/rf014-e
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  constructor(
+    private clienteService: Clienteservice
+  ){}
+  
+  ngOnInit(): void {}
+  
+  
+  
   title = 'ds140-2025-2-trabalho';
 }
