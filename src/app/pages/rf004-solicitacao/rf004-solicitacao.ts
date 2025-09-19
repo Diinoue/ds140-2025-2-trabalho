@@ -43,7 +43,7 @@ export class Rf004SolicitacaoComponent implements OnInit {
       descricaoEquipamento: this.descricaoEquipamento,
       categoriaEquipamento: this.categoriaEquipamento,
       descricaoDefeito: this.descricaoDefeito,
-      estado: 'ORCADA',
+      estado: 'ABERTA',
       valorOrcado: 0,
       clienteCPF: this.clienteService.getLogin(),
       dataDePagamento: new Date(),
