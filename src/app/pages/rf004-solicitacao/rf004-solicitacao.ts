@@ -47,8 +47,15 @@ export class Rf004SolicitacaoComponent implements OnInit {
       valorOrcado: 0,
       clienteCPF: this.clienteService.getLogin(),
       dataDePagamento: new Date(),
-      motivo: ''
+      motivo: '',
+      clienteNome: '',
+      descricaoManutencao: '',
+      orientacoesCliente: '',
     };
+
+    const res = this.clienteService.buscarPorId(this.novaSolicitacao.clienteCPF);
+    if (res !== undefined) this.novaSolicitacao.clienteNome = res.nome;
+    else throw new Error ("Pessoa não encontrada: id = " + this.novaSolicitacao.clienteCPF);
 
     this.solicitacaoService.inserir(this.novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
     this.solicitacoes = this.listarTodos();   

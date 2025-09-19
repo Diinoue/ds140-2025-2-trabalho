@@ -5,16 +5,21 @@
  -->
 <h1>RF 011 - Página Inicial de Funcionario - Solicitações em Aberto</h1>
 
-@for(s of solicitacoes; track s){
+@for(s of solicitacoes; track s; let i = $index){
     @if(s.estado == 'ABERTA'){
         <li>
-            <span>{{s.dataHora | date:'short'}} - </span>
-            <span> <!-- nome do cliente--> </span>
-            <span id="descEq">
+            <span> Data: {{s.dataHora | date:'short'}} - </span>
+            <span> Cliente: {{ s.clienteNome }} - </span>
+            <span id="descEq">  Descrição: 
                 {{ s.descricaoEquipamento | slice:0:30 }}
-                {{s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
+                {{ s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
+                {{ s.descricaoEquipamento.length > 30 ? '(...)' : ''}}
+
             </span> <!-- 30 characteres-->
-            <button class="botoes">Efetuar Orçamento</button>
+            <a href="/{{s.ID}}" title="Visualizar" alt="Visualizar"
+            class="btn btn-xs btn-info">
+            <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
+            </a>
         </li>
 
     }

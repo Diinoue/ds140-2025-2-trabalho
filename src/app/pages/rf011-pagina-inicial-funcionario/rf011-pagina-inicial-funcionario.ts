@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { DatePipe } from '@angular/common';
 import { SlicePipe } from '@angular/common';
+import { Solicitacao } from '../../shared/models/solicitacao.model';
+import { Clienteservice } from '../../services/clienteservice';
+import { Cliente } from '../../shared/models/cliente.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rf011-pagina-inicial-funcionario',
@@ -10,8 +14,21 @@ import { SlicePipe } from '@angular/common';
   styleUrl: './rf011-pagina-inicial-funcionario.css'
 })
 export class Rf011PaginaInicialFuncionario {
-  solicitacoes: any[] = [];
+  solicitacoes: Solicitacao[] = [];
+  clientes: string[] = [];
 
-constructor (private solicitacaoService: Solicitacaoservice){
+constructor (
+  private solicitacaoService: Solicitacaoservice, 
+  private clienteService: Clienteservice,
+){
+}
+
+ngOnInit(): void {
+  this.solicitacoes = this.listarTodos();
+
+}
+
+listarTodos(): Solicitacao[] {
+  return this.solicitacaoService.listarTodos();
 }
 }

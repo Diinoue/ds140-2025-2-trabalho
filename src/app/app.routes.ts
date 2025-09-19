@@ -5,6 +5,7 @@ import { Rf003Pagcliente } from './pages/rf003-pagcliente/rf003-pagcliente';
 import { Rf004SolicitacaoComponent } from './pages/rf004-solicitacao/rf004-solicitacao';
 import { Rf014EfetuarManutencao } from './pages/rf014-efetuar-manutencao/rf014-efetuar-manutencao';
 import { visualizarServicoCliente } from './pages/visualizar-servico-cliente/visualizar-servico-cliente';
+import { Rf011PaginaInicialFuncionario } from './pages/rf011-pagina-inicial-funcionario/rf011-pagina-inicial-funcionario';
 export const routes: Routes = 
 [
     {path: 'autocadastro', component:Rf001Autocadastro},
@@ -12,7 +13,8 @@ export const routes: Routes =
     {path: 'cliente', component: Rf003Pagcliente },
     {path: 'solicitacao', component: Rf004SolicitacaoComponent },
     {path: 'visualizar-servico/:id', component: visualizarServicoCliente },
-    {path: 'EfetuarManutencao', component: Rf014EfetuarManutencao},
+    {path: 'EfetuarManutencao/:id', component: Rf014EfetuarManutencao},
+    {path: 'funcionario', component: Rf011PaginaInicialFuncionario},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ]

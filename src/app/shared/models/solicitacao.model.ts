@@ -6,7 +6,10 @@ export class Solicitacao {
     public descricaoDefeito: string = '';
     public estado: string = '';
     public clienteCPF: string = '';
+    public clienteNome: string = '';
     public valorOrcado: number = 0;
     public dataDePagamento: Date = new Date();
     public motivo: string = '';
+    public descricaoManutencao: string = '';
+    public orientacoesCliente: string = '';
 }
