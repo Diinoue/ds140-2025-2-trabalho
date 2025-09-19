@@ -5,7 +5,6 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Clienteservice } from '../../services/clienteservice';
 import { UntypedFormArray } from '@angular/forms';
 
-
 @Component
   ({
   selector: 'app-rf003-pagcliente',
