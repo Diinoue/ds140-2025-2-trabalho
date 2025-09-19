@@ -51,7 +51,7 @@ constructor(
   efetuarManutencao() {
     this.solicitacao.estado = 'ARRUMADA';
     this.solicitacaoService.atualizar(this.solicitacao);
-    this.registrarAlteracao('Manutenção Efetuada');
+    this.registrarAlteracao('Manutenção Efetuada', '');
     this.router.navigate(['funcionario']);
   }
 
@@ -62,13 +62,14 @@ constructor(
   salvarOrcamento(solicitacao: any) {
     this.solicitacao.estado = 'ORCADA';
     this.solicitacaoService.atualizar(solicitacao);
-    this.registrarAlteracao('Serviço Orçado');
+    this.registrarAlteracao('Serviço Orçado', '');
 
   }
 
-  registrarAlteracao(desc : string) {
+  registrarAlteracao(tipo : string, desc : string) {
     this.alteracao.solicitacaoID = this.solicitacao.ID;
     this.alteracao.data = new Date();
+    this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
     this.solicitacaoService.addAlteracao(this.alteracao);
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);

@@ -19,7 +19,6 @@ export class Rf011PaginaInicialFuncionario {
 
 constructor (
   private solicitacaoService: Solicitacaoservice, 
-  private clienteService: Clienteservice,
 ){
 }
 

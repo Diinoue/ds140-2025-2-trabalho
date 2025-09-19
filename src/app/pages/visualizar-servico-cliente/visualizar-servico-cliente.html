@@ -31,8 +31,12 @@
     <ul>
       @for (alt of alteracaoHist; track alt) {
         <li>
-          {{ alt.data | date:'short' }} - {{ alt.descricao }}
+          {{ alt.data | date:'short' }} - {{ alt.tipo }}
+          @if( alt.descricao !== '') {
+             - Motivo: {{ alt.descricao }}
+          }
         </li>
+        
       }
     </ul>
 </div>

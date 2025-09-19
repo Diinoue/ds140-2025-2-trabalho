@@ -10,7 +10,10 @@
   </section>
 
   <div>
-    <h3>Registrar Manutenção</h3>
+
+<!-- Estado: APROVADA -->
+@if (solicitacao.estado === 'APROVADA') {
+      <h3>Registrar Manutenção</h3>
 
     <label>
       Descrição da Manutenção:
@@ -22,8 +25,6 @@
       <textarea [(ngModel)]="solicitacao.orientacoesCliente"></textarea>
     </label>
 
-<!-- Estado: APROVADA -->
-@if (solicitacao.estado === 'APROVADA') {
   <button (click)="efetuarManutencao()">Efetuar Manutenção</button>
   <button (click)="mostrarSelecao = true">Redirecionar</button>
   @if (mostrarSelecao) {
