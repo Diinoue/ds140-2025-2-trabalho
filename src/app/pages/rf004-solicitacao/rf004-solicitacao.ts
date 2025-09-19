@@ -1,16 +1,16 @@
 import { Component, OnInit} from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, /* DatePipe */ } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Solicitacaoservice } from '../services/solicitacaoservice';
-import { Solicitacao } from '../shared/models/solicitacao.model';
-import { Clienteservice } from '../services/clienteservice';
-import { Cliente } from '../shared/models/cliente.model';
+import { Solicitacaoservice } from '../../services/solicitacaoservice';
+import { Solicitacao } from '../../shared/models/solicitacao.model';
+import { Clienteservice } from '../../services/clienteservice';
+import { Cliente } from '../../shared/models/cliente.model';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rf004-solicitacao',
   standalone: true,
-  imports: [CommonModule, FormsModule, DatePipe],
+  imports: [CommonModule, FormsModule, /* DatePipe */],
   templateUrl: './rf004-solicitacao.html',
   styleUrls: ['./rf004-solicitacao.css']
 })

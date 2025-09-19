@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RF018CRUDFuncionarios } from './rf018-crud-funcionarios';
+import { VisualizarServicoCliente } from './visualizar-servico-cliente';
 
-describe('RF018CRUDFuncionarios', () => {
-  let component: RF018CRUDFuncionarios;
-  let fixture: ComponentFixture<RF018CRUDFuncionarios>;
+describe('VisualizarServicoCliente', () => {
+  let component: VisualizarServicoCliente;
+  let fixture: ComponentFixture<VisualizarServicoCliente>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RF018CRUDFuncionarios]
+      imports: [VisualizarServicoCliente]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RF018CRUDFuncionarios);
+    fixture = TestBed.createComponent(VisualizarServicoCliente);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

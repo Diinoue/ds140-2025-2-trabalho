@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Cliente } from '../shared/models/cliente.model';
-import { Clienteservice } from '../services/clienteservice';
+import { Cliente } from '../../shared/models/cliente.model';
+import { Clienteservice } from '../../services/clienteservice';
 
 
 

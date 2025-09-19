@@ -1,4 +1,5 @@
-  <section class="vh-100 background-signup">
+<!-- PÁGINA DE AUTO CADASTRO -->
+<section class="vh-100 background-signup">
     <div class="container py-2 h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-9 col-xl-7">
@@ -7,14 +8,14 @@
           <!-- Corpo do formulário de cadastro -->
           <div class="signUpForm">
             <!-- Título registrar -->
-            <h2 class="text-center h1 fw-bold mt-3 mb-5 mx-1 mx-md-4">Cadastro</h2>
+            <h2 class="card-title text-center h1 fw-bold mt-3 mb-5 mx-1 mx-md-4">Cadastro</h2>
 
               <!-- Início formulário -->
                 <form class="signUpFields" [formGroup]="formularioAutoCadastro" (ngSubmit)="onSubmit()">
                   
                   <!-- Campo nome -->
                    <div class="row">
-                      <div class="col md-6 mb-4">
+                      <div class="col mb-4">
                         <div class="form-group px-3">
                           <label class="form-label">Nome:</label>
                           <input class="form-control" formControlName="nome">
@@ -24,7 +25,7 @@
 
                   <!-- Campo CPF -->
                    <div class="row">
-                    <div class="col md-6 mb-4">
+                    <div class="col mb-4">
                         <div class="form-group px-3">
                           <label class="form-label">CPF:</label>
                           <input class="form-control" formControlName="cpf" placeholder="Somente números">
@@ -38,7 +39,7 @@
 
                   <!-- Campo Email -->
                   <div class="row">
-                    <div class="col md-6 mb-4">
+                    <div class="col mb-4">
                       <div class="form-group px-3">
                         <label class="form-label" >Email:</label>
                         <input class="form-control" formControlName="email">

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
-import { Clienteservice } from '../services/clienteservice';
+import { Clienteservice } from '../../services/clienteservice';
 import { Router } from '@angular/router';
 
 @Component({

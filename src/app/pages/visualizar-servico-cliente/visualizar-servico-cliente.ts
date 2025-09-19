@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Solicitacaoservice } from '../services/solicitacaoservice';
-import { Solicitacao } from '../shared/models/solicitacao.model';
+import { Solicitacaoservice } from '../../services/solicitacaoservice';
+import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cliente } from '../shared/models/cliente.model';
-import { Clienteservice } from '../services/clienteservice';
+import { Cliente } from '../../shared/models/cliente.model';
+import { Clienteservice } from '../../services/clienteservice';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-rf010-pagar-servico',
+  selector: 'visualizar-servico-cliente',
   imports: [DatePipe],
-  templateUrl: './rf010-pagar-servico.html',
-  styleUrl: './rf010-pagar-servico.css'
+  templateUrl: './visualizar-servico-cliente.html',
+  styleUrl: './visualizar-servico-cliente.css'
 })
 
-export class Rf010PagarServico implements OnInit {
+export class visualizarServicoCliente implements OnInit {
 solicitacao: Solicitacao = new Solicitacao();
 cliente: Cliente = new Cliente();
 constructor(

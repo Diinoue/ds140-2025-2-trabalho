@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe, SlicePipe } from '@angular/common';
-import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
+import { Solicitacaoservice } from '../../services/solicitacaoservice';
+
 
 @Component
   ({

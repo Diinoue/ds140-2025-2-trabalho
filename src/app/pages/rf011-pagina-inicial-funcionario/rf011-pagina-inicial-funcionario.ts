@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Solicitacaoservice } from '../services/solicitacaoservice';
+import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { DatePipe } from '@angular/common';
 import { SlicePipe } from '@angular/common';
 
