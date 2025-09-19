@@ -19,6 +19,8 @@
 
 <!-- Estado: ARRUMADA -->
 @if (solicitacao.estado === 'ARRUMADA') {
+  <p><strong>Orientações:</strong> {{ solicitacao.orientacoesCliente }}</p>
+  <p><strong>Descrição:</strong> {{ solicitacao.descricaoManutencao }}</p>
   <button (click)="pagarServico()">Pagar Serviço</button>
 }
 
