@@ -25,7 +25,12 @@ export class Solicitacaoservice {
 
   buscarPorId(id: number) : Solicitacao | undefined {
     const solicitacoes = this.listarTodos();
-    return solicitacoes.find(solicitacao => solicitacao.ID === id)
+    return solicitacoes.find(solicitacao => solicitacao.ID === id);
+  }
+
+  buscarListaPorCliente(cpf: string) : Solicitacao[] | undefined {
+  const solicitacoes = this.listarTodos();
+  return solicitacoes.filter(solicitacao => solicitacao.clienteCPF === cpf);
   }
 
   atualizar(solicitacao: Solicitacao) : void { 

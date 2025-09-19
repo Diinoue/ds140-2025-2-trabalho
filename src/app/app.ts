@@ -24,13 +24,17 @@ import { Clienteservice } from './services/clienteservice';
   styleUrl: './app.css'
 })
 export class AppComponent implements OnInit{
+
   constructor(
     private clienteService: Clienteservice
   ){}
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
   
-  
-  
+  sair(): void {
+    this.clienteService.clearLogin();
+  }
+
   title = 'ds140-2025-2-trabalho';
 }
