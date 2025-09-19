@@ -8,7 +8,7 @@ import { visualizarServicoCliente } from './pages/visualizar-servico-cliente/vis
 import { Rf011PaginaInicialFuncionario } from './pages/rf011-pagina-inicial-funcionario/rf011-pagina-inicial-funcionario';
 export const routes: Routes = 
 [
-    {path: 'autocadastro', component:Rf001Autocadastro},
+    {path: 'cadastro', component:Rf001Autocadastro},
     {path: 'login', component: Rf002Login },
     {path: 'cliente', component: Rf003Pagcliente },
     {path: 'solicitacao', component: Rf004SolicitacaoComponent },
