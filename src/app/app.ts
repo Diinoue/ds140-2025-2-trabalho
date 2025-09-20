@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Clienteservice } from './services/clienteservice';
+import { Funcionarioservice } from './services/funcionarioservice';
 
 @Component({
   selector: 'app-root',
@@ -26,14 +27,29 @@ import { Clienteservice } from './services/clienteservice';
 export class AppComponent implements OnInit{
 
   constructor(
-    private clienteService: Clienteservice
+    private clienteService: Clienteservice,
+    private funcionarioService: Funcionarioservice
   ){}
   
   ngOnInit(): void {
   }
   
   sair(): void {
-    this.clienteService.clearLogin();
+    if(localStorage["loginCliente"] !== "null")
+    {
+      this.clienteService.clearLogin();
+      console.log("cliente deslogado");
+    }
+    else if (localStorage["loginFuncionario"] !== "null")
+    {
+      this.funcionarioService.clearLogin();
+      console.log("funcionario deslogado");
+    }
+    else
+    {
+      window.alert("Você não está logado!");
+    }
+    
   }
 
   title = 'ds140-2025-2-trabalho';

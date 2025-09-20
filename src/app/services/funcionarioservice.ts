@@ -43,4 +43,26 @@ export class Funcionarioservice {
       localStorage[LS_CHAVE] = JSON.stringify(Funcionarios);
     }
   
+    /* MÉTODOS DE LOGIN */
+
+    salvarLogin(email: string, senha: string) : boolean {
+    const funcionarios = this.listarTodos();
+    let teste: boolean = false;
+    funcionarios.forEach( (obj, index, objs) => {
+      if(email === obj.email && senha === obj.senha){
+        localStorage["loginFuncionario"] = JSON.stringify(obj.id);
+        teste = true;
+      }
+    });
+    return teste;
+  }
+
+  clearLogin(){
+    localStorage["loginFuncionario"] = null;
+  }
+
+  getLogin(){
+    const login = localStorage["loginFuncionario"];
+    return login;
+  }
 }

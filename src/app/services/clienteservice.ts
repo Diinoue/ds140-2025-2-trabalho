@@ -45,7 +45,7 @@ export class Clienteservice {
     let teste: boolean = false;
     clientes.forEach( (obj, index, objs) => {
       if(email === obj.email && senha === obj.senha){
-        localStorage["login"] = obj.cpf;  
+        localStorage["loginCliente"] = obj.cpf;  
         teste = true;
       }
     });
@@ -53,11 +53,11 @@ export class Clienteservice {
   }
 
   clearLogin() : void {
-    localStorage["login"] = null; 
+    localStorage["loginCliente"] = null; 
   }
 
   getLogin() : any {
-    const login = localStorage["login"];
+    const login = localStorage["loginCliente"];
     return login;
   }
 

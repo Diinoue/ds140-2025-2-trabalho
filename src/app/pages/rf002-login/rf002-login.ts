@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
 import { Clienteservice } from '../../services/clienteservice';
+import { Funcionarioservice } from '../../services/funcionarioservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +12,12 @@ import { Router } from '@angular/router';
 })
 export class Rf002Login {
 
-  constructor(private clienteService: Clienteservice, private router: Router) {
+  constructor
+  (
+    private clienteService: Clienteservice,
+    private funcionarioService: Funcionarioservice,
+    private router: Router,
+  ) {
   }
 
   loginForm = new FormGroup({
@@ -20,15 +26,18 @@ export class Rf002Login {
   });
 
   handleSubmit (){
+    /*  */
     if(this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!)) {
-    this.router.navigate(['/cliente']); 
+    this.router.navigate(['/cliente']);
     }
-    else {
+    else if(this.funcionarioService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!))
+    {
+      this.router.navigate(['/funcionario']);
+    }
+    else{
       alert (
-        'Login não existe'
+        'Login não existe.'
       )
-
-
     }
   }
 }
