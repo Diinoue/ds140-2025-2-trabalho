@@ -19,12 +19,9 @@
                   <tbody>
                     <!-- Colunas -->
                     <tr>
-                      <th scope="col">Nº</th>
                       <th scope="col">Horário de abertura</th>
-                      <th scope="col">Descrição</th>
-                      <th scope="col">Categoria</th>
-                      <th scope="col">Estado</th>
-                      <th scope="col">Defeito</th>
+                      <th scope="col">Nome do cliente</th>
+                      <th scope="col">Descrição do produto</th>
                       <!-- Botão de criar nova solicitação -->
                       <th class="text-center">
                           <a href="solicitacao" title="Novo" alt="Novo"
@@ -34,36 +31,30 @@
                       </th>
                     </tr>
 
-                     @for (s of solicitacoes; track s; let i = $index)
+                    
+                    @for (s of solicitacoes; track s; let i = $index)
                     {
-                        @if(s.estado == 'APROVADA'){
+                        @if(s.estado == 'ABERTA'){
                     <tr>
-                        <td> {{ i }}</td>
                         <td> {{ s.dataHora | date:'short' }} </td>
-                        <td> {{ s.descricaoEquipamento }} </td>
-                        <td> {{ s.categoriaEquipamento }} </td>
-                        <td> {{ s.estado }} </td>
-                        <td> {{ s.descricaoDefeito | slice:0:30 }} </td>
-                        <td> <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
+                        <td> {{ s.clienteNome }} </td>
+                        <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
+                        <td class="text-center"> <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info">
                         <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
                         </a> </td>
                     </tr>
                         }                    
-
                     }
-
-                    @for (s of solicitacoes; track s; let i = $index)
+                    
+                     @for (s of solicitacoes; track s;)
                     {
-                        @if(s.estado == 'ABERTA'){
+                        @if(s.estado == 'APROVADA'){
                     <tr>
-                        <td> {{ i }}</td>
                         <td> {{ s.dataHora | date:'short' }} </td>
-                        <td> {{ s.descricaoEquipamento }} </td>
-                        <td> {{ s.categoriaEquipamento }} </td>
-                        <td> {{ s.estado }} </td>
-                        <td> {{ s.descricaoDefeito | slice:0:30 }} </td>
-                        <td> <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
+                        <td> {{ s.clienteNome }} </td>
+                        <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
+                        <td class="text-center"> <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info">
                         <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
                         </a> </td>
