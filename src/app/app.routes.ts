@@ -6,6 +6,8 @@ import { Rf004SolicitacaoComponent } from './pages/rf004-solicitacao/rf004-solic
 import { Rf014EfetuarManutencao } from './pages/rf014-efetuar-manutencao/rf014-efetuar-manutencao';
 import { visualizarServicoCliente } from './pages/visualizar-servico-cliente/visualizar-servico-cliente';
 import { Rf011PaginaInicialFuncionario } from './pages/rf011-pagina-inicial-funcionario/rf011-pagina-inicial-funcionario';
+import { CadastroFuncionarios } from './pages/cadastro-funcionarios/cadastro-funcionarios';
+
 export const routes: Routes = 
 [
     {path: 'cadastro', component:Rf001Autocadastro},
@@ -17,4 +19,6 @@ export const routes: Routes =
     {path: 'funcionario', component: Rf011PaginaInicialFuncionario},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
 
+    /* CAMINHOS DEBUG, REMOVER DEPOIS */
+    {path: 'cadastro-funcionario', component: CadastroFuncionarios},
 ]

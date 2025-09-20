@@ -8,6 +8,7 @@ const LS_CHAVE = "funcionarios";
 })
 export class Funcionarioservice {
 
+
     listarTodos(): Funcionario[] {
       const Funcionarios = localStorage[LS_CHAVE];
       return Funcionarios ? JSON.parse(Funcionarios) : [];
@@ -15,28 +16,30 @@ export class Funcionarioservice {
   
     inserir(funcionario: Funcionario) : void {
       const Funcionarios = this.listarTodos();
+      funcionario.id = new Date().getTime();
       Funcionarios.push(funcionario);
       localStorage[LS_CHAVE] = JSON.stringify(Funcionarios);
+      console.log(`ID: ${funcionario.id} Email: ${funcionario.email} Nome: ${funcionario.nome} DataNasc: ${funcionario.dataNasc} Senha: ${funcionario.senha})}`)
     }
   
-    buscarPorId(cpf: string) : Funcionario | undefined {
+    buscarPorId(id:number) : Funcionario | undefined {
       const Funcionarios = this.listarTodos();
-      return Funcionarios.find(funcionario => funcionario.cpf === cpf)
+      return Funcionarios.find(funcionario => funcionario.id === id)
     }
   
     atualizar(funcionario: Funcionario) : void { 
       const Funcionarios = this.listarTodos();
       Funcionarios.forEach( (obj, index, objs) => {
-        if(funcionario.cpf === obj.cpf)
+        if(funcionario.id === obj.id)
           objs[index] = funcionario;
       });
   
       localStorage [LS_CHAVE] = JSON.stringify(Funcionarios);
     }
     
-    remover(cpf: string) : void {
+    remover(id: number) : void {
       let Funcionarios = this.listarTodos();
-      Funcionarios = Funcionarios.filter(Funcionario => Funcionario.cpf !== cpf);
+      Funcionarios = Funcionarios.filter(Funcionario => Funcionario.id !== id);
       localStorage[LS_CHAVE] = JSON.stringify(Funcionarios);
     }
   

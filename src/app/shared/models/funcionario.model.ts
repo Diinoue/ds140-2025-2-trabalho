@@ -1,7 +1,7 @@
 export class Funcionario {
-    public cpf: string = '';
-    public nome: string = '';
+    public id: number = 0;
     public email: string = '';
-    public cep: string = '';
-    public telefone: string = '';
+    public nome: string = '';
+    public dataNasc: string = '';
+    public senha: string = '';
 }
