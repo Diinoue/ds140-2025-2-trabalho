@@ -22,7 +22,6 @@ export class VisualizarServicoFuncionario implements OnInit{
   cliente: Cliente = new Cliente();
   funcionarios: Funcionario[] = [];
   func: string = '';
-  mostrarSelecao = false;
   alteracao: AlteracaoLog = new AlteracaoLog();
   alteracaoHist: AlteracaoLog[] = [];
 
@@ -52,11 +51,12 @@ constructor(
     this.solicitacao.estado = 'ARRUMADA';
     this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Manutenção Efetuada', '');
-    this.router.navigate(['funcionario']);
   }
 
   redirecionarManutencao() {
-    
+    this.solicitacao.estado = 'REDIRECIONADA';
+    this.solicitacaoService.atualizar(this.solicitacao);
+    this.registrarAlteracao('Serviço Redirecionado', '')
   }
 
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
@@ -68,6 +68,10 @@ constructor(
   }
 
   registrarAlteracao(tipo : string, desc : string): void {
+    if(tipo === 'Serviço Redirecionado') {
+      this.alteracao.nomeFuncionarioRedirecionado = 'Tadeu Borges';
+    }
+    console.log('Redirecionado para: ', this.alteracao.nomeFuncionarioRedirecionado);
     this.alteracao.solicitacaoID = this.solicitacao.ID;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;

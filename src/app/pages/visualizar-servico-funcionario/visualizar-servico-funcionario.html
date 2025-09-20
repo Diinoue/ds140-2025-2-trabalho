@@ -26,8 +26,7 @@
     </label>
 
   <button (click)="efetuarManutencao()">Efetuar Manutenção</button>
-  <button (click)="mostrarSelecao = true">Redirecionar</button>
-  @if (mostrarSelecao) {
+  <button (click)="redirecionarManutencao()">Redirecionar</button>
   <select 
     class="form-select" 
     [(ngModel)]="func"
@@ -36,7 +35,6 @@
     <option value="" disabled selected>Selecione o funcionário</option>
     <option *ngFor="let fun of funcionarios" [value]="fun">{{fun}}</option>
   </select>
-  }
 }
 
 <!-- Estado: ABERTA -->

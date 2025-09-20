@@ -4,4 +4,5 @@ export class AlteracaoLog {
     public descricao: string = '';
     public tipo: string = '';
     public nomeFuncionario: string = '';
+    public nomeFuncionarioRedirecionado: string = '';
 }
