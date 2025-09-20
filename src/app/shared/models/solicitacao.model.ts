@@ -7,6 +7,7 @@ export class Solicitacao {
     public estado: string = '';
     public clienteCPF: string = '';
     public clienteNome: string = '';
+    public funcionarioID: number = 0;
     public valorOrcado: number = 0;
     public dataDePagamento: Date = new Date();
     public motivo: string = '';

@@ -51,6 +51,7 @@ export class Rf004SolicitacaoComponent implements OnInit {
       clienteNome: '',
       descricaoManutencao: '',
       orientacoesCliente: '',
+      funcionarioID: 0,
     };
 
     const res = this.clienteService.buscarPorId(this.novaSolicitacao.clienteCPF);

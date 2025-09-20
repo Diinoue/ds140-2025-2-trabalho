@@ -57,11 +57,11 @@ export class Funcionarioservice {
     return teste;
   }
 
-  clearLogin(){
+  clearLogin(): void {
     localStorage["loginFuncionario"] = null;
   }
 
-  getLogin(){
+  getLogin(): any{
     const login = localStorage["loginFuncionario"];
     return login;
   }

@@ -7,6 +7,8 @@ import { Clienteservice } from '../../services/clienteservice';
 import { DatePipe } from '@angular/common';
 import { dateTimestampProvider } from 'rxjs/internal/scheduler/dateTimestampProvider';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
+import { Funcionario } from '../../shared/models/funcionario.model';
+import { Funcionarioservice } from '../../services/funcionarioservice';
 
 @Component({
   selector: 'visualizar-servico-cliente',
@@ -20,12 +22,15 @@ solicitacao: Solicitacao = new Solicitacao();
 cliente: Cliente = new Cliente();
 alteracaoHist: AlteracaoLog[] = [];
 alteracao: AlteracaoLog = new AlteracaoLog();
+funcionario: Funcionario = new Funcionario();
 
 constructor(
   private solicitacaoService: Solicitacaoservice,
   private route: ActivatedRoute,
   private clienteService: Clienteservice,
   private router: Router,
+  private funcionarioService: Funcionarioservice,
+
 ) {}
 
   ngOnInit(): void {
@@ -36,7 +41,11 @@ constructor(
 
     const res2 = this.clienteService.buscarPorId(this.solicitacao.clienteCPF);
     if (res2 !== undefined) this.cliente = res2;
-    else throw new Error ("Pessoa não encontrada: id = " + id);
+    else throw new Error ("Pessoa não encontrada");
+
+    const res3 = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID);
+    if (res3 !== undefined) this.funcionario = res3;
+    else throw new Error ("Pessoa não encontrada");
     
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }

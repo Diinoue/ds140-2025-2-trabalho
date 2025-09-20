@@ -61,9 +61,9 @@ constructor(
 
   salvarOrcamento(solicitacao: any) {
     this.solicitacao.estado = 'ORCADA';
+    this.solicitacao.funcionarioID = this.funcionarioService.getLogin();
     this.solicitacaoService.atualizar(solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
-
   }
 
   registrarAlteracao(tipo : string, desc : string) {
