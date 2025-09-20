@@ -1,14 +1,14 @@
-<div class="container">
-  <h2>Efetuar Manutenção - Solicitação #{{ solicitacao.ID }}</h2>
+<div class="container-fluid">
+ 
+  <div class="title my-3">
+  <h2 >Efetuar Manutenção - Solicitação #{{ solicitacao.ID }}</h2>
+</div>
 
   <section class="dados-solicitacao">
     <p><b>Cliente:</b> {{ cliente.nome }}</p>
     <p><b>Problema:</b> {{ solicitacao.descricaoDefeito }}</p>
     <p><b>Estado Atual:</b> {{ solicitacao.estado }}</p>
-    <p><b>Orçamento:</b> {{ solicitacao.valorOrcado }}</p>
-
   </section>
-
   <div>
 
 <!-- Estado: APROVADA -->
@@ -42,7 +42,7 @@
 <!-- Estado: ABERTA -->
 @if (solicitacao.estado === 'ABERTA') {
   <div class="mb-3">
-    <label class="form-label">Orçamento:</label>
+    <label class="form-label"><b>Orçamento:</b></label>
     <input 
       type="number" 
       class="form-control"
@@ -59,6 +59,5 @@
     Salvar Orçamento
   </button>
 }
-
 
   </div>
