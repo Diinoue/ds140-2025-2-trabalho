@@ -1,0 +1,52 @@
+.ccontainer {
+  padding: 1rem;
+    background-color: #EEE;
+
+}
+h2{
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+
+.title{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+}
+
+.dados-solicitacao {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+   background-color: #c2dbe9;
+
+
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 60px;
+  margin: 0.5rem 0;
+}
+
+button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.form-control { 
+  width: 240px;
+
+}
+
+.sucesso {
+  margin-top: 1rem;
+  color: green;
+  font-weight: bold;
+}

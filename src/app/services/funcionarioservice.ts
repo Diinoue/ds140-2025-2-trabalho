@@ -12,19 +12,27 @@ export class Funcionarioservice {
     listarTodos(): Funcionario[] {
       const Funcionarios = localStorage[LS_CHAVE];
       return Funcionarios ? JSON.parse(Funcionarios) : [];
+              
     }
   
     inserir(funcionario: Funcionario) : void {
       const Funcionarios = this.listarTodos();
+
       funcionario.id = new Date().getTime();
       Funcionarios.push(funcionario);
       localStorage[LS_CHAVE] = JSON.stringify(Funcionarios);
-      console.log(`ID: ${funcionario.id} Email: ${funcionario.email} Nome: ${funcionario.nome} DataNasc: ${funcionario.dataNasc} Senha: ${funcionario.senha})}`)
-    }
+          
   
-    buscarPorId(id:number) : Funcionario | undefined {
+      /* CONSOLE LOG PARA VER SE localStorage ESTÁ RECEBENDO OS FUNCIONÁRIOS */
+      for(let i in Funcionarios){
+      console.log(`Dados de todos os funcionários: ID: ${Funcionarios[i].id} Email: ${Funcionarios[i].email} Nome: ${Funcionarios[i].nome} DataNasc: ${Funcionarios[i].dataNasc} Senha: ${Funcionarios[i].senha}`);
+        }
+
+      }
+  
+    buscarPorId(id: number) : Funcionario | undefined {      
       const Funcionarios = this.listarTodos();
-      return Funcionarios.find(funcionario => funcionario.id === id)
+      return Funcionarios.find(funcionario => funcionario.id === Number(id))
     }
   
     atualizar(funcionario: Funcionario) : void { 
@@ -50,7 +58,7 @@ export class Funcionarioservice {
     let teste: boolean = false;
     funcionarios.forEach( (obj, index, objs) => {
       if(email === obj.email && senha === obj.senha){
-        localStorage["loginFuncionario"] = JSON.stringify(obj.id);
+        localStorage["funcionario"] = JSON.stringify(obj.id);
         teste = true;
       }
     });
@@ -58,11 +66,12 @@ export class Funcionarioservice {
   }
 
   clearLogin(): void {
-    localStorage["loginFuncionario"] = null;
+    localStorage["funcionario"] = null;
   }
 
   getLogin(): any{
-    const login = localStorage["loginFuncionario"];
+    const login = localStorage["funcionario"];
+    console.log(login);
     return login;
   }
 }

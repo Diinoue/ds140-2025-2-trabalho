@@ -41,11 +41,17 @@ constructor(
 
     const res2 = this.clienteService.buscarPorId(this.solicitacao.clienteCPF);
     if (res2 !== undefined) this.cliente = res2;
-    else throw new Error ("Pessoa não encontrada");
+    else throw new Error ("Cliente não encontrado");
 
+    /*
+    O bug do res3 era pq por ALGUM MOTIVO, na função buscarPorId,
+    mesmo que id: number, TypeScript não reclamava e guardava id: string 
+    */
+   
     const res3 = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID);
+    
     if (res3 !== undefined) this.funcionario = res3;
-    else throw new Error ("Pessoa não encontrada");
+    else throw new Error ("Funcionário não encontrado");
     
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }

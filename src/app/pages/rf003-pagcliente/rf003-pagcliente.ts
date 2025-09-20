@@ -3,6 +3,7 @@ import { DatePipe, SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Clienteservice } from '../../services/clienteservice';
+import { Funcionarioservice } from '../../services/funcionarioservice';
 import { UntypedFormArray } from '@angular/forms';
 
 @Component
@@ -16,11 +17,25 @@ export class Rf003Pagcliente implements OnInit
 {
   solicitacoes: Solicitacao[] = [];
 
-  constructor(private solicitacaoService: Solicitacaoservice, private clienteService: Clienteservice) {} 
+  constructor(
+    private solicitacaoService: Solicitacaoservice,
+    private clienteService: Clienteservice,
+    private funcionarioService: Funcionarioservice
+  ) {} 
 
   ngOnInit(): void {
     const vet = this.solicitacaoService.buscarListaPorCliente(this.clienteService.getLogin());
     if(vet != undefined) this.solicitacoes = vet;
     else throw new Error ("Nenhuma solicitacao encontrada");
+  }
+
+  getLoginFunc(): void {
+    const login = this.funcionarioService.getLogin();
+    console.log(login);
+  }
+  
+  getLoginCliente(): void {
+    const login = this.clienteService.getLogin();
+    console.log(login);
   }
 }

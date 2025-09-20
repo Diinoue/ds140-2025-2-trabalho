@@ -11,13 +11,13 @@ import { Funcionarioservice } from '../../services/funcionarioservice';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 
 @Component({
-  selector: 'app-rf014-efetuar-manutencao',
+  selector: 'visualizar-servico-funcionario',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './rf014-efetuar-manutencao.html',
-  styleUrl: './rf014-efetuar-manutencao.css'
+  templateUrl: './visualizar-servico-funcionario.html',
+  styleUrl: './visualizar-servico-funcionario.css'
 })
-export class Rf014EfetuarManutencao implements OnInit{
+export class VisualizarServicoFuncionario implements OnInit{
   solicitacao: Solicitacao = new Solicitacao();
   cliente: Cliente = new Cliente();
   funcionarios: Funcionario[] = [];
@@ -61,6 +61,7 @@ constructor(
 
   salvarOrcamento(solicitacao: any) {
     this.solicitacao.estado = 'ORCADA';
+    console.log(`this.funcionarioService.getLogin() é: ${this.funcionarioService.getLogin()}`);
     this.solicitacao.funcionarioID = this.funcionarioService.getLogin();
     this.solicitacaoService.atualizar(solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
