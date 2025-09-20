@@ -59,19 +59,20 @@ constructor(
     
   }
 
-  salvarOrcamento(solicitacao: any) {
+  /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
+  salvarOrcamento(solicitacao: any): void {
     this.solicitacao.estado = 'ORCADA';
-    console.log(`this.funcionarioService.getLogin() é: ${this.funcionarioService.getLogin()}`);
     this.solicitacao.funcionarioID = this.funcionarioService.getLogin();
     this.solicitacaoService.atualizar(solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
   }
 
-  registrarAlteracao(tipo : string, desc : string) {
+  registrarAlteracao(tipo : string, desc : string): void {
     this.alteracao.solicitacaoID = this.solicitacao.ID;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
+    this.alteracao.nomeFuncionario = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID)!.nome;
     this.solicitacaoService.addAlteracao(this.alteracao);
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }

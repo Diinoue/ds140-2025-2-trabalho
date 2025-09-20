@@ -37,6 +37,11 @@
           @if( alt.descricao !== '') {
              - Motivo: {{ alt.descricao }}
           }
+
+          @if(alt.tipo === 'Serviço Orçado'){
+            por funcionario: {{ alt.nomeFuncionario}}
+          }
+          
         </li>
         
       }

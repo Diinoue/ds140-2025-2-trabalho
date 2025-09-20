@@ -3,4 +3,5 @@ export class AlteracaoLog {
     public solicitacaoID: number = 0;
     public descricao: string = '';
     public tipo: string = '';
+    public nomeFuncionario: string = '';
 }
