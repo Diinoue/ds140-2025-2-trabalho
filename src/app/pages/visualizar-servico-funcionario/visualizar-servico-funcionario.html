@@ -33,7 +33,9 @@
     name="funcionariocat" 
     required>
     <option value="" disabled selected>Selecione o funcionário</option>
-    <option *ngFor="let fun of funcionarios" [value]="fun">{{fun}}</option>
+    @for(fun of funcionarios; track fun){
+      <option> {{ fun.nome}} </option>
+    }
   </select>
 }
 

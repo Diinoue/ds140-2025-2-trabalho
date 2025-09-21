@@ -10,6 +10,7 @@ import { CadastroFuncionarios } from './pages/cadastro-funcionarios/cadastro-fun
 import { CrudFuncionario } from './pages/crud-funcionario/crud-funcionario';
 import { ListaSolicitacoes } from './pages/lista-solicitacoes/lista-solicitacoes';
 import { VisualizarFuncionario } from './pages/visualizar-funcionario/visualizar-funcionario';
+import { CrudEquipamentos } from './pages/crud-equipamentos/crud-equipamentos';
 
 export const routes: Routes = 
 [
@@ -24,7 +25,9 @@ export const routes: Routes =
     {path: 'funcionario/visualizar-servico/:id', component: VisualizarServicoFuncionario},
     {path: 'funcionario/lista-solicitacoes', component: ListaSolicitacoes},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
-    {path:'visualizar-funcionario/:id',component: VisualizarFuncionario},
+    {path: 'visualizar-funcionario/:id',component: VisualizarFuncionario},
+    {path: 'lista-funcionarios', component:CrudFuncionario},
+    {path: 'lista-equipamentos', component:CrudEquipamentos},
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
     {path: 'cadastro-funcionario', component: CadastroFuncionarios},
 ]

@@ -4,7 +4,7 @@
   <p><strong>Defeito:</strong> {{ solicitacao.descricaoDefeito }}</p>
   <p><strong>Estado:</strong> {{ solicitacao.estado }}</p>
   <p><strong>Data da solicitação:</strong> {{ solicitacao.dataHora | date:'short' }}</p>
-  <p><strong>Orçamento:</strong> {{ solicitacao.valorOrcado }}</p>
+  <h3 class="fw-bold my-4"> Orçamento: {{ solicitacao.valorOrcado }}</h3>
 
 <!-- Estado: ORCADA -->
 @if (solicitacao.estado === 'ORCADA') {

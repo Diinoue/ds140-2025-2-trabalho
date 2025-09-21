@@ -69,7 +69,7 @@ constructor(
 
   registrarAlteracao(tipo : string, desc : string): void {
     if(tipo === 'Serviço Redirecionado') {
-      this.alteracao.nomeFuncionarioRedirecionado = 'Tadeu Borges';
+      this.alteracao.nomeFuncionarioRedirecionado = this.func;
       console.log('Redirecionado para: ', this.alteracao.nomeFuncionarioRedirecionado);
     }
     this.alteracao.solicitacaoID = this.solicitacao.ID;

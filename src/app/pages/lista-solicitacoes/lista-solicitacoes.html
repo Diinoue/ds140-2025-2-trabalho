@@ -12,8 +12,7 @@
           <div class="card-body p-4 p-md-5">
             <div class="listaSolicitacoes">
               <!-- Título Suas solicitações -->
-              <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4">Lista de solicitações</h2>
-              <button (click)="listarTodosOrdenado()">TESTAR ORDERNACAO</button>
+              <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de solicitações</h2>
               <!-- Início tabela de solicitações -->
                <table class="table table-striped table-bordered table-hover">
                   <tbody>
@@ -22,13 +21,26 @@
                       <th scope="col">Horário de abertura</th>
                       <th scope="col">Nome do cliente</th>
                       <th scope="col">Descrição do produto</th>
-                      <!-- Botão de criar nova solicitação -->
-                      <th class="text-center">
-                          <a href="solicitacao" title="Novo" alt="Novo"
-                          class="btn btn-xs btn-success">
-                          <i class="fa fa-plus" aria-hidden="true"></i> Novo
-                          </a>
-                      </th>
+                      
+                       <th scope="col">
+                        <!-- Filtro -->
+
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="d-inline-block fa-solid fa-filter"></i>Filtrar por...
+                        </span>
+
+                      <select class="form-select">
+                        <option selected value="1"> Todas </option>
+                        <option value="2"> Hoje </option>
+                        <option value="3"> Período </option>
+                       </select>
+
+                       </div>
+                       </th>
+                       
+                      <!-- Botão de filtro -->
+                       
                     </tr>
 
                     
@@ -40,7 +52,7 @@
                         <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
                         <td class="text-center"> <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info">
-                        <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
+                        <i class="fa fa-magnifying-glass aria-hidden=true"></i> Visualizar
                         </a> </td>
                     </tr>
                     }                 

@@ -1,5 +1,25 @@
-<div class="card">
-  <p><strong>Categoria:</strong> {{ funcionario.nome }}</p>
-  <p><strong>Defeito:</strong> {{ funcionario.email }}</p>
-  <p><strong>Estado:</strong> {{ funcionario.dataNasc }}</p>
-</div>
+<section class="vh-100">
+  <div class="container py-2 h-100">
+    <div class="row justify-content-center h-100 mt-5">
+      <div class="col-12">
+        <div class="card shadow-2-strong card-registration">
+          <div class="card">
+            <div class="d-flex justify-content-end">
+                    
+                      <a href="crudfuncionario" title="Voltar"
+                        class="btn btn-outline-terciary btn me-3 mt-3 w-auto">
+                        <i class="fa fa-x" aria-hidden="true"></i>
+                        </a> 
+                </div>
+            <h1 class="ms-4 mb-5 fw-bold"> Funcionário: {{funcionario.nome}}</h1>
+            <p class="ms-4 mt-5"><strong>ID:</strong> {{ funcionario.id }}</p>
+            <p class="ms-4"><strong>Email:</strong> {{ funcionario.email }}</p>
+            <p class="ms-4"><strong>Data Nascimento:</strong> {{ funcionario.dataNasc }}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
