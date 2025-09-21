@@ -7,6 +7,7 @@ import { visualizarServicoCliente } from './pages/visualizar-servico-cliente/vis
 import { VisualizarServicoFuncionario } from './pages/visualizar-servico-funcionario/visualizar-servico-funcionario';
 import { Rf011PaginaInicialFuncionario } from './pages/rf011-pagina-inicial-funcionario/rf011-pagina-inicial-funcionario';
 import { CadastroFuncionarios } from './pages/cadastro-funcionarios/cadastro-funcionarios';
+import { CrudFuncionario } from './pages/crud-funcionario/crud-funcionario';
 import { ListaSolicitacoes } from './pages/lista-solicitacoes/lista-solicitacoes';
 
 export const routes: Routes = 
@@ -16,7 +17,7 @@ export const routes: Routes =
     {path: 'cliente', component: Rf003Pagcliente },
     {path: 'solicitacao', component: Rf004SolicitacaoComponent },
     {path: 'visualizar-servico/:id', component: visualizarServicoCliente },
-    
+    {path:'crudfuncionario',component: CrudFuncionario},
     /* ROTAS FUNCIONARIO */
     {path: 'funcionario', component: Rf011PaginaInicialFuncionario},
     {path: 'funcionario/visualizar-servico/:id', component: VisualizarServicoFuncionario},
