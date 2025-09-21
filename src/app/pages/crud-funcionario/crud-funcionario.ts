@@ -10,23 +10,29 @@ import { Funcionario } from '../../shared/models/funcionario.model';
 
 export class CrudFuncionario implements OnInit{
   Funcionarios:Funcionario[]=[];
-  
+  funcionarioLogin: number = 0;
 constructor(
     private funcionarioService: Funcionarioservice,      
   ) {}
 
 ngOnInit(): void {
   this.Funcionarios= this.funcionarioService.listarTodos();
+  this.funcionarioLogin = this.funcionarioService.getLogin();
 }
 
 
 deletarFuncionario(id: number): void {
   
-  if(window.confirm("Você tem certeza? Os dados são excluidos permanentmente."))
+  if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
   {
-  this.funcionarioService.remover(id);
-  this.Funcionarios=this.funcionarioService.listarTodos();
+    if(this.funcionarioLogin !== id) {
+      if(this.Funcionarios.length > 1) {
+      this.funcionarioService.remover(id);
+      this.Funcionarios = this.funcionarioService.listarTodos();
+      }
+      else alert("Existem apenas 1 funcionario, função indisponivel");
+    }
+    else alert("Você não pode se excluir");
   }
-  
 }
 }
