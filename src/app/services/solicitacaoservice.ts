@@ -24,6 +24,7 @@ export class Solicitacaoservice {
     );
 
   /* Pega as solicitações por funcionário  */
+  
   }
 
   inserir(solicitacao: Solicitacao) : void {

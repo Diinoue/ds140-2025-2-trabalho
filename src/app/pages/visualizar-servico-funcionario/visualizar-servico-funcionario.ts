@@ -24,7 +24,7 @@ export class VisualizarServicoFuncionario implements OnInit{
   func: string = '';
   alteracao: AlteracaoLog = new AlteracaoLog();
   alteracaoHist: AlteracaoLog[] = [];
-
+  funcionarioLogin: number = 0;
 
 constructor(
   private solicitacaoService: Solicitacaoservice,
@@ -35,6 +35,7 @@ constructor(
 ) {}
 
   ngOnInit(): void {
+    this.funcionarioLogin = this.funcionarioService.getLogin();
     let id = +this.route.snapshot.params['id'];
     const res = this.solicitacaoService.buscarPorId(id);
     if (res !== undefined) this.solicitacao = res;
