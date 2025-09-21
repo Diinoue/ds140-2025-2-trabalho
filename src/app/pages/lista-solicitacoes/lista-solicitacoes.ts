@@ -23,11 +23,11 @@ constructor (
 }
 
 ngOnInit(): void {
-  this.solicitacoes = this.listarTodos();
-
+  this.solicitacoes = this.solicitacaoService.listarTodosOrdenadoData();
 }
 
-listarTodos(): Solicitacao[] {
-  return this.solicitacaoService.listarTodos();
+listarTodosOrdenado(): Solicitacao[]{
+  console.log(this.solicitacaoService.listarTodosOrdenadoData());
+  return this.solicitacaoService.listarTodosOrdenadoData();
 }
 }

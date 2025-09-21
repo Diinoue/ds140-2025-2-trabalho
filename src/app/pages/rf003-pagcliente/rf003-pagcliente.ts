@@ -38,4 +38,11 @@ export class Rf003Pagcliente implements OnInit
     const login = this.clienteService.getLogin();
     console.log(login);
   }
+
+  listarTodosOrdenadoData(): Solicitacao[]{
+    const vet = this.solicitacaoService.listarTodosOrdenadoData();
+    return vet.sort(
+      (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
+    );
+  }
 }

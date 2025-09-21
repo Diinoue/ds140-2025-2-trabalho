@@ -16,6 +16,14 @@ export class Solicitacaoservice {
     return solicitacoes ? JSON.parse(solicitacoes) : [];
   }
 
+  /* ORDENA A Solicitacao[] POR DATA/HORA, USADO POR: rf003-pagcliente, lista-solicitacoes*/
+  listarTodosOrdenadoData(): Solicitacao[]{
+    const solicitacoes = this.listarTodos();
+    return solicitacoes.sort(
+      (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
+    );
+  }
+
   inserir(solicitacao: Solicitacao) : void {
     const solicitacoes = this.listarTodos();
     solicitacao.ID = new Date().getTime();
