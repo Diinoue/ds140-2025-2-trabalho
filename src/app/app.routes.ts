@@ -9,6 +9,7 @@ import { Rf011PaginaInicialFuncionario } from './pages/rf011-pagina-inicial-func
 import { CadastroFuncionarios } from './pages/cadastro-funcionarios/cadastro-funcionarios';
 import { CrudFuncionario } from './pages/crud-funcionario/crud-funcionario';
 import { ListaSolicitacoes } from './pages/lista-solicitacoes/lista-solicitacoes';
+import { VisualizarFuncionario } from './pages/visualizar-funcionario/visualizar-funcionario';
 
 export const routes: Routes = 
 [
@@ -23,7 +24,7 @@ export const routes: Routes =
     {path: 'funcionario/visualizar-servico/:id', component: VisualizarServicoFuncionario},
     {path: 'funcionario/lista-solicitacoes', component: ListaSolicitacoes},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
-
+    {path:'visualizar-funcionario/:id',component: VisualizarFuncionario},
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
     {path: 'cadastro-funcionario', component: CadastroFuncionarios},
 ]
