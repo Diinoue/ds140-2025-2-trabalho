@@ -25,6 +25,7 @@ export const routes: Routes =
     {path: 'funcionario/lista-solicitacoes', component: ListaSolicitacoes},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
     {path:'visualizar-funcionario/:id',component: VisualizarFuncionario},
+    {path:'lista-funcionarios', component:CrudFuncionario},
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
     {path: 'cadastro-funcionario', component: CadastroFuncionarios},
 ]
