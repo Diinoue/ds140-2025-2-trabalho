@@ -41,7 +41,7 @@ export class Rf003Pagcliente implements OnInit
     const vet = this.solicitacaoService.buscarListaPorCliente(this.clienteService.getLogin());
     if(vet != undefined) this.solicitacoes = vet;
     else throw new Error ("Nenhuma solicitacao encontrada");
-    vet.sort(
+    this.solicitacoes.sort(
       (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
     );
   }
