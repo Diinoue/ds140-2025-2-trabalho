@@ -17,13 +17,14 @@
                       <th scope="col">Nome</th>
                       <th scope="col" >E-mail</th>
                       <!-- Botão de criar nova solicitação -->
-                      <th class="text-center "> <!-- pode tirar esse text-center, pois ja tem no div pai -->
+                      <th> <!-- pode tirar esse text-center, pois ja tem no div pai -->
                           <a href="solicitacao" title="Novo" alt="Novo"
                           class="btn btn-xs btn-success ">
                           <i class="fa fa-plus" aria-hidden="true"></i> Novo
                           </a>
                       </th>
                     </tr>
+                    <!-- listar os funcionarios -->
                     @for (s of Funcionarios; track s; let i = $index)
                     {
                       <tr>
@@ -34,11 +35,14 @@
                         class="btn btn-xs btn-info">
                         <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
                         </a>  --></td>
+                         <td>  <a href="/visualizar-servico-funcionario/{{s.id}}" title="Visualizar" alt="Visualizar"
+                        class="btn btn-xs btn-info">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
+                        </a>  </td>
                       </tr>
                     }
                   </tbody>
                 </table>
-
 
             </div>
           </div>
