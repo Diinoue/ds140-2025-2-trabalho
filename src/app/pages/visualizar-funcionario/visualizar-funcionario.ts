@@ -26,5 +26,4 @@ ngOnInit(): void {
   else throw new Error ("Pessoa não encontrada: id = " + id);
 }
 
-
 }

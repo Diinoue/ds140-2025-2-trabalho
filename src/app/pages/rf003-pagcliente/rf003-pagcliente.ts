@@ -24,9 +24,7 @@ export class Rf003Pagcliente implements OnInit
   ) {} 
 
   ngOnInit(): void {
-    const vet = this.solicitacaoService.buscarListaPorCliente(this.clienteService.getLogin());
-    if(vet != undefined) this.solicitacoes = vet;
-    else throw new Error ("Nenhuma solicitacao encontrada");
+    this.listarTodosOrdenadoData();
   }
 
   getLoginFunc(): void {
@@ -39,9 +37,11 @@ export class Rf003Pagcliente implements OnInit
     console.log(login);
   }
 
-  listarTodosOrdenadoData(): Solicitacao[]{
-    const vet = this.solicitacaoService.listarTodosOrdenadoData();
-    return vet.sort(
+  listarTodosOrdenadoData(): void{
+    const vet = this.solicitacaoService.buscarListaPorCliente(this.clienteService.getLogin());
+    if(vet != undefined) this.solicitacoes = vet;
+    else throw new Error ("Nenhuma solicitacao encontrada");
+    vet.sort(
       (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
     );
   }
