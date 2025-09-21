@@ -31,10 +31,12 @@
                         <td> {{ i }}</td>
                         <td>{{s.nome}}</td>
                         <td> {{ s.email}} </td>
-                        <td> <!-- <a href="visualizar-servico/{{s.}}" title="Visualizar" alt="Visualizar"
+                        
+                        <td>
+                           <a (click)="deletarFuncionario(s.id)" title="Deletar" alt="Deletar"
                         class="btn btn-xs btn-info">
-                        <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
-                        </a>  --></td>
+                        <i class="fa fa-edit" aria-hidden="true"></i> Deletar
+                        </a>  </td>
                          <td>  <a href="/visualizar-funcionario/{{s.id}}" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info">
                         <i class="fa fa-edit" aria-hidden="true"></i> Visualizar

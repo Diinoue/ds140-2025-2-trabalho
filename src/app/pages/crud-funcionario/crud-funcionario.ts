@@ -19,4 +19,14 @@ ngOnInit(): void {
   this.Funcionarios= this.funcionarioService.listarTodos();
 }
 
+
+deletarFuncionario(id: number): void {
+  
+  if(window.confirm("VOCÊ TEM CERTEZA? OS DADOS SÃO EXCLUIDOS PERMANENTEMENTE!!!"))
+  {
+  this.funcionarioService.remover(id);
+  this.Funcionarios=this.funcionarioService.listarTodos();
+  }
+  
+}
 }
