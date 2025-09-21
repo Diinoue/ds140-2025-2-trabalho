@@ -22,6 +22,8 @@ export class Solicitacaoservice {
     return solicitacoes.sort(
       (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
     );
+
+  /* Pega as solicitações por funcionário  */
   }
 
   inserir(solicitacao: Solicitacao) : void {
