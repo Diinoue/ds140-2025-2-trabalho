@@ -20,9 +20,12 @@ export class CrudEquipamentos implements OnInit{
     }
 
     deletarEquipamento(equipamento: string) : void {
-      this.EquipamentoService.remover(equipamento);
-      this.Equipamento = this.EquipamentoService.listarTodos();
-    }
+      if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
+      {
+        this.EquipamentoService.remover(equipamento);
+        this.Equipamento = this.EquipamentoService.listarTodos();
+      }
+}
 
     
 }

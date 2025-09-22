@@ -6,6 +6,7 @@ import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Clienteservice } from '../../services/clienteservice';
 import { Cliente } from '../../shared/models/cliente.model';
 import { Router } from '@angular/router';
+import { EquipamentoService } from '../../services/equipamento-service';
 
 @Component({
   selector: 'app-rf004-solicitacao',
@@ -18,18 +19,20 @@ export class Rf004SolicitacaoComponent implements OnInit {
   descricaoEquipamento: string = '';
   categoriaEquipamento: string = '';
   descricaoDefeito: string = '';
-  categorias: string[] = ['Notebook', 'Impressora', 'Desktop', 'Mouse', 'Teclado'];
+  categorias: string[] = [];
   solicitacoes: Solicitacao[] = [];
   novaSolicitacao: Solicitacao = new Solicitacao();
   constructor(
     private solicitacaoService: Solicitacaoservice, 
     private clienteService: Clienteservice,
     private router: Router,
+    private equipamentoService: EquipamentoService,
   ) {
   }
 
   ngOnInit(): void {
     this.solicitacoes = this.listarTodos();
+    this.categorias = this.equipamentoService.listarTodos();
   }
 
   listarTodos(): Solicitacao[] {

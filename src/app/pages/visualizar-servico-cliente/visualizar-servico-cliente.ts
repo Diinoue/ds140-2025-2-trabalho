@@ -61,7 +61,6 @@ constructor(
     this.solicitacao.estado = 'APROVADA';
     this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Serviço Aprovado', '');
-    this.router.navigate(['cliente']);
   }
 
   rejeitarServico() {
