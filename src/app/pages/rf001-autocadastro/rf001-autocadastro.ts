@@ -30,36 +30,43 @@ export class Rf001Autocadastro {
   }
 
   onSubmit() {
-    if (this.formularioAutoCadastro.valid) {
+  if (this.formularioAutoCadastro.valid) {
     const user = this.formularioAutoCadastro.value;
+
     this.clienteService.buscarCep(user.cep).subscribe({
-      next: (dados) => {
-        this.clienteNovo.endereco = {
-        logradouro: dados.logradouro,
-        bairro: dados.bairro,
-        cidade: dados.localidade,
-        uf: dados.uf
-      };
-        console.log('Endereço encontrado:', dados);
+      next: (dados: any) => {
+        // Preenche o endereço apenas se CEP for válido
+        const endereco = dados.erro ? null : {
+          logradouro: dados.logradouro,
+          bairro: dados.bairro,
+          cidade: dados.localidade,
+          uf: dados.uf
+        };
+
+        // Atualiza o cliente
+        this.clienteNovo = {
+          cpf: user.cpf,
+          nome: user.nome,
+          email: user.email,
+          cep: user.cep,
+          telefone: user.telefone,
+          senha: Math.floor(1000 + Math.random() * 9000).toString(),
+          endereco
+        };
+
+        // Insere no serviço
+        this.clienteService.inserir(this.clienteNovo);
+
+        console.log("Novo usuário cadastrado:", this.clienteNovo);
+        alert(`Usuário cadastrado!\nSenha enviada para ${user.email}: ${this.clienteNovo.senha}`);
       },
       error: (err) => {
         console.error('Endereço não encontrado', err);
+        alert('CEP inválido! Não foi possível cadastrar o usuário.');
       }
     });
-      this.clienteNovo.cpf = user.cpf;
-      this.clienteNovo.nome = user.nome;
-      this.clienteNovo.email = user.email;
-      this.clienteNovo.cep = user.cep;
-      this.clienteNovo.telefone = user.telefone;
-
-      const senha = Math.floor(1000 + Math.random() * 9000).toString();
-      this.clienteNovo.senha = senha;
-
-      this.clienteService.inserir(this.clienteNovo);
-
-      console.log("Novo usuário cadastrado:", this.clienteNovo);
-      alert(`Usuário cadastrado!\nSenha enviada para ${user.email}: ${senha}`);
-    }
   }
+}
+
 
 }
