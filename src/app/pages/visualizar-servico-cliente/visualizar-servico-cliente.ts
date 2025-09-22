@@ -48,10 +48,14 @@ constructor(
     mesmo que id: number, TypeScript não reclamava e guardava id: string 
     */
    
+    if(this.solicitacao.estado !== 'ABERTA')
+    {
     const res3 = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID);
     
     if (res3 !== undefined) this.funcionario = res3;
     else throw new Error ("Funcionário não encontrado");
+    }
+    
     
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }

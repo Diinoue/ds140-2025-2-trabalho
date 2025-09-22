@@ -15,6 +15,7 @@
               <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de solicitações</h2>
               <!-- Início tabela de solicitações -->
                <table class="table table-bordered table-hover">
+                
                   <tbody>
                     <!-- Colunas -->
                     <tr>
@@ -47,7 +48,7 @@
                     
                     @for (s of solicitacoes; track s; let i = $index)
                     {
-                    @if(s.funcionarioID === this.loginFuncionario || s.estado === 'ABERTA')
+                    @if(s.funcionarioID == this.loginFuncionario || s.estado === 'ABERTA')
                     {
                       <tr>
                         <td> {{ s.dataHora | date:'short' }} </td>

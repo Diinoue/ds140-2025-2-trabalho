@@ -13,12 +13,12 @@
                   <tbody>
                     <!-- Colunas -->
                     <tr>
-                      <th scope="col">Categoria</th>
+                      <th scope="col" class="col-9">Categoria</th>
                       <!-- Botões -->
-                      <th>
-                          <a href="cadastro-equipamentos" title="Novo" alt="Novo"
+                      <th class="col-3">
+                          <a href="cadastro-equipamentos" title="Adicionar" alt="Adicionar"
                           class="btn btn-xs btn-success ">
-                          <i class="fa fa-plus" aria-hidden="true"></i> Adicionar Equipamentos
+                          <i class="fa fa-plus" aria-hidden="true"></i> Adicionar
                           </a>
                       </th>
                     </tr>
@@ -26,13 +26,13 @@
                     @for (s of Equipamento; track s; let i = $index)
                     {
                       <tr>
-                        <td> {{ i }}</td>
-                        <td>{{s}}</td>
-                        <a (click)="deletarEquipamento(s)" title="Deletar" alt="Deletar"
-                        class="btn btn-xs btn-danger mx-1">
-                        <i class="fa fa-x" aria-hidden="true"></i> Deletar
-                        </a> 
-                        <td>
+                        <td class="9">{{s}}</td>
+                        <td class="3">
+                          <a (click)="deletarEquipamento(s)" title="Deletar" alt="Deletar"
+                          class="btn btn-xs btn-danger mx-1">
+                          <i class="fa fa-x" aria-hidden="true"></i> Deletar
+                          </a>
+                        </td> 
                       </tr> 
                     }
 
