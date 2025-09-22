@@ -18,7 +18,7 @@ import { Clienteservice } from '../../services/clienteservice';
 export class Rf001Autocadastro {
   clienteNovo: Cliente = new Cliente();
   formularioAutoCadastro: FormGroup;
-
+  buscaCEP: any;
   constructor(private fb: FormBuilder, private clienteService: Clienteservice) {
     this.formularioAutoCadastro = this.fb.group({
       cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
@@ -32,6 +32,14 @@ export class Rf001Autocadastro {
   onSubmit() {
     if (this.formularioAutoCadastro.valid) {
       const user = this.formularioAutoCadastro.value;
+      this.buscaCEP = this.clienteService.buscarCep(user.cep).subscribe({
+      next: (dados) => {
+        this.clienteNovo.endereco = dados;
+      },
+      error: () => {
+        console.log('endereco nao encontrado')
+      }
+    });
       this.clienteNovo.cpf = user.cpf;
       this.clienteNovo.nome = user.nome;
       this.clienteNovo.email = user.email;

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from '../shared/models/cliente.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 const LS_CHAVE = "clientes";
 
@@ -7,7 +9,12 @@ const LS_CHAVE = "clientes";
   providedIn: 'root'
 })
 export class Clienteservice {
-  
+  private url = 'https://viacep.com.br/ws';
+
+  constructor(private http: HttpClient) {
+
+  }
+
   listarTodos(): Cliente[] {
     const clientes = localStorage[LS_CHAVE];
     return clientes ? JSON.parse(clientes) : [];
@@ -59,6 +66,10 @@ export class Clienteservice {
   getLogin() : any {
     const login = localStorage["loginCliente"];
     return login;
+  }
+
+  buscarCep(cep: string): Observable<any> {
+    return this.http.get(`${this.url}/${cep}/json`);
   }
 
 }
