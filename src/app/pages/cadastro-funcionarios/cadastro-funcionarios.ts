@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'; 
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
-import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cadastro-funcionarios',
@@ -37,10 +36,8 @@ export class CadastroFuncionarios {
       this.funcionarioNovo.nome = dadosFormFuncionario.nome;
       this.funcionarioNovo.dataNasc = dadosFormFuncionario.dataNasc;
       this.funcionarioNovo.senha = dadosFormFuncionario.senha;
-
       this.funcionarioService.inserir(this.funcionarioNovo);
-      
-    }
+     }
 
     }
   }

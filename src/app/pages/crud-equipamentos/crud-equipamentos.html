@@ -22,16 +22,16 @@
                           </a>
                       </th>
                     </tr>
-                    <!-- 
-                    @for (s of Funcionarios; track s; let i = $index)
+                    
+                    @for (s of Equipament; track s; let i = $index)
                     {
                       <tr>
                         <td> {{ i }}</td>
-                        <td>{{s.nome}}</td>
-                        <td> {{ s.email}} </td>
-                        
+                        <td>{{s}}</td>
+
                         <td>
-                      
+                         </tr> }
+                        <!-- 
                         <a href="/visualizar-funcionario/{{s.id}}" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info mx-1">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Visualizar
