@@ -18,7 +18,6 @@ import { Clienteservice } from '../../services/clienteservice';
 export class Rf001Autocadastro {
   clienteNovo: Cliente = new Cliente();
   formularioAutoCadastro: FormGroup;
-  buscaCEP: any;
   constructor(private fb: FormBuilder, private clienteService: Clienteservice) {
     this.formularioAutoCadastro = this.fb.group({
       cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
