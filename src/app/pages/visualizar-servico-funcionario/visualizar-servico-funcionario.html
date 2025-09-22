@@ -26,17 +26,22 @@
     </label>
 
   <button (click)="efetuarManutencao()">Efetuar Manutenção</button>
-  <button (click)="redirecionarManutencao()">Redirecionar</button>
-  <select 
-    class="form-select" 
-    [(ngModel)]="func"
-    name="funcionariocat" 
-    required>
-    <option value="" disabled selected>Selecione o funcionário</option>
-    @for(fun of funcionarios; track fun; let i = $index){
-      <option [value]="i"> {{ fun.nome}} </option>
-    }
-  </select>
+      @if (redirecionar) {
+        @for (s of funcionarios; track s; let i = $index)
+        {
+          <tr>
+            <td> {{ i }}</td>
+            <td>{{s.nome}}</td>
+            <td> {{ s.email}} </td>
+            
+            <td>
+            <!-- VISUALIZAR -->   
+            <a (click)="redirecionarManutencao(s.id)" title="select" alt="select"
+            class="btn btn-xs btn-info mx-1">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Select
+            </a>
+        }
+      }
 }
 
 <!-- Estado: ABERTA -->

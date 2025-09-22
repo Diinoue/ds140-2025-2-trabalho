@@ -21,11 +21,10 @@ export class VisualizarServicoFuncionario implements OnInit{
   solicitacao: Solicitacao = new Solicitacao();
   cliente: Cliente = new Cliente();
   funcionarios: Funcionario[] = [];
-  func: string = '';
   alteracao: AlteracaoLog = new AlteracaoLog();
   alteracaoHist: AlteracaoLog[] = [];
   funcionarioLogin: number = 0;
-  funcIndex: number = 0;
+  redirecionar: boolean = false;
 
   constructor(
   private solicitacaoService: Solicitacaoservice,
@@ -55,13 +54,21 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.registrarAlteracao('Manutenção Efetuada', '');
   }
 
-  redirecionarManutencao() {
+  redirecionarManutencao(id: number) {
+    this.alteracao.nomeFuncionarioRedirecionado = this.funcionarioService.buscarPorId(id)!.nome;
+    console.log('Redirecionado para: ', this.alteracao.nomeFuncionarioRedirecionado);
+    this.alteracao.nomeFuncionario = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID)!.nome;
+    this.alteracao.solicitacaoID = this.solicitacao.ID;
+    this.alteracao.data = new Date();
+    this.alteracao.tipo = 'Serviço Redirecionado';
+    this.alteracao.descricao = '';
+    this.solicitacaoService.addAlteracao(this.alteracao);
+    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
+
+    this.solicitacao.funcionarioID = id;
     this.solicitacao.estado = 'REDIRECIONADA';
-    this.solicitacao.funcionarioID = this.funcionarios[this.funcIndex].id;
-    console.log("this.solicitacao.funcionarioID: " + this.solicitacao.funcionarioID + "this.funcionarios[this.funcIndex].id " + this.funcionarios[this.funcIndex].id)
     this.solicitacaoService.atualizar(this.solicitacao);
-    this.registrarAlteracao('Serviço Redirecionado', '')
-  }
+    }
 
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
   salvarOrcamento(solicitacao: any): void {
@@ -72,10 +79,6 @@ export class VisualizarServicoFuncionario implements OnInit{
   }
 
   registrarAlteracao(tipo : string, desc : string): void {
-    if(tipo === 'Serviço Redirecionado') {
-      this.alteracao.nomeFuncionarioRedirecionado = this.func;
-      console.log('Redirecionado para: ', this.alteracao.nomeFuncionarioRedirecionado);
-    }
     this.alteracao.solicitacaoID = this.solicitacao.ID;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
