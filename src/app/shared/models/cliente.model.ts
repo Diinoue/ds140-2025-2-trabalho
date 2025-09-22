@@ -5,5 +5,5 @@ export class Cliente {
     public cep: string = '';
     public telefone: string = '';
     public senha: string = '';
-    public endereco: string = '';
+    public endereco: any = '';
 }

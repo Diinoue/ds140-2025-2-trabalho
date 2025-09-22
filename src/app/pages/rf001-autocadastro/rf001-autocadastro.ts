@@ -24,20 +24,26 @@ export class Rf001Autocadastro {
       cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]], 
+      cep: ['', [Validators.required, Validators.pattern(/^\d{5}-?\d{3}$/)]], 
       telefone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]], 
     });
   }
 
   onSubmit() {
     if (this.formularioAutoCadastro.valid) {
-      const user = this.formularioAutoCadastro.value;
-      this.buscaCEP = this.clienteService.buscarCep(user.cep).subscribe({
+    const user = this.formularioAutoCadastro.value;
+    this.clienteService.buscarCep(user.cep).subscribe({
       next: (dados) => {
-        this.clienteNovo.endereco = dados;
+        this.clienteNovo.endereco = {
+        logradouro: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        uf: dados.uf
+      };
+        console.log('Endereço encontrado:', dados);
       },
-      error: () => {
-        console.log('endereco nao encontrado')
+      error: (err) => {
+        console.error('Endereço não encontrado', err);
       }
     });
       this.clienteNovo.cpf = user.cpf;
@@ -51,7 +57,7 @@ export class Rf001Autocadastro {
 
       this.clienteService.inserir(this.clienteNovo);
 
-      console.log("Novo usuário cadastrado:", user);
+      console.log("Novo usuário cadastrado:", this.clienteNovo);
       alert(`Usuário cadastrado!\nSenha enviada para ${user.email}: ${senha}`);
     }
   }
