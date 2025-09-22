@@ -47,7 +47,7 @@
                     
                     @for (s of solicitacoes; track s; let i = $index)
                     {
-                    @if(s.funcionarioID === this.loginFuncionario)
+                    @if(s.funcionarioID === this.loginFuncionario || s.estado === 'ABERTA')
                     {
                       <tr>
                         <td> {{ s.dataHora | date:'short' }} </td>

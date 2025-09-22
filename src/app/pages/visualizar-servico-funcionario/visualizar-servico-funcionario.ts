@@ -25,8 +25,9 @@ export class VisualizarServicoFuncionario implements OnInit{
   alteracao: AlteracaoLog = new AlteracaoLog();
   alteracaoHist: AlteracaoLog[] = [];
   funcionarioLogin: number = 0;
+  funcIndex: number = 0;
 
-constructor(
+  constructor(
   private solicitacaoService: Solicitacaoservice,
   private funcionarioService: Funcionarioservice,
   private route: ActivatedRoute,
@@ -56,6 +57,8 @@ constructor(
 
   redirecionarManutencao() {
     this.solicitacao.estado = 'REDIRECIONADA';
+    this.solicitacao.funcionarioID = this.funcionarios[this.funcIndex].id;
+    console.log("this.solicitacao.funcionarioID: " + this.solicitacao.funcionarioID + "this.funcionarios[this.funcIndex].id " + this.funcionarios[this.funcIndex].id)
     this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Serviço Redirecionado', '')
   }

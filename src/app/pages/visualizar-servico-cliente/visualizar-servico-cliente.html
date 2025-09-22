@@ -41,6 +41,10 @@
           @if(alt.tipo === 'Serviço Orçado'){
             por funcionario: {{ alt.nomeFuncionario}}
           }
+
+          @if(alt.tipo === 'Serviço Redirecionado'){
+            para funcionario: {{ alt.nomeFuncionarioRedirecionado }}
+          }
           
         </li>
         
