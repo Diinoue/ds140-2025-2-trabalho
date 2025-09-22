@@ -23,28 +23,20 @@
                       </th>
                     </tr>
                     
-                    @for (s of Equipament; track s; let i = $index)
+                    @for (s of Equipamento; track s; let i = $index)
                     {
                       <tr>
                         <td> {{ i }}</td>
                         <td>{{s}}</td>
-
-                        <td>
-                         </tr> }
-                        <!-- 
-                        <a href="/visualizar-funcionario/{{s.id}}" title="Visualizar" alt="Visualizar"
-                        class="btn btn-xs btn-info mx-1">
-                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Visualizar
-                        </a>
-
-                        <a (click)="deletarFuncionario(s.id)" title="Deletar" alt="Deletar"
+                        <a (click)="deletarEquipamento(s)" title="Deletar" alt="Deletar"
                         class="btn btn-xs btn-danger mx-1">
                         <i class="fa fa-x" aria-hidden="true"></i> Deletar
                         </a> 
-                      </td>
-                      </tr>
+                        <td>
+                      </tr> 
                     }
-                     -->
+
+
                   </tbody>
                 </table>
 

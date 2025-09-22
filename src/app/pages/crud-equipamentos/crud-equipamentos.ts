@@ -10,13 +10,21 @@ import { EquipamentoService } from '../../services/equipamento-service';
   styleUrl: './crud-equipamentos.css'
 })
 export class CrudEquipamentos implements OnInit{
-    Equipament:string[]=[];
+    Equipamento:string[]=[];
   constructor(
       private EquipamentoService: EquipamentoService,    
     ) {}
 
     ngOnInit(): void {
-        
+        this.Equipamento = this.EquipamentoService.listarTodos();
     }
+
+    deletarEquipamento(equipamento: string) : void {
+      this.EquipamentoService.remover(equipamento);
+      this.Equipamento = this.EquipamentoService.listarTodos();
+    }
+
+    
 }
+
 
