@@ -19,7 +19,7 @@
             <p class="ms-4"><strong>Email:</strong> {{ funcionario.email }}</p>
             <form [formGroup]="newEmailForm" (ngSubmit)="onSubmitEmail()" class="mx-4">
                 <div class="form-group">
-                    <label class="form-label" for="email">Definir novo email para:</label>
+                    <label class="form-label" for="email">Definir novo email para: {{newEmailForm.value.email}}</label>
                     <input class="mb-3 form-control" id="email" type="email" formControlName="email" placeholder="email@exemplo.com">
                 </div>
                 <button type="submit" class="btn btn-primary">Confirmar mudanças</button>
@@ -29,7 +29,7 @@
             <p class="mt-5 ms-4"><strong>Data Nascimento:</strong> {{ funcionario.dataNasc }}</p>
             <form [formGroup]="newDataNascForm" (ngSubmit)="onSubmitDataNasc()" class="mx-4">
                 <div class="form-group">
-                    <label class="form-label"for="dataNasc">Definir nova data de nascimento para:</label>
+                    <label class="form-label"for="dataNasc">Definir nova data de nascimento para: {{newDataNascForm.value.dataNasc}} </label>
                     <input class="mb-3  form-control" id="dataNasc" formControlName="dataNasc" type="date">
                 </div>
             <button type="submit" class="btn btn-primary mb-5">Confirmar mudanças</button>
