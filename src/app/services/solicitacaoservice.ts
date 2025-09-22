@@ -60,8 +60,6 @@ export class Solicitacaoservice {
     localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
   }
 
-
-  
   addAlteracao(alteracao: AlteracaoLog): void {
     
     const alteracaoHist = this.getAlteracao();

@@ -11,6 +11,7 @@ import { CrudFuncionario } from './pages/crud-funcionario/crud-funcionario';
 import { ListaSolicitacoes } from './pages/lista-solicitacoes/lista-solicitacoes';
 import { VisualizarFuncionario } from './pages/visualizar-funcionario/visualizar-funcionario';
 import { CrudEquipamentos } from './pages/crud-equipamentos/crud-equipamentos';
+import { EditarFuncionario } from './pages/editar-funcionario/editar-funcionario';
 
 export const routes: Routes = 
 [
@@ -26,6 +27,7 @@ export const routes: Routes =
     {path: 'funcionario/lista-solicitacoes', component: ListaSolicitacoes},
     {path: '', redirectTo: '/login', pathMatch: 'full' },
     {path: 'visualizar-funcionario/:id',component: VisualizarFuncionario},
+    {path: 'editar-funcionario/:id',component: EditarFuncionario},
     {path: 'lista-funcionarios', component:CrudFuncionario},
     {path: 'lista-equipamentos', component:CrudEquipamentos},
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
