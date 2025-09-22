@@ -20,12 +20,10 @@ ngOnInit(): void {
   this.funcionarioLogin = this.funcionarioService.getLogin();
 }
 
-
 deletarFuncionario(id: number): void {
-  
   if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
   {
-    if(this.funcionarioLogin !== id) {
+    if(Number(this.funcionarioLogin) !== id) {
       if(this.Funcionarios.length > 1) {
       this.funcionarioService.remover(id);
       this.Funcionarios = this.funcionarioService.listarTodos();

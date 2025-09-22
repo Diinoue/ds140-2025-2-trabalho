@@ -33,8 +33,8 @@
     name="funcionariocat" 
     required>
     <option value="" disabled selected>Selecione o funcionário</option>
-    @for(fun of funcionarios; track fun){
-      <option> {{ fun.nome}} </option>
+    @for(fun of funcionarios; track fun; let i = $index){
+      <option [value]="i"> {{ fun.nome}} </option>
     }
   </select>
 }
