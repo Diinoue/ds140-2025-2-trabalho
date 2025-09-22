@@ -37,6 +37,7 @@ Nesta página, todas as solicitações criadas criadas pelo cliente são listada
                       </th>
                     </tr>
 
+                    <!-- Início listagem de solicitações criadas pelo cliente -->
                     @for (s of solicitacoes; track s; let i = $index)
                     {
                       <tr>
@@ -46,10 +47,48 @@ Nesta página, todas as solicitações criadas criadas pelo cliente são listada
                         <td> {{ s.categoriaEquipamento }} </td>
                         <td> {{ s.estado }} </td>
                         <td> {{ s.descricaoDefeito | slice:0:30 }} </td>
-                        <td> <a href="visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
-                        class="btn btn-xs btn-info">
-                        <i class="fa-solid fa-magnifying-glass aria-hidden=true"></i> Visualizar
-                        </a> </td>
+                        <!--
+                        Botão conforme a ação que o usuário deve efetuar (se não houver ação, não mostrar botão).
+                         As ações são as seguintes, conforma o estado:
+                            1. ORÇADA: Botão Aprovar/Rejeitar Serviço, que apresenta a tela de Mostrar orçamento (RF005)
+                            2. APROVADA: Sem botão de ação    
+                            3. REJEITADA: Botão Resgatar Serviço (RF009)    
+                            4. ARRUMADA: Botão Pagar Serviço (RF010)    
+                            5. Outros estados: Botão Visualizar Serviço
+                        -->
+                          @switch (s.estado)
+                          {
+                            @case('ORCADA')
+                            {
+                        <td>
+                          <a href="visualizar-servico/{{s.ID}}" title="AprovarRejeitar" alt="AprovarRejeitar"
+                          class="btn btn-xs btn-info">
+                          <i class="fa-solid fa-magnifying-glass aria-hidden=true"></i> Conferir
+                          </a>
+                        </td>
+                            }
+                            @case('REJEITADA')
+                            {
+                        <td>
+                          <a href="visualizar-servico/{{s.ID}}" title="Resgatar" alt="Resgatar"
+                          class="btn btn-xs btn-info">
+                          <i class="fa-solid fa-redo aria-hidden=true"></i> Resgatar
+                          </a>
+                        </td>
+                            }
+                            @case('ARRUMADA')
+                            {
+                        <td>
+                          <a href="visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
+                          class="btn btn-xs btn-info">
+                          <i class="fa-solid fa-money aria-hidden=true"></i> Pagar
+                          </a>
+                        </td>
+                            }
+                            @default {
+                        <td></td>
+                            }
+                          }
                       </tr>
                     }
 
@@ -59,6 +98,3 @@ Nesta página, todas as solicitações criadas criadas pelo cliente são listada
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
