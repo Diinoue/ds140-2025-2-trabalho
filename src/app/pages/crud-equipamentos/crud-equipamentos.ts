@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EquipamentoService } from '../../services/equipamento-service';
-import { CadastroEquipamentos } from '../cadastro-equipamentos/cadastro-equipamentos';
 
 @Component({
   selector: 'app-crud-equipamentos',
@@ -10,12 +9,14 @@ import { CadastroEquipamentos } from '../cadastro-equipamentos/cadastro-equipame
   templateUrl: './crud-equipamentos.html',
   styleUrl: './crud-equipamentos.css'
 })
-export class CrudEquipamentos {
-    Equipament:formEquipamento[]=[];
+export class CrudEquipamentos implements OnInit{
+    Equipament:string[]=[];
   constructor(
       private EquipamentoService: EquipamentoService,    
     ) {}
 
-
+    ngOnInit(): void {
+        
+    }
 }
 
