@@ -14,7 +14,12 @@
               <!-- Título Suas solicitações -->
               <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de solicitações</h2>
               <!-- Início tabela de solicitações -->
+<<<<<<< HEAD
                <table class="table table-bordered table-hover">
+                
+=======
+               <table class="table table-bordered table-hover text-center align-middle">
+>>>>>>> e9276cc5786eada62d10a7455f0c734da5d3303f
                   <tbody>
                     <!-- Colunas -->
                     <tr>
@@ -47,7 +52,7 @@
                     
                     @for (s of solicitacoes; track s; let i = $index)
                     {
-                    @if(s.funcionarioID === this.loginFuncionario || s.estado === 'ABERTA')
+                    @if(s.funcionarioID == this.loginFuncionario || s.estado === 'ABERTA')
                     {
                       <tr>
                         <td> {{ s.dataHora | date:'short' }} </td>

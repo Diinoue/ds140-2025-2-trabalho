@@ -56,7 +56,7 @@ export class VisualizarServicoFuncionario implements OnInit{
 
   redirecionarManutencao(id: number) {
     this.alteracao.nomeFuncionarioRedirecionado = this.funcionarioService.buscarPorId(id)!.nome;
-    console.log('Redirecionado para: ', this.alteracao.nomeFuncionarioRedirecionado);
+    console.log('Redirecionado para: ', id);
     this.alteracao.nomeFuncionario = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID)!.nome;
     this.alteracao.solicitacaoID = this.solicitacao.ID;
     this.alteracao.data = new Date();
@@ -66,6 +66,8 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
 
     this.solicitacao.funcionarioID = id;
+    console.log(`Tipo do id: ${id}: ` + typeof(id));
+    
     this.solicitacao.estado = 'REDIRECIONADA';
     this.solicitacaoService.atualizar(this.solicitacao);
     }

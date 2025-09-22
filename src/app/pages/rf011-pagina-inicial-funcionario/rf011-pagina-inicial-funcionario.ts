@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { DatePipe } from '@angular/common';
+import { Funcionarioservice } from '../../services/funcionarioservice';
 import { SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Clienteservice } from '../../services/clienteservice';
@@ -16,14 +17,18 @@ import { ActivatedRoute } from '@angular/router';
 export class Rf011PaginaInicialFuncionario {
   solicitacoes: Solicitacao[] = [];
   clientes: string[] = [];
+  loginFuncionario: number = 0;
+
 
 constructor (
-  private solicitacaoService: Solicitacaoservice, 
+  private funcionarioService: Funcionarioservice,
+  private solicitacaoService: Solicitacaoservice,
 ){
 }
 
 ngOnInit(): void {
   this.solicitacoes = this.listarTodos();
+  this.loginFuncionario = this.funcionarioService.getLogin();
 
 }
 
