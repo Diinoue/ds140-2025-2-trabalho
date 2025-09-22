@@ -12,7 +12,7 @@
   <div>
 
 <!-- Estado: APROVADA -->
-@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && solicitacao.funcionarioID === funcionarioLogin) {
+@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && (solicitacao.funcionarioID) == funcionarioLogin) {
       <h3>Registrar Manutenção</h3>
 
     <label>
@@ -26,6 +26,7 @@
     </label>
 
   <button (click)="efetuarManutencao()">Efetuar Manutenção</button>
+  <button (click)="redirecionar = true">Redirecionar</button>
       @if (redirecionar) {
         @for (s of funcionarios; track s; let i = $index)
         {
@@ -44,8 +45,11 @@
       }
 }
 
-<!-- Estado: ABERTA -->
-@if (solicitacao.estado === 'ABERTA') {
+
+  @switch(solicitacao.estado)
+  {
+    @case('ABERTA')
+    {
   <div class="mb-3">
     <label class="form-label"><b>Orçamento:</b></label>
     <input 
@@ -60,10 +64,18 @@
 
   <button 
     class="btn btn-success mt-2"
-    (click)="salvarOrcamento(solicitacao)">
+    (click)="salvarOrcamento()">
     Salvar Orçamento
   </button>
-}
-
+    }
+    @case('PAGA')
+    {
+      <div class="mb-3">
+        <button
+        class="btn btn-success mt-2"
+        (click)="finalizarSolicitacao()">Finalizar solicitação</button>
+      </div>
+    }
+  }
 
   </div>

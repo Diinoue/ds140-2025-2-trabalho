@@ -71,10 +71,10 @@ export class VisualizarServicoFuncionario implements OnInit{
     }
 
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
-  salvarOrcamento(solicitacao: any): void {
+  salvarOrcamento(): void {
     this.solicitacao.estado = 'ORCADA';
     this.solicitacao.funcionarioID = this.funcionarioService.getLogin();
-    this.solicitacaoService.atualizar(solicitacao);
+    this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
   }
 
@@ -86,6 +86,12 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracao.nomeFuncionario = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID)!.nome;
     this.solicitacaoService.addAlteracao(this.alteracao);
     this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
+  }
+
+  finalizarSolicitacao() : void {
+    this.solicitacao.estado = 'FINALIZADA';
+    this.solicitacaoService.atualizar(this.solicitacao);
+    this.registrarAlteracao('Serviço Finalizado', '');
   }
 
 }
