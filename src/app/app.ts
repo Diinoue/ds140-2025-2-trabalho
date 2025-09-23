@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    if(this.equipamentoService.listarTodos() == null) {
     const Joao: Cliente = {
       nome: "JOÃO SILVA SANTOS",
       cpf: "12345678900",
@@ -71,7 +72,7 @@ export class AppComponent implements OnInit {
     // ... (outros funcionários)
     this.funcionarioService.inserir(Maria);
     // ...
-    
+    }
   }
   
   sair(): void {
@@ -85,6 +86,5 @@ export class AppComponent implements OnInit {
       window.alert("Você não está logado!");
     }
   }
-  
   title = 'ds140-2025-2-trabalho';
 }

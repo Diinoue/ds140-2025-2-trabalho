@@ -27,12 +27,17 @@ export class Rf002Login {
 
   handleSubmit (){
     /*  */
-    if(this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!)) {
-    this.router.navigate(['/cliente']);
+    if(this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!))
+    {
+      this.router.navigate(['/cliente']).then(() =>{
+      window.location.reload();
+      });
     }
     else if(this.funcionarioService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!))
     {
-      this.router.navigate(['/funcionario']);
+      this.router.navigate(['/funcionario']).then(() =>{;
+      window.location.reload();
+      });
     }
     else{
       alert (
