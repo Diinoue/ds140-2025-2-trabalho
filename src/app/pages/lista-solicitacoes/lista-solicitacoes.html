@@ -87,16 +87,49 @@
                           <i class="fa-solid fa-square" style="color: #ee940e;"></i> PAGA
                           }
                            <!-- VERDE: FINALIZADA -->
-
+                           @case("FINALIZADA") {
+                          <i class="fa-solid fa-square" style="color: #05ec2c;"></i> PAGA
+                          }
                         }
                          </td>
-                         
+<!--                          Devem ser apresentados links/botões de ação para cada solicitação em seu estado atual:
+	                            1. ABERTA: botão/link para Efetuar Orçamento (RF012)
+                              2. APROVADA/REDIRECIONADA: botão/link para Efetuar Manutenção (RF014)
+                              3. PAGA: botão/link para Finalizar Solicitação (RF016) -->
                         <td class="text-center">
+                          @switch(s.estado)
+                          {
+                            @case('ABERTA')
+                            {
+                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="EfetuarOrçamento" alt="EfetuarOrçamento"
+                                class="btn btn-xs btn-warning">
+                                  <i class="fa fa-money aria-hidden=true"></i> Efetuar Orçamento
+                                </a>
+                            }
+                            @case('APROVADA')
+                            {
+                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="EfetuarManutenção" alt="EfetuarManutenção"
+                                class="btn btn-xs btn-info">
+                                  <i class="fa fa-wrench aria-hidden=true"></i> Efetuar Manutenção
+                                </a>
+                            }
+                            @case ('REDIRECIONADA')
+                            {
+                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="EfetuarManutenção" alt="EfetuarManutenção"
+                                class="btn btn-xs btn-info">
+                                  <i class="fa fa-wrench aria-hidden=true"></i> Efetuar Manutenção
+                                </a>
+                            }
+                            @case('PAGA')
+                            {
+                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="FinalizarSolicitação" alt="FinalizarSolicitação"
+                                class="btn btn-xs btn-success">
+                                  <i class="fa fa-check aria-hidden=true"></i> Finalizar Solicitação
+                                </a>
+                            }
+                          }
                         
-                        <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
-                        class="btn btn-xs btn-info">
-                        <i class="fa fa-magnifying-glass aria-hidden=true"></i> Visualizar
-                        </a> </td>
+                         </td>
                     </tr>
                     }
                   }                 

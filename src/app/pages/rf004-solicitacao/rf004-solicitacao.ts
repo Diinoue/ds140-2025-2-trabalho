@@ -57,7 +57,7 @@ export class Rf004SolicitacaoComponent implements OnInit {
       funcionarioID: 0,
     };
 
-    const res = this.clienteService.buscarPorId(this.novaSolicitacao.clienteCPF);
+    const res = this.clienteService.buscarPorId(this.clienteService.getLogin());
     if (res !== undefined) this.novaSolicitacao.clienteNome = res.nome;
     else throw new Error ("Pessoa não encontrada: id = " + this.novaSolicitacao.clienteCPF);
 
