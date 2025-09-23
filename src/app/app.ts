@@ -25,8 +25,6 @@ export class AppComponent implements OnInit {
   formularioAutoCadastro: FormGroup;
 
   
-  
-  
   constructor(
     private clienteService: Clienteservice,
     private funcionarioService: Funcionarioservice,
@@ -52,6 +50,52 @@ export class AppComponent implements OnInit {
         uf: "SP"
       }
     };
+const Jose: Cliente = {
+        nome: "JOSÉ OLIVEIRA COSTA",
+        cpf: "98765432100",
+        email: "jose.oliveira@gmail.com",
+        senha: "1234",
+        cep: "20010000",
+        telefone: "21987654321",
+        endereco: {
+            logradouro: "Avenida Brasil",
+            bairro: "Centro",
+            cidade: "Rio de Janeiro",
+            uf: "RJ"
+        }
+    };
+    const Joana: Cliente = {
+        nome: "JOANA PEREIRA RODRIGUES",
+        cpf: "45678912300",
+        email: "joana.pereira@email.com",
+        senha: "1234",
+        cep: "30010000",
+        telefone: "31987654321",
+        endereco: {
+            logradouro: "Rua da Paz",
+            bairro: "Savassi",
+            cidade: "Belo Horizonte",
+            uf: "MG"
+        }
+    };
+
+    const Joaquina: Cliente = {
+        nome: "JOAQUINA FERNANDES SOUZA",
+        cpf: "78912345600",
+        email: "joaquina.fernandes@email.com",
+        senha: "1234",
+        cep: "40010000",
+        telefone: "71987654321",
+        endereco: {
+            logradouro: "Avenida Sete de Setembro",
+            bairro: "Comércio",
+            cidade: "Belo Salvador",
+            uf: "BA"
+        }
+    };
+     this.clienteService.inserir(Joaquina);
+      this.clienteService.inserir(Jose);
+     this.clienteService.inserir(Joana);
     this.clienteService.inserir(Joao);
     // ...
     
@@ -69,9 +113,17 @@ export class AppComponent implements OnInit {
       dataNasc: new Date("1980-05-15"),
       senha: "1234"
     };
-    // ... (outros funcionários)
     this.funcionarioService.inserir(Maria);
-    // ...
+
+    const Mario: Funcionario = {
+      id: 2,
+      email: "tecnico@teste.com",
+      nome: "Mário",
+      dataNasc: new Date("1990-11-20"),
+      senha: "1234"
+    };
+
+    this.funcionarioService.inserir(Mario);
     }
   }
   
