@@ -22,19 +22,12 @@ import { Funcionario } from './shared/models/funcionario.model';
   styleUrl: './app.css'
 })
 export class AppComponent implements OnInit {
-  formularioAutoCadastro: FormGroup;
-
-  
-  
   
   constructor(
     private clienteService: Clienteservice,
     private funcionarioService: Funcionarioservice,
     private equipamentoService: EquipamentoService,
-    private fb: FormBuilder
-  ) {
-    this.formularioAutoCadastro = this.fb.group({});
-  }
+  )  {}
   
   ngOnInit(): void {
     if(this.equipamentoService.listarTodos() == null) {
