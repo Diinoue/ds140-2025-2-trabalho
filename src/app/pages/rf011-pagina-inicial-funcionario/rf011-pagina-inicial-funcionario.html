@@ -34,15 +34,9 @@
                         <td> {{ s.dataHora | date:'short' }} </td>
                         <td> {{ s.clienteNome }} </td>
                         <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
-                        <td> @switch (s.estado) {
-                          <!-- Cinza = ABERTA -->
-                           @case("ABERTA") {
+                        <td>
                           <i class="fa-solid fa-square" style="color: #8b8b8b;"></i> ABERTA
-                          }
-                          
-                           <!-- VERDE: FINALIZADA -->
-
-                        } </td>
+                        </td>
                         <td class="text-center"> <a href="funcionario/visualizar-servico/{{s.ID}}" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info">
                         <i class="fa fa-edit" aria-hidden="true"></i> Visualizar
