@@ -13,7 +13,7 @@ import { VisualizarFuncionario } from './pages/visualizar-funcionario/visualizar
 import { CrudEquipamentos } from './pages/crud-equipamentos/crud-equipamentos';
 import { EditarFuncionario } from './pages/editar-funcionario/editar-funcionario';
 import { CadastroEquipamentos } from './pages/cadastro-equipamentos/cadastro-equipamentos';
-
+import  { Rf019Relatorio } from './pages/rf019-relatorio/rf019-relatorio';
 
 export const routes: Routes = 
 [
@@ -33,6 +33,7 @@ export const routes: Routes =
     {path: 'lista-funcionarios', component:CrudFuncionario},
     {path: 'lista-equipamentos', component:CrudEquipamentos},
     {path: 'cadastro-equipamentos', component:CadastroEquipamentos},
+    {path:'relatorio',component:Rf019Relatorio},
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
     {path: 'cadastro-funcionario', component: CadastroFuncionarios},
 ]

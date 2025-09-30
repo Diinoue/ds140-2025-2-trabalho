@@ -1,0 +1,53 @@
+<p>rf019-relatorio works!</p>
+<section class="vh-100 solicitacoesFundo">
+  <div class="container py-2 h-100">
+    <div class="row justify-content-center h-100 mt-4">
+      <div class="col-12">
+        <div class="card shadow-2-strong card-registration">
+          <div class="card-body p-4 p-md-5">
+            <div class="listaSolicitacoes">
+              <!-- Título Suas solicitações -->
+              <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de solicitações</h2>
+              <!-- Início tabela de solicitações -->
+               <table class="table table-bordered table-hover">
+                
+                  <tbody>
+                    <!-- Colunas -->
+                    <tr>
+                      <th scope="col">Horário de abertura</th>
+                      <th scope="col">Nome do cliente</th>
+                      <th scope="col">Descrição do produto</th>
+                      <th scope="col">Estado: </th>
+
+                       <th scope="col">
+                        <!-- Filtro -->
+
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="d-inline-block fa-solid fa-filter"></i>Filtrar por...
+                        </span>
+
+                      <select class="form-select">
+                        <option selected value="1"> Todas </option>
+                        <option value="2"> Hoje </option>
+                        <option value="3"> Período </option>
+                       </select>
+
+                       </div>
+                       </th>
+                    
+                      <!-- Botão de filtro -->
+                       
+                    </tr>
+
+                    
+                    @for (s of solicitacoes; track s; let i = $index)
+                    {
+                    @if(s.funcionarioID == this.loginFuncionario || s.estado === 'ABERTA')
+                    {
+                      <tr>
+                        <td> {{ s.dataHora | date:'short' }} </td>
+                        <td> {{ s.clienteNome }} </td>
+                        <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
+                      }
+                    }
