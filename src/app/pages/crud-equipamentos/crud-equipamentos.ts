@@ -19,6 +19,10 @@ export class CrudEquipamentos implements OnInit{
         this.Equipamento = this.EquipamentoService.listarTodos();
     }
 
+    editarEquipamento(novoNome: string, equipamento: string) : void {
+      this.EquipamentoService.atualizar(novoNome, equipamento)
+    }
+
     deletarEquipamento(equipamento: string) : void {
       if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
       {
