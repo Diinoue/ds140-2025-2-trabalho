@@ -8,7 +8,21 @@ const LS_CHAVE = "equipamentos";
 export class EquipamentoService {
   equipamentos: string[] = [];
 
+  // Função buscarPorNome: Propósito - No momento do carregamento do componente de 
+  // editar equipamento, essa função deve ser invocada para verificar se
+  // o equipamento existe ou não.
+  // Caso contrário, retornará um erro.
+   
 
+/*   buscarPorNome(nome: string): void {
+    const equipamentos = localStorage[LS_CHAVE];
+    equipamentos.find((eq, index, eqs) => 
+      if(eqs[index] === nome)){
+
+      }
+    }
+  }
+ */
   listarTodos(): string[] {
     const equipamentos = localStorage[LS_CHAVE];
     return equipamentos ? JSON.parse(equipamentos) : [];
