@@ -36,7 +36,7 @@ export const routes: Routes =
     /* ROTAS EQUIPAMENTO */
     {path: 'cadastro-equipamentos', component:CadastroEquipamentos},
     {path: 'lista-equipamentos', component:CrudEquipamentos},
-    {path: 'editar-equipamento:id', component:EditarEquipamento},
+    {path: 'editar-equipamento:nome', component:EditarEquipamento},
     {path:'relatorio',component:Rf019Relatorio},
     
     /* CAMINHOS DEBUG, REMOVER DEPOIS */

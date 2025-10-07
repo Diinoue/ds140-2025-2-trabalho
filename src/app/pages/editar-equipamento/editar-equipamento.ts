@@ -30,7 +30,9 @@ export class EditarEquipamento implements OnInit{
   }
 
   ngOnInit(): void {
-  this.equipamento = this.route.snapshot.params['id'];
+  this.equipamento = this.route.snapshot.params['nome'];
+  // Implementar depois na service
+  // const res = this.equipamentoService.buscarPorNome(this.equipamento);
   }
 
   onSubmit(){
