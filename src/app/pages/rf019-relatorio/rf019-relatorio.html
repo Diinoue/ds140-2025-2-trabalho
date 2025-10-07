@@ -1,4 +1,3 @@
-<p>rf019-relatorio works!</p>
 <section class="vh-100 solicitacoesFundo">
   <div class="container py-2 h-100">
     <div class="row justify-content-center h-100 mt-4">
@@ -6,12 +5,12 @@
         <div class="card shadow-2-strong card-registration">
           <div class="card-body p-4 p-md-5">
             <div class="listaSolicitacoes">
-              <!-- Título Suas solicitações -->
-              <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de solicitações</h2>
-              <!-- Início tabela de solicitações -->
+              <!-- Título seus Relatorios -->
+              <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de Relatorios</h2>
+              <!-- Início tabela de relatorio -->
                <table class="table table-bordered table-hover">
                 
-                  <tbody>
+    <tbody>
                     <!-- Colunas -->
                     <tr>
                       <th scope="col">Horário de abertura</th>
@@ -35,19 +34,43 @@
 
                        </div>
                        </th>
-                    
+                      </tr>
+                      
                       <!-- Botão de filtro -->
-                       
-                    </tr>
-
+            
                     
                     @for (s of solicitacoes; track s; let i = $index)
                     {
                     @if(s.funcionarioID == this.loginFuncionario || s.estado === 'ABERTA')
                     {
                       <tr>
-                        <td> {{ s.dataHora | date:'short' }} </td>
+                        <td> {{ s.dataHora.toLocaleString() }} </td>
                         <td> {{ s.clienteNome }} </td>
                         <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
-                      }
+
+                        <!-- Cores dinâmicas -->
+                         <td class="text-center">
+                          @switch (s.estado) {
+                           <!-- VERDE: FINALIZADA -->
+                           @case("FINALIZADA") {
+                          <i class="fa-solid fa-square" style="color: #05ec2c;"></i> PAGA
+                          }
+                        }
+                         </td>
+                        </tr>
+<!--                          Devem ser apresentados links/botões de ação para cada solicitação em seu estado atual:
+	                            1. ABERTA: botão/link para Efetuar Orçamento (RF012)
+                              2. APROVADA/REDIRECIONADA: botão/link para Efetuar Manutenção (RF014)
+                              3. PAGA: botão/link para Finalizar Solicitação (RF016) -->
                     }
+                  }                 
+
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>   
