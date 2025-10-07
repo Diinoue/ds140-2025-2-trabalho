@@ -26,7 +26,7 @@ export class Rf003Pagcliente implements OnInit
   ngOnInit(): void {
     this.listarTodosOrdenadoData();
   }
-
+/*
   getLoginFunc(): void {
     const login = this.funcionarioService.getLogin();
     console.log(login);
@@ -36,7 +36,8 @@ export class Rf003Pagcliente implements OnInit
     const login = this.clienteService.getLogin();
     console.log(login);
   }
-
+    debugging REMOVER DEPOIS!!
+*/
   listarTodosOrdenadoData(): void{
     const vet = this.solicitacaoService.buscarListaPorCliente(this.clienteService.getLogin());
     if(vet != undefined) this.solicitacoes = vet;

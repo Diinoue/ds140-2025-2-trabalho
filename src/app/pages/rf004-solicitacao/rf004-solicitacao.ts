@@ -61,7 +61,7 @@ export class Rf004SolicitacaoComponent implements OnInit {
     if (res !== undefined) this.novaSolicitacao.clienteNome = res.nome;
     else throw new Error ("Pessoa não encontrada: id = " + this.novaSolicitacao.clienteCPF);
 
-    this.solicitacaoService.inserir(this.novaSolicitacao); //this.solicitacoes.push(novaSolicitacao);
+    this.solicitacaoService.inserir(this.novaSolicitacao);
     this.solicitacoes = this.listarTodos();   
 
     this.descricaoEquipamento = '';
