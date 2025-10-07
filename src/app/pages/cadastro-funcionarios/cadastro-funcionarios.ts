@@ -37,6 +37,8 @@ export class CadastroFuncionarios {
       this.funcionarioNovo.dataNasc = dadosFormFuncionario.dataNasc;
       this.funcionarioNovo.senha = dadosFormFuncionario.senha;
       this.funcionarioService.inserir(this.funcionarioNovo);
+      alert(`Funcionario cadastrado!\nSenha enviada para ${dadosFormFuncionario.email}: ${dadosFormFuncionario.senha}`);
+   this.formFuncionario.reset();
      }
 
     }

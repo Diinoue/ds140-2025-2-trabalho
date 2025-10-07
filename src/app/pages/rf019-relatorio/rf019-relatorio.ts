@@ -30,4 +30,10 @@ listarTodosOrdenado(): Solicitacao[]{
   console.log(this.solicitacaoService.listarTodosOrdenadoData());
   return this.solicitacaoService.listarTodosOrdenadoData();
 }
+
+imprimirTela():void { 
+window.print();
+
+}
+
 }
