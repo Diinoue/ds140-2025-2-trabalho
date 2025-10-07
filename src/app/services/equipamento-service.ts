@@ -26,13 +26,12 @@ export class EquipamentoService {
     localStorage[LS_CHAVE] = JSON.stringify(equipamentos);
   }
 
-  atualizar(equipamento: string) : void { 
+  atualizar(Novo: string, Velho: string) : void { 
     const equipamentos = this.listarTodos();
     equipamentos.forEach( (obj, index, objs) => {
-      if(equipamento === obj)
-        objs[index] = equipamento;
+      if(Velho === obj)
+        objs[index] = Novo;
     });
-
     localStorage [LS_CHAVE] = JSON.stringify(equipamentos);
   }
 

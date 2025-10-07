@@ -40,7 +40,6 @@ export class EditarEquipamento implements OnInit{
       // salva no localStorage
     this.equipamentoService.atualizar(this.equipamento, nome);
     this.router.navigate(['lista-equipamentos']);
-    this.equipamento = nome;
     }
   }
 
