@@ -22,10 +22,28 @@ export class Solicitacaoservice {
     return solicitacoes.sort(
       (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
     );
-
   /* Pega as solicitações por funcionário  */
-  
   }
+
+  listarHoje(): Solicitacao[] {
+    const hoje = new Date();
+    return this.listarTodos().filter(solicitacao => {
+      const data = solicitacao.dataHora;
+      return (
+        data.getDate() === hoje.getDate() &&
+        data.getMonth() === hoje.getMonth() &&
+        data.getFullYear() === hoje.getFullYear()
+      );
+    });
+  }
+
+  listarPeriodo(min: Date, max: Date): Solicitacao[] {
+    const hoje = new Date();
+    return this.listarTodos().filter(solicitacao => {
+    const data = solicitacao.dataHora;
+    return data >= min && data <= max;
+  });
+}
 
   inserir(solicitacao: Solicitacao) : void {
     const solicitacoes = this.listarTodos();
@@ -40,8 +58,8 @@ export class Solicitacaoservice {
   }
 
   buscarListaPorCliente(cpf: string) : Solicitacao[] | undefined {
-  const solicitacoes = this.listarTodos();
-  return solicitacoes.filter(solicitacao => solicitacao.clienteCPF === cpf);
+    const solicitacoes = this.listarTodos();
+    return solicitacoes.filter(solicitacao => solicitacao.clienteCPF === cpf);
   }
 
   atualizar(solicitacao: Solicitacao) : void { 
@@ -76,7 +94,5 @@ export class Solicitacaoservice {
     const alteracaoHist = this.getAlteracao();
     return alteracaoHist.filter(a => a.solicitacaoID === ID);
   }
-
-
 
 }
