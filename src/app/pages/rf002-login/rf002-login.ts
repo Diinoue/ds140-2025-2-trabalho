@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
 import { Clienteservice } from '../../services/clienteservice';
 import { Funcionarioservice } from '../../services/funcionarioservice';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Login } from '../../shared/models/login.model';
+import { Loginservice } from '../../services/loginservice';
 
 @Component({
   selector: 'app-rf002-login',
@@ -10,15 +12,38 @@ import { Router } from '@angular/router';
   styleUrl: './rf002-login.css',
   imports: [ReactiveFormsModule],
 })
-export class Rf002Login {
+export class Rf002Login implements OnInit{
+login: Login = new Login();
+loading: boolean = false;
+message!: string;
 
   constructor
   (
+    private loginService: Loginservice,
     private clienteService: Clienteservice,
     private funcionarioService: Funcionarioservice,
     private router: Router,
+    private route: ActivatedRoute
   ) {
   }
+ngOnInit(): void {
+  /*  CHECK SE USUÁRIO ESTÁ LOGADO
+  // Caso logado, redireciona inicialmente pra algum lugar
+  //
+  if (this.loginService.usuarioLogado) {
+    // (791) Redirecionar para página inicial dependendo do tipo de usuário
+    // this.router.navigate( ["/home"] );
+  }
+  else {
+    this.route.queryParams.subscribe(
+      params => {
+        this.message = params['error'];
+      }
+    )
+  }
+   */
+}
+
 
   loginForm = new FormGroup({
     email: new FormControl(''),
