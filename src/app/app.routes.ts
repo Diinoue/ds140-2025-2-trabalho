@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth-guard';
+import { AuthGuard } from './auth/auth-guard';
 import { Rf001Autocadastro } from './pages/rf001-autocadastro/rf001-autocadastro';
 import { Rf002Login } from './pages/rf002-login/rf002-login';
 import { Rf003Pagcliente } from './pages/rf003-pagcliente/rf003-pagcliente';
@@ -21,42 +21,42 @@ export const routes: Routes =
 [
     {path: 'cadastro', component:Rf001Autocadastro},
     {path: 'login', component: Rf002Login },
-    {path: 'cliente', component: Rf003Pagcliente, canActivate: [authGuard],
+    {path: 'cliente', component: Rf003Pagcliente, canActivate: [AuthGuard],
     data: { role: 'FUNC,CLIENTE' } },
     {path: 'solicitacao', component: Rf004SolicitacaoComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     data: { role: 'FUNC,CLIENTE' }
      },
     {path: 'visualizar-servico/:id', component: visualizarServicoCliente,
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path:'crudfuncionario',component: CrudFuncionario,canActivate: [authGuard],
+    {path:'crudfuncionario',component: CrudFuncionario,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
     /* ROTAS FUNCIONARIO */
-    {path: 'funcionario', component: Rf011PaginaInicialFuncionario,canActivate: [authGuard],
+    {path: 'funcionario', component: Rf011PaginaInicialFuncionario,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'funcionario/visualizar-servico/:id', component: VisualizarServicoFuncionario,canActivate: [authGuard],
+    {path: 'funcionario/visualizar-servico/:id', component: VisualizarServicoFuncionario,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'funcionario/lista-solicitacoes', component: ListaSolicitacoes ,canActivate: [authGuard],
+    {path: 'funcionario/lista-solicitacoes', component: ListaSolicitacoes ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
     {path: '', redirectTo: '/login', pathMatch: 'full' },
-    {path: 'visualizar-funcionario/:id',component: VisualizarFuncionario ,canActivate: [authGuard],
+    {path: 'visualizar-funcionario/:id',component: VisualizarFuncionario ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'editar-funcionario/:id',component: EditarFuncionario ,canActivate: [authGuard],
+    {path: 'editar-funcionario/:id',component: EditarFuncionario ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'lista-funcionarios', component:CrudFuncionario ,canActivate: [authGuard],
+    {path: 'lista-funcionarios', component:CrudFuncionario ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
     
     /* ROTAS EQUIPAMENTO */
-    {path: 'cadastro-equipamentos', component:CadastroEquipamentos ,canActivate: [authGuard],
+    {path: 'cadastro-equipamentos', component:CadastroEquipamentos ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'lista-equipamentos', component:CrudEquipamentos ,canActivate: [authGuard],
+    {path: 'lista-equipamentos', component:CrudEquipamentos ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'editar-equipamento:nome', component:EditarEquipamento ,canActivate: [authGuard],
+    {path: 'editar-equipamento:nome', component:EditarEquipamento ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
     {path:'relatorio',component:Rf019Relatorio},
     
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
-    {path: 'cadastro-funcionario', component: CadastroFuncionarios  ,canActivate: [authGuard],
+    {path: 'cadastro-funcionario', component: CadastroFuncionarios  ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
 ]
