@@ -3,6 +3,7 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
+
 @Component({
   selector: 'app-rf019-relatorio',
   imports: [SlicePipe],
@@ -13,26 +14,31 @@ export class Rf019Relatorio {
   solicitacoes: Solicitacao[] = [];
   clientes: string[] = [];
   loginFuncionario: number = 0;
+  totalGeral: number = 0; 
 
-constructor (
-  private funcionarioService: Funcionarioservice,
-  private solicitacaoService: Solicitacaoservice, 
-){
-}
+  constructor(
+    private funcionarioService: Funcionarioservice,
+    private solicitacaoService: Solicitacaoservice
+  ) {}
 
-ngOnInit(): void {
-  this.solicitacoes = this.solicitacaoService.listarTodosOrdenadoData();
-  this.loginFuncionario = this.funcionarioService.getLogin();
-}
+  ngOnInit(): void {
+    this.solicitacoes = this.solicitacaoService.listarTodosOrdenadoData();
+    this.loginFuncionario = this.funcionarioService.getLogin();
+    this.calcularTotal();
+  }
 
-listarTodosOrdenado(): Solicitacao[]{
-  console.log(this.solicitacaoService.listarTodosOrdenadoData());
-  return this.solicitacaoService.listarTodosOrdenadoData();
-}
+  listarTodosOrdenado(): Solicitacao[] {
+    console.log(this.solicitacaoService.listarTodosOrdenadoData());
+    return this.solicitacaoService.listarTodosOrdenadoData();
+  }
 
-imprimirTela():void { 
-window.print();
+  calcularTotal(): void {
+    this.totalGeral = this.solicitacoes
+      .filter(s => s.funcionarioID === this.loginFuncionario || s.estado === 'FINALIZADA')
+      .reduce((acc, s) => acc + (s.valorOrcado || 0), 0);
+  }
 
-}
-
+  imprimirTela(): void {
+    window.print();
+  }
 }
