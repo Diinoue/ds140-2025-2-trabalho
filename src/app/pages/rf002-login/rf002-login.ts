@@ -24,15 +24,21 @@ message!: string;
     private funcionarioService: Funcionarioservice,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 ngOnInit(): void {
   /*  CHECK SE USUÁRIO ESTÁ LOGADO
-  // Caso logado, redireciona inicialmente pra algum lugar
-  //
+      Caso logado, redireciona inicialmente pra algum lugar
+  */
   if (this.loginService.usuarioLogado) {
-    // (791) Redirecionar para página inicial dependendo do tipo de usuário
-    // this.router.navigate( ["/home"] );
+    // (791) Redirecionar para página inicial
+    // Fiz uma alteração para redirecionar para a página inicial dependendo do tipo de usuário
+    // Se for um funcionário, redireciona para a página inicial de funcionário
+    // Se for um cliente, redireciona para a página inicial de cliente
+  if (this.loginService.usuarioLogado.perfil == "FUNC") {
+      this.router.navigate( ["/funcionario"])
+    } else {
+      this.router.navigate( ["/cliente"])
+    }
   }
   else {
     this.route.queryParams.subscribe(
@@ -41,7 +47,7 @@ ngOnInit(): void {
       }
     )
   }
-   */
+   
 }
 
 
@@ -69,4 +75,25 @@ ngOnInit(): void {
       )
     }
   }
+
+  //Função para ser aplicada quando o HTML estiver feito
+/* 
+  logar(): void {
+    this.loading = true;
+    if (this.formLogin.form.valid) {
+      this.loginService.login(this.login).subscribe((usu) => {
+        if (usu != null) {
+          this.loginService.usuarioLogado = usu;
+          this.loading = false;
+          this.router.navigate( ["/home"] );
+        }
+        else {
+          this.message = "Usuário/Senha inválidos.";
+        }
+      });
+    }
+  this.loading = false;
+  }
+ */
+
 }
