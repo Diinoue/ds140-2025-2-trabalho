@@ -44,8 +44,6 @@ export class EditarEquipamento implements OnInit{
 
       // salva no localStorage
     this.equipamentoService.atualizar(nome, this.equipamento);
-    console.log(this.equipamento);
-    console.log(nome);
     this.activeModal.close();
     }
   }
