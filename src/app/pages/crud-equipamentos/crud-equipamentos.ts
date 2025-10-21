@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EquipamentoService } from '../../services/equipamento-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditarEquipamento } from '../editar-equipamento/editar-equipamento'
-import { NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-crud-equipamentos',
-  imports: [ReactiveFormsModule, CommonModule, NgxMaskPipe],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './crud-equipamentos.html',
   styleUrl: './crud-equipamentos.css'
 })
@@ -31,7 +30,7 @@ export class CrudEquipamentos implements OnInit{
       }
 }
 
-  abrirModalPessoa(equipamento: string) {
+  abrirModalEquipamento(equipamento: string) {
     const modalRef = this.modalService.open(EditarEquipamento);
     modalRef.componentInstance.equipamento = equipamento;
   }

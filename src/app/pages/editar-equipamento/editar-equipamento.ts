@@ -1,18 +1,19 @@
-import { Component, OnInit, Input} from '@angular/core';import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input} from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EquipamentoService } from '../../services/equipamento-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-editar-equipamento',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxMaskPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './editar-equipamento.html',
   styleUrl: './editar-equipamento.css'
 })
 
-export class EditarEquipamento implements OnInit{
+export class EditarEquipamento{
 
   // formulário reativo
   formEquipamento: FormGroup;
@@ -23,9 +24,7 @@ export class EditarEquipamento implements OnInit{
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private equipamentoService: EquipamentoService,
-    private router: Router,
   ) {
     // inicializa o form com um campo obrigatório
     this.formEquipamento = this.fb.group({
@@ -33,10 +32,6 @@ export class EditarEquipamento implements OnInit{
     });
   }
 
-  ngOnInit(): void {
-  // Implementar depois na service
-  // const res = this.equipamentoService.buscarPorNome(this.equipamento);
-  }
 
   onSubmit(){
     if (this.formEquipamento.valid) {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { Funcionario } from '../../shared/models/funcionario.model';
+import { VisualizarFuncionario } from '../visualizar-funcionario/visualizar-funcionario';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-crud-funcionario',
@@ -12,7 +14,8 @@ export class CrudFuncionario implements OnInit{
   Funcionarios:Funcionario[]=[];
   funcionarioLogin: number = 0;
 constructor(
-    private funcionarioService: Funcionarioservice,      
+    private funcionarioService: Funcionarioservice,  
+    private modalService: NgbModal,
   ) {}
 
 ngOnInit(): void {
@@ -33,4 +36,10 @@ deletarFuncionario(id: number): void {
     else alert("Você não pode se excluir");
   }
 }
+
+  abrirModalFuncionario(funcionario: Funcionario) {
+    const modalRef = this.modalService.open(VisualizarFuncionario);
+    modalRef.componentInstance.funcionario = funcionario;
+  }
+
 }

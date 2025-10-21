@@ -34,10 +34,10 @@
                         
                         <td>
                         <!-- VISUALIZAR -->   
-                        <a href="/visualizar-funcionario/{{s.id}}" title="Visualizar" alt="Visualizar"
+                        <button (click)="abrirModalFuncionario(s)" title="Visualizar" alt="Visualizar"
                         class="btn btn-xs btn-info mx-1">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Visualizar
-                        </a>
+                        </button>
 
                         <!-- EDITAR -->
                         <a href="editar-funcionario/{{s.id}}" title="Editar" alt="Editar"
