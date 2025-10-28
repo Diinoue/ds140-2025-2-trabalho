@@ -1,9 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EquipamentoService } from '../../services/equipamento-service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-editar-equipamento',
