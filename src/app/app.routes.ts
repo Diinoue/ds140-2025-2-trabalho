@@ -54,7 +54,8 @@ export const routes: Routes =
     data: { role: 'FUNC' } },
     {path: 'editar-equipamento:nome', component:EditarEquipamento ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path:'relatorio',component:Rf019Relatorio},
+    {path:'relatorio',component:Rf019Relatorio ,canActivate: [AuthGuard],
+    data: { role: 'FUNC' } },
     
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
     {path: 'cadastro-funcionario', component: CadastroFuncionarios  ,canActivate: [AuthGuard],
