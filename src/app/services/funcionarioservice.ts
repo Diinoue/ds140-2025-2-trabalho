@@ -12,7 +12,6 @@ export class Funcionarioservice {
     listarTodos(): Funcionario[] {
       const Funcionarios = localStorage[LS_CHAVE];
       return Funcionarios ? JSON.parse(Funcionarios) : [];
-              
     }
   
     inserir(funcionario: Funcionario) : void {
