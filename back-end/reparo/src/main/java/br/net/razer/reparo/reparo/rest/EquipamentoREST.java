@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 public class EquipamentoREST {
-
+// IMPLEMENTAR AINDA
     @GetMapping("/equipamentos")
     public ResponseEntity<List<String>> listarTodos() {
         return null;

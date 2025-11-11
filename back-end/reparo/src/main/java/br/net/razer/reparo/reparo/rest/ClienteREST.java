@@ -20,7 +20,8 @@ import br.net.razer.reparo.reparo.model.Cliente;
 @CrossOrigin
 @RestController
 public class ClienteREST {
-
+    //IMPLEMENTAR DO MESMO JEITO QUE O FUNCIONARIO
+    //POR ENQUANTO PROVISORIO, MUDAR NA HORA DE IMPLEMENTAR O BANCO DE DADOS
 
     @GetMapping("/clientes")
     public ResponseEntity<List<Cliente>> obterTodos() {

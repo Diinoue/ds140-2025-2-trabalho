@@ -15,7 +15,6 @@ import br.net.razer.reparo.reparo.model.Solicitacao;
 public class SolicitacaoREST {
 
     private static List<Solicitacao> solicitacoes = new ArrayList<>();
-
     @GetMapping("/solicitacoes")
     public ResponseEntity<List<Solicitacao>> obterTodas() {
         if (solicitacoes.isEmpty())

@@ -19,7 +19,7 @@ constructor(
   ) {}
 
 ngOnInit(): void {
-  this.Funcionarios= this.funcionarioService.listarTodos();
+  this.Funcionarios = this.funcionarioService.listarTodos();
   this.funcionarioLogin = this.funcionarioService.getLogin();
 }
 
