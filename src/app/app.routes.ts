@@ -29,7 +29,7 @@ export const routes: Routes =
      },
     {path: 'visualizar-servico/:id', component: visualizarServicoCliente,
     canActivate: [AuthGuard],
-    data: { role: 'FUNC' } },
+    data: { role: 'FUNC,CLIENTE' } },
     {path:'crudfuncionario',component: CrudFuncionario,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
     /* ROTAS FUNCIONARIO */

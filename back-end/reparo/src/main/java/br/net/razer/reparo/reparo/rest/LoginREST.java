@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.net.razer.reparo.reparo.model.Login;
 import br.net.razer.reparo.reparo.model.Usuario;
 
+// FAZER: Validação no cadasro para evitar usuários repetidos
+
 @CrossOrigin
 @RestController
 public class LoginREST {
