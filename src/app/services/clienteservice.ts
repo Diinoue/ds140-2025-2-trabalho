@@ -9,67 +9,34 @@ const LS_CHAVE = "clientes";
   providedIn: 'root'
 })
 export class Clienteservice {
-  private url = 'https://viacep.com.br/ws';
+  private cepUrl = 'https://viacep.com.br/ws';
+  private apiUrl = 'http://localhost:8080/solicitacao';
 
   constructor(private http: HttpClient) {
-
   }
 
-  listarTodos(): Cliente[] {
-    const clientes = localStorage[LS_CHAVE];
-    return clientes ? JSON.parse(clientes) : [];
+  listarTodos(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(this.apiUrl);
   }
 
-  inserir(cliente: Cliente) : void {
-    const clientes = this.listarTodos();
-    clientes.push(cliente);
-    localStorage[LS_CHAVE] = JSON.stringify(clientes);
+  inserir(cliente: Cliente) : Observable<Cliente> {
+    return this.http.post<Cliente>(this.apiUrl, cliente);
   }
 
-  buscarPorId(cpf: string) : Cliente | undefined {
-    const clientes = this.listarTodos();
-    return clientes.find(cliente => cliente.cpf === cpf)
+  buscarPorId(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.apiUrl}/${id}`);
   }
 
-  atualizar(cliente: Cliente) : void { 
-    const clientes = this.listarTodos();
-    clientes.forEach( (obj, index, objs) => {
-      if(cliente.cpf === obj.cpf)
-        objs[index] = cliente;
-    });
-
-    localStorage [LS_CHAVE] = JSON.stringify(clientes);
+  atualizar(cliente: Cliente) : Observable<Cliente> { 
+    return this.http.put<Cliente>(`${this.apiUrl}/${cliente.id}`, cliente);
   }
   
-  remover(cpf: string) : void {
-    let clientes = this.listarTodos();
-    clientes = clientes.filter(Cliente => Cliente.cpf !== cpf);
-    localStorage[LS_CHAVE] = JSON.stringify(clientes);
-  }
-
-  salvarLogin(email: string, senha: string) : boolean {
-    const clientes = this.listarTodos();
-    let teste: boolean = false;
-    clientes.forEach( (obj, index, objs) => {
-      if(email === obj.email && senha === obj.senha){
-        localStorage["loginCliente"] = obj.cpf;  
-        teste = true;
-      }
-    });
-    return teste;
-  }
-
-  clearLogin() : void {
-    localStorage["loginCliente"] = null; 
-  }
-
-  getLogin() : any {
-    const login = localStorage["loginCliente"];
-    return login;
+  remover(id: number) : Observable<Cliente> {
+    return this.http.delete<Cliente>(`${this.apiUrl}/${id}`);
   }
 
   buscarCep(cep: string): Observable<any> {
-    return this.http.get(`${this.url}/${cep}/json`);
+    return this.http.get(`${this.cepUrl}/${cep}/json`);
   }
 
 }

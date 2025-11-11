@@ -1,4 +1,5 @@
 export class Cliente {
+    public id: number = 0;
     public cpf: string = ''; // garante unicidade do cliente
     public nome: string = '';
     public email: string = '';

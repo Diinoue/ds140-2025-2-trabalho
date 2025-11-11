@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Funcionario } from '../shared/models/funcionario.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 const LS_CHAVE = "funcionarios";
 
@@ -9,68 +11,29 @@ const LS_CHAVE = "funcionarios";
 export class Funcionarioservice {
 
 
-    listarTodos(): Funcionario[] {
-      const Funcionarios = localStorage[LS_CHAVE];
-      return Funcionarios ? JSON.parse(Funcionarios) : [];
-    }
-  
-    inserir(funcionario: Funcionario) : void {
-      const Funcionarios = this.listarTodos();
+private apiUrl = 'http://localhost:8080/funcionarios';
 
-      funcionario.id = new Date().getTime();
-      Funcionarios.push(funcionario);
-      localStorage[LS_CHAVE] = JSON.stringify(Funcionarios);
-          
-  
-      /* CONSOLE LOG PARA VER SE localStorage ESTÁ RECEBENDO OS FUNCIONÁRIOS */
-      for(let i in Funcionarios){
-      console.log(`Dados de todos os funcionários: ID: ${Funcionarios[i].id} Email: ${Funcionarios[i].email} Nome: ${Funcionarios[i].nome} DataNasc: ${Funcionarios[i].dataNasc} Senha: ${Funcionarios[i].senha}`);
-        }
+  constructor(private http: HttpClient) {}
 
-      }
-  
-    buscarPorId(id: number) : Funcionario | undefined {      
-      const Funcionarios = this.listarTodos();
-      return Funcionarios.find(funcionario => funcionario.id === Number(id))
-    }
-  
-    atualizar(funcionario: Funcionario) : void { 
-      const Funcionarios = this.listarTodos();
-      Funcionarios.forEach( (obj, index, objs) => {
-        if(funcionario.id === obj.id)
-          objs[index] = funcionario;
-      });
-  
-      localStorage [LS_CHAVE] = JSON.stringify(Funcionarios);
-    }
-    
-    remover(id: number) : void {
-      let Funcionarios = this.listarTodos();
-      Funcionarios = Funcionarios.filter(Funcionario => Funcionario.id !== id);
-      localStorage[LS_CHAVE] = JSON.stringify(Funcionarios);
-    }
-  
-    /* MÉTODOS DE LOGIN */
-
-    salvarLogin(email: string, senha: string) : boolean {
-    const funcionarios = this.listarTodos();
-    let teste: boolean = false;
-    funcionarios.forEach( (obj, index, objs) => {
-      if(email === obj.email && senha === obj.senha){
-        localStorage["funcionario"] = JSON.stringify(obj.id);
-        teste = true;
-      }
-    });
-    return teste;
+  listarTodos(): Observable<Funcionario[]> {
+    return this.http.get<Funcionario[]>(this.apiUrl);
   }
 
-  clearLogin(): void {
-    localStorage["funcionario"] = null;
+  inserir(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.post<Funcionario>(this.apiUrl, funcionario);
   }
 
-  getLogin(): any{
-    const login = localStorage["funcionario"];
-    console.log(login);
-    return login;
+  buscarPorId(id: number): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${this.apiUrl}/${id}`);
   }
+
+  atualizar(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.put<Funcionario>(`${this.apiUrl}/${funcionario.id}`, funcionario);
+  }
+
+  remover(id: number): Observable<Funcionario> {
+    return this.http.delete<Funcionario>(`${this.apiUrl}/${id}`);
+  }
+
+  
 }
