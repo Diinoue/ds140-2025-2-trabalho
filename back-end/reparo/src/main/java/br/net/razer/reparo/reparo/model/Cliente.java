@@ -10,8 +10,8 @@ public class Cliente extends Usuario {
     public Cliente() {
     }
 
-    public Cliente(String nome, String senha, String rota, String cpf, String telefone, String endereco, String cep) {
-        super(nome, senha, rota);
+    public Cliente(String nome, String senha, String rota, Integer id, String cpf, String telefone, String endereco, String cep, String email) {
+        super(email, nome, senha, rota, id);
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;

@@ -1,17 +1,21 @@
 package br.net.razer.reparo.reparo.model;
 
 public class Usuario {
+    private Integer id;
     private String nome;
     private String senha;
     private String rota;
+    private String email;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String senha, String rota) {
+    public Usuario(String email, String nome, String senha, String rota, Integer id) {
+        this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.rota = rota;
+        this.id = id;
     }
 
     public String getNome() {
@@ -38,6 +42,20 @@ public class Usuario {
         this.rota = rota;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 }

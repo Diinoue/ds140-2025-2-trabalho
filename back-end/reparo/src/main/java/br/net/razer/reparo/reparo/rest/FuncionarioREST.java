@@ -1,6 +1,5 @@
 package br.net.razer.reparo.reparo.rest;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Comparator;
 
-import br.net.razer.reparo.reparo.model.Usuario;
 import br.net.razer.reparo.reparo.model.Funcionario;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,17 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 public class FuncionarioREST {
     
-    public static List<Funcionario> funcionarios = new ArrayList<>();
-
-    static {
-        funcionarios.add(new Funcionario("Carlos Silva", "1234", "funcionario", 0, "carlos@empresa.com", LocalDate.of(1990, 5, 12)));
-        funcionarios.add(new Funcionario("Ana Souza", "abcd", "funcionario", 1, "ana@empresa.com", LocalDate.of(1988, 8, 25)));
-        funcionarios.add(new Funcionario("João Pereira", "senha123", "funcionario", 2, "joao@empresa.com", LocalDate.of(1995, 3, 10)));
-        funcionarios.add(new Funcionario("Mariana Lima", "admin123", "funcionario", 3, "mariana@empresa.com", LocalDate.of(1992, 11, 2)));   
-    }
+     
 
     @GetMapping("/funcionarios")
         public ResponseEntity<List<Funcionario>> obterTodos() {
+        List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
         if (funcionarios.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -45,6 +37,7 @@ public class FuncionarioREST {
 
     @GetMapping("/funcionarios/{id}")
         public ResponseEntity<Funcionario> obterPorId(@PathVariable("id") int id) {
+        List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
         Funcionario func = funcionarios.stream().filter(f -> f.getId() == id).findAny().orElse(null);
         
         if (func == null) 
@@ -57,6 +50,7 @@ public class FuncionarioREST {
 
     @PostMapping("/funcionarios")
         public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
+            List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
             Funcionario f = funcionarios.stream()
                 .filter(func -> func.getEmail().equals(funcionario.getEmail()))
                 .findAny()
@@ -80,8 +74,8 @@ public class FuncionarioREST {
         }
 
     @PutMapping("/funcionarios/{id}")
-        public ResponseEntity<Usuario> alterar(@PathVariable("id") int id, @RequestBody Funcionario funcionario) {
-
+        public ResponseEntity<Funcionario> alterar(@PathVariable("id") int id, @RequestBody Funcionario funcionario) {
+            List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
             Funcionario func = funcionarios.stream().filter(
 
             f -> f.getId() == id).findAny().orElse(null);
@@ -102,7 +96,7 @@ public class FuncionarioREST {
 
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<Funcionario> remover(@PathVariable("id") int id) {
-            
+        List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
         Funcionario funcionario = funcionarios.stream().filter(
 
         f -> f.getId() == id).findAny().orElse(null);
