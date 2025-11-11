@@ -94,7 +94,7 @@ public class FuncionarioREST {
 
     }
 
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/funcionarios/{id}")
     public ResponseEntity<Funcionario> remover(@PathVariable("id") int id) {
         List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
         Funcionario funcionario = funcionarios.stream().filter(
