@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { Clienteservice } from './services/clienteservice';
 import { Funcionarioservice } from './services/funcionarioservice';
-
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-
     RouterOutlet,
     RouterLink,
     CommonModule

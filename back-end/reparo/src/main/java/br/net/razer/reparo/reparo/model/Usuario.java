@@ -11,11 +11,11 @@ public class Usuario {
     }
 
     public Usuario(String email, String nome, String senha, String rota, Integer id) {
-        this.email = email;
+        this.id = id;
         this.nome = nome;
+        this.email = email;
         this.senha = senha;
         this.rota = rota;
-        this.id = id;
     }
 
     public String getNome() {
