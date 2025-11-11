@@ -34,7 +34,7 @@ public class AlteracaoLogREST {
     }
 
     // Endpoint para buscar logs por ID da solicitação
-    @GetMapping("/solicitacao/{id}")
+    @GetMapping("/alteracoes/{id}")
     public List<AlteracaoLog> buscarPorSolicitacao(@PathVariable int id) {
         List<AlteracaoLog> resultado = new ArrayList<>();
         for (AlteracaoLog log : logs) {
