@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Solicitacao } from '../shared/models/solicitacao.model';
 import { AlteracaoLog } from '../shared/models/alteracao-log';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 const LS_CHAVE = "solicitacoes";
 
@@ -8,21 +10,43 @@ const LS_CHAVE = "solicitacoes";
   providedIn: 'root',
 })
 export class Solicitacaoservice {
-  solicitacoes: any[] = [];
-  alteracoes: any[] = [];
 
-  listarTodos(): Solicitacao[] {
-    const solicitacoes = localStorage[LS_CHAVE];
-    return solicitacoes ? JSON.parse(solicitacoes) : [];
+  private apiUrl = 'http://localhost:8080/solicitacoes';
+
+  constructor(private http: HttpClient) {}
+
+  listarTodas(): Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>(this.apiUrl);
   }
 
-  /* ORDENA A Solicitacao[] POR DATA/HORA, USADO POR: rf003-pagcliente, lista-solicitacoes*/
+  inserir(solicitacao: Solicitacao): Observable<Solicitacao> {
+    return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
+  }
+
+  buscarPorId(id: number): Observable<Solicitacao> {
+    return this.http.get<Solicitacao>(`${this.apiUrl}/${id}`);
+  }
+
+  buscarListaPorCliente(id: number) : Observable<Solicitacao> {
+    return this.http.get<Solicitacao>(`${this.apiUrl}/cliente/${id}`);
+  }
+
+  atualizar(solicitacao: Solicitacao): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/${solicitacao.ID}`, solicitacao);
+  }
+  
+  remover(id: number): Observable<Solicitacao> {
+    return this.http.delete<Solicitacao>(`${this.apiUrl}/${id}`);
+  }
+
+/* 
+  ORDENA A Solicitacao[] POR DATA/HORA, USADO POR: rf003-pagcliente, lista-solicitacoes
   listarTodosOrdenadoData(): Solicitacao[]{
     const solicitacoes = this.listarTodos();
     return solicitacoes.sort(
       (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
     );
-  /* Pega as solicitações por funcionário  */
+   Pega as solicitações por funcionário  
   }
 
   listarHoje(): Solicitacao[] {
@@ -44,55 +68,6 @@ export class Solicitacaoservice {
     return data >= min && data <= max;
   });
 }
-
-  inserir(solicitacao: Solicitacao) : void {
-    const solicitacoes = this.listarTodos();
-    solicitacao.ID = new Date().getTime();
-    solicitacoes.push(solicitacao);
-    localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
-  }
-
-  buscarPorId(id: number) : Solicitacao | undefined {
-    const solicitacoes = this.listarTodos();
-    return solicitacoes.find(solicitacao => solicitacao.ID === id);
-  }
-
-  buscarListaPorCliente(cpf: string) : Solicitacao[] | undefined {
-    const solicitacoes = this.listarTodos();
-    return solicitacoes.filter(solicitacao => solicitacao.clienteCPF === cpf);
-  }
-
-  atualizar(solicitacao: Solicitacao) : void { 
-    const solicitacoes = this.listarTodos();
-    solicitacoes.forEach( (obj, index, objs) => {
-      if(solicitacao.ID === obj.ID)
-        objs[index] = solicitacao;
-    });
-
-    localStorage [LS_CHAVE] = JSON.stringify(solicitacoes);
-  }
-  
-  remover(id: number) : void {
-    let solicitacoes = this.listarTodos();
-    solicitacoes = solicitacoes.filter(Solicitacao => Solicitacao.ID !== id);
-    localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
-  }
-
-  addAlteracao(alteracao: AlteracaoLog): void {
-    
-    const alteracaoHist = this.getAlteracao();
-    alteracaoHist.push(alteracao);
-    localStorage["alt"] = JSON.stringify(alteracaoHist);    
-  }
-
-  getAlteracao() : AlteracaoLog[] {
-    const alteracaoHist = localStorage["alt"];
-    return alteracaoHist ? JSON.parse(alteracaoHist) : [];
-  }
-
-  getAlteracaoByService(ID: number): AlteracaoLog[] {
-    const alteracaoHist = this.getAlteracao();
-    return alteracaoHist.filter(a => a.solicitacaoID === ID);
-  }
+*/
 
 }
