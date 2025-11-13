@@ -12,7 +12,7 @@
   <div>
 
 <!-- Estado: APROVADA -->
-@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && (solicitacao.funcionarioID) == funcionarioLogin) {
+@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && (solicitacao.funcionarioID) == funcionarioLogin.id) {
       <h3>Registrar Manutenção</h3>
 
     <label>
@@ -37,7 +37,7 @@
             
             <td>
             <!-- VISUALIZAR -->   
-            <a (click)="redirecionarManutencao(s.id)" title="select" alt="select"
+            <a (click)="redirecionarManutencao(s)" title="select" alt="select"
             class="btn btn-xs btn-info mx-1">
             <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Select
             </a>

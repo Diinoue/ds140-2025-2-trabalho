@@ -9,6 +9,7 @@ import { dateTimestampProvider } from 'rxjs/internal/scheduler/dateTimestampProv
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
+import { Alteracaoservice } from '../../services/alteracaoservice';
 
 @Component({
   selector: 'visualizar-servico-cliente',
@@ -29,36 +30,35 @@ constructor(
   private route: ActivatedRoute,
   private clienteService: Clienteservice,
   private router: Router,
+  private alteracaoService: Alteracaoservice,
   private funcionarioService: Funcionarioservice,
 
 ) {}
 
   ngOnInit(): void {
     let id = +this.route.snapshot.params['id'];
-    const res = this.solicitacaoService.buscarPorId(id);
-    if (res !== undefined) this.solicitacao = res;
-    else throw new Error ("Pessoa não encontrada: id = " + id);
+    this.carregarSolicitacao(id);
+    this.carregarAlteracoes(id);
 
-    const res2 = this.clienteService.buscarPorId(this.solicitacao.clienteCPF);
-    if (res2 !== undefined) this.cliente = res2;
-    else throw new Error ("Cliente não encontrado");
+    this.clienteService.buscarPorId(this.solicitacao.clienteID).subscribe(data => {this.cliente = data;});
 
-    /*
-    O bug do res3 era pq por ALGUM MOTIVO, na função buscarPorId,
-    mesmo que id: number, TypeScript não reclamava e guardava id: string 
-    */
-   
     if(this.solicitacao.estado !== 'ABERTA')
     {
-    const res3 = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID);
-    
-    if (res3 !== undefined) this.funcionario = res3;
-    else throw new Error ("Funcionário não encontrado");
+    this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID).subscribe(data => {this.funcionario = data;});
     }
-    
-    
-    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }
+
+  carregarSolicitacao(id: number) {
+  this.solicitacaoService.buscarPorId(id).subscribe(data => {
+    this.solicitacao = data;
+  });
+}
+
+  carregarAlteracoes(id: number) {
+  this.alteracaoService.buscarPorId(id).subscribe(data => {
+    this.alteracaoHist = data;
+  });
+}
 
   aprovarServico() {
     alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valorOrcado}`);
@@ -101,8 +101,8 @@ constructor(
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
-    this.solicitacaoService.addAlteracao(this.alteracao);
-    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
+    this.alteracaoService.inserir(this.alteracao);
+    this.carregarAlteracoes(this.solicitacao.ID);
   }
 
 

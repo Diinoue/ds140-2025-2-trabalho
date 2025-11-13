@@ -32,8 +32,8 @@ constructor(
 
 ngOnInit(): void {
   this.newDataNasc = new Date();
-
-  this.buscarFunc();
+  let id = +this.route.snapshot.params['id'];
+  this.carregarFuncionario(id);
 }
 
 onSubmitEmail(){
@@ -41,22 +41,23 @@ onSubmitEmail(){
   if(res != undefined)this.funcionario.email = res;
   else throw console.error('erro');
   this.funcionarioService.atualizar(this.funcionario);
-  this.buscarFunc();
+  this.carregarFuncionario(this.funcionario.id);
   console.log(this.newEmailForm.value);
 }
 
 onSubmitDataNasc(){
   this.funcionario.dataNasc = this.newDataNascForm.value.dataNasc;
   this.funcionarioService.atualizar(this.funcionario);
-  this.buscarFunc();
+  this.carregarFuncionario(this.funcionario.id);
   console.log(this.newDataNascForm.value);
 }
 
-buscarFunc(): void {
-  let id = +this.route.snapshot.params['id'];
-  const res = this.funcionarioService.buscarPorId(id);
-  if (res !== undefined) this.funcionario = res;
-  else throw new Error ("Pessoa não encontrada: id = " + id);
+carregarFuncionario(id: number) {
+  this.funcionarioService.buscarPorId(id).subscribe(data => {
+    this.funcionario = data;
+  });
 }
+
+
 
 }

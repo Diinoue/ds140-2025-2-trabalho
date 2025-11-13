@@ -5,6 +5,9 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Clienteservice } from '../../services/clienteservice';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { UntypedFormArray } from '@angular/forms';
+import { Loginservice } from '../../services/loginservice';
+import { Usuario } from '../../shared/models/usuario.model';
+import { map } from 'rxjs';
 
 @Component
   ({
@@ -16,34 +19,32 @@ import { UntypedFormArray } from '@angular/forms';
 export class Rf003Pagcliente implements OnInit
 {
   solicitacoes: Solicitacao[] = [];
+  login: Usuario = new Usuario();
 
   constructor(
     private solicitacaoService: Solicitacaoservice,
-    private clienteService: Clienteservice,
-    private funcionarioService: Funcionarioservice
+    private loginService: Loginservice,
   ) {} 
 
   ngOnInit(): void {
-    this.listarTodosOrdenadoData();
+    let res = this.loginService.usuarioLogado;
+    if (res !== null) this.login = res;
+    else throw new Error ("usuario nao encontrado");
+    this.carregarSolicitacoes(this.login.id);
   }
-/*
-  getLoginFunc(): void {
-    const login = this.funcionarioService.getLogin();
-    console.log(login);
-  }
-  
-  getLoginCliente(): void {
-    const login = this.clienteService.getLogin();
-    console.log(login);
-  }
-    debugging REMOVER DEPOIS!!
-*/
-  listarTodosOrdenadoData(): void{
-    const vet = this.solicitacaoService.buscarListaPorCliente(this.clienteService.getLogin());
-    if(vet != undefined) this.solicitacoes = vet;
-    else throw new Error ("Nenhuma solicitacao encontrada");
-    this.solicitacoes.sort(
-      (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
-    );
-  }
+
+  carregarSolicitacoes(id: number) {
+  this.solicitacaoService.buscarListaPorCliente(id)
+    .pipe(
+      map(data =>
+        data.sort(
+          (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
+        )
+      )
+    )
+    .subscribe(solicitacoesOrdenadas => {
+      this.solicitacoes = solicitacoesOrdenadas;
+    });
+}
+
 }

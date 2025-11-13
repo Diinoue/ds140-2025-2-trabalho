@@ -27,8 +27,12 @@ export class Solicitacaoservice {
     return this.http.get<Solicitacao>(`${this.apiUrl}/${id}`);
   }
 
-  buscarListaPorCliente(id: number) : Observable<Solicitacao> {
-    return this.http.get<Solicitacao>(`${this.apiUrl}/cliente/${id}`);
+  buscarListaPorCliente(id: number) : Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>(`${this.apiUrl}/cliente/${id}`);
+  }
+
+  buscarListaPorFuncionario(id: number) : Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>(`${this.apiUrl}/funcionario/${id}`);
   }
 
   atualizar(solicitacao: Solicitacao): Observable<Solicitacao> {

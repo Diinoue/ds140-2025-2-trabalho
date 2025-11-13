@@ -45,7 +45,7 @@ public class SolicitacaoREST {
         return ResponseEntity.ok(s);
     }
 
-    //IMPLEMENTAR A LOGICA DESSA SERIVE, DEVE RETORNAR TODAS AS SOLICITACOES DE UM CLIENTE EM ESPECIFICO
+    //IMPLEMENTAR A LOGICA DESSA SERVICE, DEVE RETORNAR TODAS AS SOLICITACOES DE UM CLIENTE EM ESPECIFICO
     @GetMapping("/solicitacoes/cliente/{id}")
     public ResponseEntity<Solicitacao> obterPorCliente(@PathVariable int id) {
         Solicitacao s = solicitacoes.stream().filter(x -> x.getId() == id).findAny().orElse(null);

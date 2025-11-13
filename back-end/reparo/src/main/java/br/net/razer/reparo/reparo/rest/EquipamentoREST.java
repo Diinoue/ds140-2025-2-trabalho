@@ -32,7 +32,7 @@ public class EquipamentoREST {
     }
 
     @PutMapping("/equipamentos/{id}")
-    public ResponseEntity<String> alterar(@PathVariable("id") String id, @RequestBody String novoEquipamento) {
+    public ResponseEntity<String> alterar(@PathVariable("id") Equipamento equipamento) {
         return null;
     }
 

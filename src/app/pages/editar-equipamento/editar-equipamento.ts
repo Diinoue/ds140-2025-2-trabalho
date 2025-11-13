@@ -2,6 +2,7 @@ import { Component, Input} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EquipamentoService } from '../../services/equipamento-service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Equipamento } from '../../shared/models/equipamento.model';
 
 @Component({
   selector: 'app-editar-equipamento',
@@ -17,7 +18,7 @@ export class EditarEquipamento{
   formEquipamento: FormGroup;
   // lista de equipamentos já cadastrados
 
-  @Input() equipamento!: string;
+  @Input() equipamento!: Equipamento;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -36,7 +37,7 @@ export class EditarEquipamento{
       const nome = this.formEquipamento.value.nome;
 
       // salva no localStorage
-    this.equipamentoService.atualizar(nome, this.equipamento);
+    this.equipamentoService.atualizar(this.equipamento);
     this.activeModal.close();
     }
   }

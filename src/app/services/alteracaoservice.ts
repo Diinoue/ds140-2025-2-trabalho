@@ -20,8 +20,8 @@ private apiUrl = 'http://localhost:8080/alteracoes';
     return this.http.post<AlteracaoLog>(this.apiUrl, alteracao);
   }
 
-  buscarPorId(id: number): Observable<AlteracaoLog> {
-    return this.http.get<AlteracaoLog>(`${this.apiUrl}/${id}`);
+  buscarPorId(id: number): Observable<AlteracaoLog[]> {
+    return this.http.get<AlteracaoLog[]>(`${this.apiUrl}/${id}`);
   }
 
   atualizar(alteracao: AlteracaoLog): Observable<AlteracaoLog> {

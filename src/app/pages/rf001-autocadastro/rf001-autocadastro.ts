@@ -44,13 +44,14 @@ export class Rf001Autocadastro {
 
         // Atualiza o cliente
         this.clienteNovo = {
+          id: 0,
           cpf: user.cpf,
           nome: user.nome,
           email: user.email,
           cep: user.cep,
           telefone: user.telefone,
           senha: Math.floor(1000 + Math.random() * 9000).toString(),
-          endereco
+          endereco,
         };
 
         // Insere no serviço

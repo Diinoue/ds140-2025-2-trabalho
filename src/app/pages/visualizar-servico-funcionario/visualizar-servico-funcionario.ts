@@ -9,6 +9,9 @@ import { Cliente } from '../../shared/models/cliente.model';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
+import { Loginservice } from '../../services/loginservice';
+import { Usuario } from '../../shared/models/usuario.model';
+import { Alteracaoservice } from '../../services/alteracaoservice';
 
 @Component({
   selector: 'visualizar-servico-funcionario',
@@ -23,30 +26,47 @@ export class VisualizarServicoFuncionario implements OnInit{
   funcionarios: Funcionario[] = [];
   alteracao: AlteracaoLog = new AlteracaoLog();
   alteracaoHist: AlteracaoLog[] = [];
-  funcionarioLogin: number = 0;
+  funcionarioLogin: Usuario = new Usuario();
   redirecionar: boolean = false;
 
   constructor(
   private solicitacaoService: Solicitacaoservice,
   private funcionarioService: Funcionarioservice,
   private route: ActivatedRoute,
+  private loginService: Loginservice,
   private clienteService: Clienteservice,
+  private alteracaoService: Alteracaoservice,
   private router: Router,
 ) {}
 
   ngOnInit(): void {
-    this.funcionarioLogin = this.funcionarioService.getLogin();
+    
+    
+
+    const res3 = this.loginService.usuarioLogado;
+    if (res3 == null) throw new Error ("usuario nao encontrado");
+    else this.funcionarioLogin = res3;
+
     let id = +this.route.snapshot.params['id'];
-    const res = this.solicitacaoService.buscarPorId(id);
-    if (res !== undefined) this.solicitacao = res;
-    else throw new Error ("Pessoa não encontrada: id = " + id);
+    this.carregarSolicitacao(id);
+    this.carregarAlteracoes(id);
 
-    const res2 = this.clienteService.buscarPorId(this.solicitacao.clienteCPF);
-    if (res2 !== undefined) this.cliente = res2;
-    else throw new Error ("Pessoa não encontrada: id = " + id);
+    this.clienteService.buscarPorId(this.solicitacao.clienteID).subscribe(data => {this.cliente = data;});
 
-    this.funcionarios = this.funcionarioService.listarTodos();
+    this.funcionarioService.listarTodos().subscribe(data => {this.funcionarios = data;});
   }
+
+  carregarSolicitacao(id: number) {
+  this.solicitacaoService.buscarPorId(id).subscribe(data => {
+    this.solicitacao = data;
+  });
+}
+
+  carregarAlteracoes(id: number) {
+  this.alteracaoService.buscarPorId(id).subscribe(data => {
+    this.alteracaoHist = data;
+  });
+}
 
   efetuarManutencao() {
     this.solicitacao.estado = 'ARRUMADA';
@@ -54,19 +74,18 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.registrarAlteracao('Manutenção Efetuada', '');
   }
 
-  redirecionarManutencao(id: number) {
-    this.alteracao.nomeFuncionarioRedirecionado = this.funcionarioService.buscarPorId(id)!.nome;
-    console.log('Redirecionado para: ', id);
-    this.alteracao.nomeFuncionario = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID)!.nome;
+  redirecionarManutencao(func: Funcionario) {
+    this.alteracao.nomeFuncionarioRedirecionado = func.nome;
+    console.log('Redirecionado para: ', func.nome);
+    this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.alteracao.solicitacaoID = this.solicitacao.ID;
     this.alteracao.data = new Date();
     this.alteracao.tipo = 'Serviço Redirecionado';
     this.alteracao.descricao = '';
-    this.solicitacaoService.addAlteracao(this.alteracao);
-    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
+    this.alteracaoService.inserir(this.alteracao);
+    this.carregarAlteracoes(this.solicitacao.ID);
 
-    this.solicitacao.funcionarioID = id;
-    console.log(`Tipo do id: ${id}: ` + typeof(id));
+    this.solicitacao.funcionarioID = func.id;
     
     this.solicitacao.estado = 'REDIRECIONADA';
     this.solicitacaoService.atualizar(this.solicitacao);
@@ -75,19 +94,9 @@ export class VisualizarServicoFuncionario implements OnInit{
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
   salvarOrcamento(): void {
     this.solicitacao.estado = 'ORCADA';
-    this.solicitacao.funcionarioID = this.funcionarioService.getLogin();
+    this.solicitacao.funcionarioID = this.funcionarioLogin.id;
     this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
-  }
-
-  registrarAlteracao(tipo : string, desc : string): void {
-    this.alteracao.solicitacaoID = this.solicitacao.ID;
-    this.alteracao.data = new Date();
-    this.alteracao.tipo = tipo;
-    this.alteracao.descricao = desc;
-    this.alteracao.nomeFuncionario = this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID)!.nome;
-    this.solicitacaoService.addAlteracao(this.alteracao);
-    this.alteracaoHist = this.solicitacaoService.getAlteracaoByService(this.solicitacao.ID);
   }
 
   finalizarSolicitacao() : void {
@@ -96,4 +105,13 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.registrarAlteracao('Serviço Finalizado', '');
   }
 
+  registrarAlteracao(tipo : string, desc : string): void {
+    this.alteracao.solicitacaoID = this.solicitacao.ID;
+    this.alteracao.data = new Date();
+    this.alteracao.tipo = tipo;
+    this.alteracao.descricao = desc;
+    this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
+    this.alteracaoService.inserir(this.alteracao);
+    this.carregarAlteracoes(this.solicitacao.ID);
+  }
 }
