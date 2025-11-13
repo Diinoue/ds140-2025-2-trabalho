@@ -1,13 +1,16 @@
 package br.net.razer.reparo.reparo.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "tb_funcionario")
 public class Funcionario extends Usuario {
 
-    private LocalDate dataNascimento;
+@Column(name = "datanasc_func")   
+private LocalDate dataNascimento;
+    public Funcionario() {}
 
-    public Funcionario() {
-    }
 
     public Funcionario(String nome, String senha, String rota, String email, Integer id, LocalDate dataNascimento) {
         super(email, nome, senha, rota, id);
@@ -22,3 +25,4 @@ public class Funcionario extends Usuario {
         this.dataNascimento = dataNascimento;
     }
 }
+

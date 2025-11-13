@@ -1,98 +1,85 @@
 package br.net.razer.reparo.reparo.rest;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import org.apache.el.lang.FunctionMapperFactory;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 import br.net.razer.reparo.reparo.model.Funcionario;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
+import br.net.razer.reparo.reparo.repositorio.FuncionarioRepository;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/funcionarios")
 public class FuncionarioREST {
-    
-     
 
-    @GetMapping("/funcionarios")
-        public ResponseEntity<List<Funcionario>> obterTodos() {
-        List<Funcionario> funcionarios = new ArrayList<>();   // <---------------********** acessar o banco de funcionarios
-        if (funcionarios.isEmpty()) {
+    @Autowired
+    private FuncionarioRepository repo;
+
+    // A lista de valores válidos (incluindo 'cliente')
+    private static final List<String> ROTAS_VALIDAS = Arrays.asList("funcionario", "cliente");
+
+    @GetMapping
+    public ResponseEntity<List<Funcionario>> obterTodos() {
+        List<Funcionario> funcionarios = repo.findAll();
+        if (funcionarios.isEmpty())
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-
         return ResponseEntity.ok(funcionarios);
     }
 
-    @GetMapping("/funcionarios/{id}")
-        public ResponseEntity<Funcionario> obterPorId(@PathVariable("id") int id) {
-        // SELECT NO FUNCIONARIO COM ID = "id" NO BANCO DE DADOS
-        Funcionario funcionario = new Funcionario(); // <--------
+    @GetMapping("/{id}")
+    public ResponseEntity<Funcionario> obterPorId(@PathVariable int id) {
+        Optional<Funcionario> func = repo.findById(id);
+        return func.map(ResponseEntity::ok)
+                   .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 
-        // SE NAO ACHAR, DEVOLVE NOT_FOUND
-        if (funcionario == null) 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .build();
-        //SE ACHAR, DEVOLVE FUNCIONARIO ENCONTRADO
-        else
-        return ResponseEntity.ok(funcionario);
+    // 1. Assinatura do método alterada para ResponseEntity<?>
+    @PostMapping
+    public ResponseEntity<?> inserir(@RequestBody Funcionario funcionario) {
+        
+        // 1. Validação da Rota
+        String rota = funcionario.getRota();
+        if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) {
+            String mensagemErro = "Rota inválida. O campo 'rota' deve ser 'funcionario' ou 'cliente'.";
+            // 2. Simplificação do retorno de erro (Linha 64 corrigida)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
         }
-
-    @PostMapping("/funcionarios")
-        public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
-            // SELECT NO FUNCIONARIO COM EMAIL = "funcionario.email" NO BANCO DE DADOS
-            Funcionario encontrado = new Funcionario(); // <---------
-
-            if (encontrado != null) {
-                // SE ACHAR O FUNCIONARIO, NAO FAZ NADA, E RETORNA STATUS CONFLICT
-                return ResponseEntity.status(HttpStatus.CONFLICT).build();
-            }
-            else {
-                // SE NAO ACHAR O FUNCIONARIO NO BANCO, INSERE NO BANCO O NOVO "funcionario"
-                return ResponseEntity.status(HttpStatus.CREATED).body(funcionario);
-            }
+        
+        // 2. Validação de Conflito (Email Duplicado)
+        if (repo.findByEmail(funcionario.getEmail()) != null)
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
             
-        }
-
-    @PutMapping("/funcionarios/{id}")
-        public ResponseEntity<Funcionario> alterar(@PathVariable("id") int id, @RequestBody Funcionario funcionario) {
-            // SELECT NO FUNCIONARIO COM "id" NO BANCO DE DADOS
-            Funcionario func = new Funcionario(); // <<--------
-
-            if (func != null) {
-            //SE ACHAR UM FUNCIONARIO, INSERIR AS INFORMACOES ATUALIZADAS DE "funcionario" NO BANCO
-            return ResponseEntity.ok(func);
-            }
-            else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
+        // 3. Inserção
+        Funcionario novo = repo.save(funcionario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 
-    @DeleteMapping("/funcionarios/{id}")
-    public ResponseEntity<Funcionario> remover(@PathVariable("id") int id) {
-        // SELECT NO FUNCIONARIO COM "id" NO BANCO DE DADOS
-        Funcionario funcionario = new Funcionario();
-
-        if (funcionario != null) {
-            //SE ACHAR UM FUNCIONARIO, DELETAR FUNCIONARIO ENCONTRADO NO BANCO
-            return ResponseEntity.ok(funcionario);
+    // Assinatura do método alterada para ResponseEntity<?>
+    @PutMapping("/{id}")
+    public ResponseEntity<?> alterar(@PathVariable int id, @RequestBody Funcionario funcionario) {
+        
+        // Validação da Rota no PUT
+        String rota = funcionario.getRota();
+        if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) {
+            String mensagemErro = "Rota inválida. O campo 'rota' deve ser 'funcionario' ou 'cliente'.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
         }
-
-        else 
+        
+        if (!repo.existsById(id))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
+            
+        funcionario.setId(id);
+        Funcionario atualizado = repo.save(funcionario);
+        return ResponseEntity.ok(atualizado);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable int id) {
+        if (!repo.existsById(id))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        repo.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }
