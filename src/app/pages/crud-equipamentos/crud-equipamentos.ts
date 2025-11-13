@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EquipamentoService } from '../../services/equipamento-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditarEquipamento } from '../editar-equipamento/editar-equipamento'
+import { Equipamento } from '../../shared/models/equipamento.model';
 
 @Component({
   selector: 'app-crud-equipamentos',
@@ -12,21 +13,28 @@ import { EditarEquipamento } from '../editar-equipamento/editar-equipamento'
   styleUrl: './crud-equipamentos.css'
 })
 export class CrudEquipamentos implements OnInit{
-    Equipamento:string[]=[];
+    equipamentos:Equipamento[]=[];
   constructor(
-      private EquipamentoService: EquipamentoService,
+      private equipamentoService: EquipamentoService,
       private modalService: NgbModal,
     ) {}
 
     ngOnInit(): void {
-        this.Equipamento = this.EquipamentoService.listarTodos();
+      this.carregarEquipamentos();
     }
 
-    deletarEquipamento(equipamento: string) : void {
+  carregarEquipamentos() {
+  this.equipamentoService.listarTodos().subscribe(data => {
+    this.equipamentos = data;
+  });
+}
+
+
+    deletarEquipamento(equipamento: Equipamento) : void {
       if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
       {
-        this.EquipamentoService.remover(equipamento);
-        this.Equipamento = this.EquipamentoService.listarTodos();
+        this.equipamentoService.remover(equipamento.id);
+        this.carregarEquipamentos();
       }
 }
 
