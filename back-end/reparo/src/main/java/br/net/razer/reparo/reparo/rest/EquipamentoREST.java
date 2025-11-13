@@ -1,7 +1,8 @@
 package br.net.razer.reparo.reparo.rest;
-
+import br.net.razer.reparo.reparo.model.Equipamento;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class EquipamentoREST {
 // IMPLEMENTAR AINDA
     @GetMapping("/equipamentos")
-    public ResponseEntity<List<String>> listarTodos() {
-        return null;
+    public ResponseEntity<Equipamento[]> listarTodos() {
+        Equipamento[] equipamentos = {};
+        // ACESSAR BANCO DE DADOS
+        if (equipamentos.length == 0){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(equipamentos);
     }
 
     @GetMapping("/equipamentos/{id}")

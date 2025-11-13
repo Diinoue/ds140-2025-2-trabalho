@@ -8,7 +8,9 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
 /* 
   INCOMPLETO
-    Fazer 
+  12/11 - Service agr chama efetivamente pro back-end, tem que ver se trata os dados
+  para ser um obj da classe Usuario
+
 */
 
 /*
@@ -50,8 +52,10 @@ export class Loginservice {
       map(resp => {
         //Se back retornar um usuario no body, OK (200)
         if (resp.status === 200 && resp.body) {
-          this.usuarioLogado = resp.body;
-          return resp.body;
+          // this.usuarioLogado = resp.body;
+          // return resp.body;
+          return new Usuario (resp.body.id, resp.body.nome, resp.body.email,
+            resp.body.senha, resp.body.perfil);
         } else {
           return null;
         }
@@ -65,8 +69,6 @@ export class Loginservice {
           return throwError(() => err);
         }
       })
-
-
       )
   }
 

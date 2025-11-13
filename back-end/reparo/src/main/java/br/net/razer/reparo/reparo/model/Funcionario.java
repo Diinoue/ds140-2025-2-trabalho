@@ -9,7 +9,7 @@ public class Funcionario extends Usuario {
     public Funcionario() {
     }
 
-    public Funcionario(String nome, String senha, String rota, Integer id, String email, LocalDate dataNascimento) {
+    public Funcionario(String nome, String senha, String rota, String email, Integer id, LocalDate dataNascimento) {
         super(email, nome, senha, rota, id);
         this.dataNascimento = dataNascimento;
     }
