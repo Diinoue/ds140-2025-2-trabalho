@@ -20,7 +20,7 @@ export class Rf019Relatorio {
     private funcionarioService: Funcionarioservice,
     private solicitacaoService: Solicitacaoservice
   ) {}
-
+/*
   ngOnInit(): void {
     this.solicitacoes = this.solicitacaoService.listarTodosOrdenadoData();
     this.loginFuncionario = this.funcionarioService.getLogin();
@@ -31,7 +31,7 @@ export class Rf019Relatorio {
     console.log(this.solicitacaoService.listarTodosOrdenadoData());
     return this.solicitacaoService.listarTodosOrdenadoData();
   }
-
+ */ 
   calcularTotal(): void {
     this.totalGeral = this.solicitacoes
       .filter(s => s.funcionarioID === this.loginFuncionario || s.estado === 'FINALIZADA')
@@ -41,4 +41,5 @@ export class Rf019Relatorio {
   imprimirTela(): void {
     window.print();
   }
+ 
 }

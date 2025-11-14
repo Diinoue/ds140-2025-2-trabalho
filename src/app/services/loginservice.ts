@@ -37,7 +37,7 @@ export class Loginservice {
     return (usu ? JSON.parse(localStorage[LS_CHAVE]): null);
   }
 
-  public set usuarioLogado(usuario: Usuario) {
+  public set usuarioLogado(usuario: Usuario | null) {
     localStorage[LS_CHAVE] = JSON.stringify(usuario);
   }
 

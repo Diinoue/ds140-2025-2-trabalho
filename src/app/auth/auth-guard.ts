@@ -9,6 +9,7 @@ import { Funcionarioservice } from '../services/funcionarioservice';
 import { Clienteservice } from '../services/clienteservice';
 import { Funcionario } from '../shared/models/funcionario.model';
 import { Cliente } from '../shared/models/cliente.model';
+import { Loginservice } from '../services/loginservice';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private funcionarioService: Funcionarioservice,
     private clienteService: Clienteservice,
-    private router: Router
+    private loginService: Loginservice,
+    private router: Router,
   ) {}
 
   canActivate(
@@ -26,33 +28,12 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
 
-    const idFuncionario = this.funcionarioService.getLogin();
-    const idCliente = this.clienteService.getLogin();
+    const usuarioLogado = this.loginService.usuarioLogado;
 
-    const funcionarios: Funcionario[] = this.funcionarioService.listarTodos();
-    const clientes: Cliente[] = this.clienteService.listarTodos();
-
-    const funcionarioLogado = idFuncionario
-      ? funcionarios.find(f => f.id == idFuncionario)
-      : undefined;
-
-    const clienteLogado = idCliente
-      ? clientes.find(c => c.cpf == idCliente)
-      : undefined;
-
-    if (!funcionarioLogado && !clienteLogado) {
+    if (!usuarioLogado) {
       console.warn('Nenhum usuario achado');
       this.redirecionarParaLogin(state.url);
       return false;
-    }
-
-    let cargoUsuario = '';
-    if (funcionarioLogado) {
-      cargoUsuario = 'FUNC';
-      console.log('logado como FUNCIONÁRIO:', funcionarioLogado.nome);
-    } else if (clienteLogado) {
-      cargoUsuario = 'CLIENTE';
-      console.log('logado como CLIENTE:', clienteLogado.nome);
     }
 
     const roleData = route.data['role'];
@@ -60,8 +41,8 @@ export class AuthGuard implements CanActivate {
       ? roleData.split(',').map(r => r.trim())
       : [];
 
-    if (rolesPermitidas.length > 0 && !rolesPermitidas.includes(cargoUsuario)) {
-      console.warn(`Acesso negado: ${cargoUsuario}não entra  ${state.url}`);
+    if (rolesPermitidas.length > 0 && !rolesPermitidas.includes(usuarioLogado.perfil)) {
+      console.warn(`Acesso negado: ${usuarioLogado.perfil} não entra  ${state.url}`);
       this.redirecionarParaLogin();
       return false;
     }

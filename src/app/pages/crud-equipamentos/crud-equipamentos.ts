@@ -38,7 +38,7 @@ export class CrudEquipamentos implements OnInit{
       }
 }
 
-  abrirModalEquipamento(equipamento: string) {
+  abrirModalEquipamento(equipamento: Equipamento) {
     const modalRef = this.modalService.open(EditarEquipamento);
     modalRef.componentInstance.equipamento = equipamento;
   }

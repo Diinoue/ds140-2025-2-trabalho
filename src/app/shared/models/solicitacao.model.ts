@@ -5,6 +5,7 @@ export class Solicitacao {
     public categoriaEquipamento: string = '';
     public descricaoDefeito: string = '';
     public estado: string = '';
+    public clienteNome: string = ''
     public clienteID: number = 0;
     public funcionarioID: number = 0;
     public valorOrcado: number = 0;
