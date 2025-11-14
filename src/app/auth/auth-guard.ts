@@ -10,15 +10,15 @@ import { Clienteservice } from '../services/clienteservice';
 import { Funcionario } from '../shared/models/funcionario.model';
 import { Cliente } from '../shared/models/cliente.model';
 import { Loginservice } from '../services/loginservice';
+import { Usuario } from '../shared/models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+usuarioLogado: Usuario = new Usuario()
 
   constructor(
-    private funcionarioService: Funcionarioservice,
-    private clienteService: Clienteservice,
     private loginService: Loginservice,
     private router: Router,
   ) {}
@@ -28,9 +28,10 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
 
-    const usuarioLogado = this.loginService.usuarioLogado;
+    const res = this.loginService.usuarioLogado;
+    if (res !== null) this.usuarioLogado = res;
 
-    if (usuarioLogado === null) {
+    if (this.usuarioLogado === null) {
       console.warn('Nenhum usuario achado');
       this.redirecionarParaLogin(state.url);
       return false;
@@ -41,8 +42,8 @@ export class AuthGuard implements CanActivate {
       ? roleData.split(',').map(r => r.trim())
       : [];
 
-    if (rolesPermitidas.length > 0 && !rolesPermitidas.includes(usuarioLogado.perfil)) {
-      console.warn(`Acesso negado: ${usuarioLogado.perfil} não entra  ${state.url}`);
+    if (rolesPermitidas.length > 0 && !rolesPermitidas.includes(this.usuarioLogado.perfil)) {
+      console.warn(`Acesso negado: ${this.usuarioLogado.perfil} não entra  ${state.url}`);
       this.redirecionarParaLogin();
       return false;
     }
