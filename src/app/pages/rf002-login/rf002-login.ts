@@ -14,7 +14,6 @@ import { Loginservice } from '../../services/loginservice';
 })
 export class Rf002Login implements OnInit{
 login: Login = new Login();
-loading: boolean = false;
 message!: string;
 
   constructor
@@ -29,24 +28,7 @@ ngOnInit(): void {
   /*  CHECK SE USUÁRIO ESTÁ LOGADO
       Caso logado, redireciona inicialmente pra algum lugar
   */
-  if (this.loginService.usuarioLogado) {
-    // (791) Redirecionar para página inicial
-    // Fiz uma alteração para redirecionar para a página inicial dependendo do tipo de usuário
-    // Se for um funcionário, redireciona para a página inicial de funcionário
-    // Se for um cliente, redireciona para a página inicial de cliente
-  if (this.loginService.usuarioLogado.perfil == "FUNC") {
-      this.router.navigate( ["/funcionario"])
-    } else {
-      this.router.navigate( ["/cliente"])
-    }
-  }
-  else {
-    this.route.queryParams.subscribe(
-      params => {
-        this.message = params['error'];
-      }
-    )
-  }
+  this.redirecionar();
    
 }
 
@@ -58,23 +40,34 @@ ngOnInit(): void {
 
   handleSubmit (){
     //corrigir a service aqui!!
-    if(this.clienteService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!))
-    {
-      this.router.navigate(['/cliente']).then(() =>{
-      window.location.reload();
-      });
+    this.login.login = this.loginForm.value.email!
+    this.login.senha = this.loginForm.value.password!
+    
+    this.carregarUsuario(this.login);
+
+    this.redirecionar();
+
+  }
+
+  carregarUsuario(login: Login) {
+  this.loginService.login(login).subscribe(data => {
+    if(data !== null)
+    this.loginService.usuarioLogado = data;
+  });
+  } 
+
+  redirecionar() {
+    if (this.loginService.usuarioLogado) {
+    // (791) Redirecionar para página inicial
+    // Fiz uma alteração para redirecionar para a página inicial dependendo do tipo de usuário
+    // Se for um funcionário, redireciona para a página inicial de funcionário
+    // Se for um cliente, redireciona para a página inicial de cliente
+  if (this.loginService.usuarioLogado.perfil == "FUNC") {
+      this.router.navigate( ["/funcionario"])
+    } else {
+      this.router.navigate( ["/cliente"])
     }
-    else if(this.funcionarioService.salvarLogin(this.loginForm.value.email!, this.loginForm.value.password!))
-    {
-      this.router.navigate(['/funcionario']).then(() =>{;
-      window.location.reload();
-      });
-    }
-    else{
-      alert (
-        'Login não existe.'
-      )
-    }
+  }
   }
 
   //Função para ser aplicada quando o HTML estiver feito
