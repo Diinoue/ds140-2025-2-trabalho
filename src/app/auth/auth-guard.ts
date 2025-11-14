@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
 
     const usuarioLogado = this.loginService.usuarioLogado;
 
-    if (!usuarioLogado) {
+    if (usuarioLogado === null) {
       console.warn('Nenhum usuario achado');
       this.redirecionarParaLogin(state.url);
       return false;
