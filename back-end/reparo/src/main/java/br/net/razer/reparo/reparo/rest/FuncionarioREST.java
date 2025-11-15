@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import br.net.razer.reparo.reparo.model.Funcionario;
-import br.net.razer.reparo.reparo.repositorio.FuncionarioRepository;
+import br.net.razer.reparo.reparo.repo.FuncionarioRepository;
 
 @CrossOrigin
 @RestController
@@ -17,8 +17,7 @@ public class FuncionarioREST {
     @Autowired
     private FuncionarioRepository repo;
 
-    // A lista de valores válidos (incluindo 'cliente')
-    private static final List<String> ROTAS_VALIDAS = Arrays.asList("funcionario", "cliente");
+    private static final List<String> ROTAS_VALIDAS = Arrays.asList("funcionario");
 
     @GetMapping
     public ResponseEntity<List<Funcionario>> obterTodos() {
@@ -35,35 +34,28 @@ public class FuncionarioREST {
                    .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    // 1. Assinatura do método alterada para ResponseEntity<?>
     @PostMapping
     public ResponseEntity<?> inserir(@RequestBody Funcionario funcionario) {
         
-        // 1. Validação da Rota
         String rota = funcionario.getRota();
         if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) {
-            String mensagemErro = "Rota inválida. O campo 'rota' deve ser 'funcionario' ou 'cliente'.";
-            // 2. Simplificação do retorno de erro (Linha 64 corrigida)
+            String mensagemErro = "Rota não permitida. O campo 'rota' deve ser 'funcionario'.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
         }
         
-        // 2. Validação de Conflito (Email Duplicado)
         if (repo.findByEmail(funcionario.getEmail()) != null)
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
             
-        // 3. Inserção
         Funcionario novo = repo.save(funcionario);
         return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 
-    // Assinatura do método alterada para ResponseEntity<?>
     @PutMapping("/{id}")
     public ResponseEntity<?> alterar(@PathVariable int id, @RequestBody Funcionario funcionario) {
         
-        // Validação da Rota no PUT
         String rota = funcionario.getRota();
         if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) {
-            String mensagemErro = "Rota inválida. O campo 'rota' deve ser 'funcionario' ou 'cliente'.";
+            String mensagemErro = "Rota inválida. O campo 'rota' deve ser 'funcionario'";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
         }
         

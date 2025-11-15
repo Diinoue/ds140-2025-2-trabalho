@@ -7,19 +7,10 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_func")
     private Integer id;
-
-    @Column(name = "nome_func")
     private String nome;
-
-    @Column(name = "senha_func")
     private String senha;
-
-    @Column(name = "rota_func")
     private String rota;
-
-    @Column(name = "email_func")
     private String email;
 
     public Usuario() {}
@@ -31,6 +22,7 @@ public class Usuario {
         this.senha = senha;
         this.rota = rota;
     }
+
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
