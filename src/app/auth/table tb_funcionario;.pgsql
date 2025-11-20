@@ -88,5 +88,59 @@
         ('Mouse'),
         ('Teclado');
 
-   SELECT * FROM tb_funcionario;
+   SELECT * FROM tb_solicitacao;
 
+INSERT INTO tb_solicitacao 
+(nome_soli, desc_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
+VALUES
+('Troca de Tela Notebook',
+ 'Notebook caiu no chão e quebrou a tela. Cliente solicita orçamento de troca.',
+ 350.00,
+ '74908798095', 
+ 1, 
+ 'Cliente deseja tela original e prazo máximo de 5 dias.',
+ 1);
+
+INSERT INTO tb_solicitacao 
+(nome_soli, desc_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
+VALUES
+('Formatação Completa',
+ 'Computador muito lento, precisa formatação e backup dos arquivos.',
+ 180.00,
+ '73641938040', 
+ 2, 
+ 'Lembrar de salvar a pasta Documentos antes da formatação.',
+ 2);
+
+INSERT INTO tb_solicitacao 
+(nome_soli, desc_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
+VALUES
+('Impressora não puxa papel',
+ 'Impressora apresenta falha no alimentador de papel.',
+ 120.00,
+ '96358693042', 
+ 1, 
+ 'Cliente pede limpeza geral e troca do rolete se necessário.',
+ 3);
+
+INSERT INTO tb_solicitacao 
+(nome_soli, desc_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
+VALUES
+('Mouse desconectando',
+ 'Mouse sem fio desconecta frequentemente. Possível defeito na placa USB.',
+ 50.00,
+ '50367476070', 
+ null, 
+ 'Aguardar diagnóstico antes de aprovar serviço.',
+ 4);
+
+INSERT INTO tb_solicitacao 
+(nome_soli, desc_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
+VALUES
+('Teclado com teclas falhando',
+ 'Teclas importantes do teclado não funcionam, provável oxidação.',
+ 70.00,
+ '74908798095', 
+ 2, 
+ 'Cliente autorizou troca do teclado caso necessário.',
+ 5);
