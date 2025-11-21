@@ -1,4 +1,4 @@
-package br.net.razer.reparo.reparo.rest;
+/* package br.net.razer.reparo.reparo.rest;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,3 +66,4 @@ public class EquipamentoREST {
         return ResponseEntity.ok().build();
     }
 }
+ */

@@ -40,7 +40,7 @@ ngOnInit(): void {
 
   handleSubmit (){
     //corrigir a service aqui!!
-    this.login.login = this.loginForm.value.email!
+    this.login.email = this.loginForm.value.email!
     this.login.senha = this.loginForm.value.password!
     
     this.carregarUsuario(this.login);
@@ -53,6 +53,7 @@ ngOnInit(): void {
   this.loginService.login(login).subscribe(data => {
     if(data !== null)
     this.loginService.usuarioLogado = data;
+    this.redirecionar();
   });
   } 
 
