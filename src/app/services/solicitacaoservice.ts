@@ -36,7 +36,7 @@ export class Solicitacaoservice {
   }
 
   atualizar(solicitacao: Solicitacao): Observable<Solicitacao> {
-    return this.http.put<Solicitacao>(`${this.apiUrl}/${solicitacao.ID}`, solicitacao);
+    return this.http.put<Solicitacao>(`${this.apiUrl}/${solicitacao.id}`, solicitacao);
   }
   
   remover(id: number): Observable<Solicitacao> {

@@ -1,7 +1,7 @@
 <div class="container-fluid">
  
   <div class="title my-3">
-  <h2 >Efetuar Manutenção - Solicitação #{{ solicitacao.ID }}</h2>
+  <h2 >Efetuar Manutenção - Solicitação #{{ solicitacao.id }}</h2>
 </div>
 
   <section class="dados-solicitacao">
@@ -12,7 +12,7 @@
   <div>
 
 <!-- Estado: APROVADA -->
-@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && (solicitacao.funcionarioID) == funcionarioLogin.id) {
+@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && (solicitacao.funcionarioId) == funcionarioLogin.id) {
       <h3>Registrar Manutenção</h3>
 
     <label>

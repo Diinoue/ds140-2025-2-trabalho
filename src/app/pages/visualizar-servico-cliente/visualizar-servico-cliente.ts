@@ -40,11 +40,11 @@ constructor(
     this.carregarSolicitacao(id);
     this.carregarAlteracoes(id);
 
-    this.clienteService.buscarPorId(this.solicitacao.clienteID).subscribe(data => {this.cliente = data;});
+    this.clienteService.buscarPorId(this.solicitacao.clienteId).subscribe(data => {this.cliente = data;});
 
     if(this.solicitacao.estado !== 'ABERTA')
     {
-    this.funcionarioService.buscarPorId(this.solicitacao.funcionarioID).subscribe(data => {this.funcionario = data;});
+    this.funcionarioService.buscarPorId(this.solicitacao.funcionarioId).subscribe(data => {this.funcionario = data;});
     }
   }
 
@@ -90,20 +90,23 @@ constructor(
 
   pagarServico() {
     this.solicitacao.estado = 'PAGA';
-    this.solicitacao.dataDePagamento = new Date();
+    this.solicitacao.dataDePagamento = this.formatarData(new Date());
     this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Serviço Pago', '');
     alert('Serviço Pago');
   }
   
   registrarAlteracao(tipo : string, desc : string) {
-    this.alteracao.solicitacaoID = this.solicitacao.ID;
+    this.alteracao.solicitacaoID = this.solicitacao.id;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
     this.alteracaoService.inserir(this.alteracao);
-    this.carregarAlteracoes(this.solicitacao.ID);
+    this.carregarAlteracoes(this.solicitacao.id);
   }
 
+formatarData(date: Date): string {
+  return date.toISOString().split('.')[0];
+}
 
 }

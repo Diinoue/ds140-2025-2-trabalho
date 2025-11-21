@@ -34,7 +34,7 @@ export class Rf019Relatorio {
  */ 
   calcularTotal(): void {
     this.totalGeral = this.solicitacoes
-      .filter(s => s.funcionarioID === this.loginFuncionario || s.estado === 'FINALIZADA')
+      .filter(s => s.funcionarioId === this.loginFuncionario || s.estado === 'FINALIZADA')
       .reduce((acc, s) => acc + (s.valorOrcado || 0), 0);
   }
 

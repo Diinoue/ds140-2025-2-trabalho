@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { EquipamentoService } from '../../services/equipamento-service';
 import {  Router } from '@angular/router';
+import { Equipamento } from '../../shared/models/equipamento.model';
 
 @Component({
   selector: 'app-cadastro-equipamentos',
@@ -17,7 +18,6 @@ export class CadastroEquipamentos {
   formEquipamento: FormGroup;
 
   // lista de equipamentos já cadastrados
-  equipamentos: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -33,11 +33,13 @@ export class CadastroEquipamentos {
 
   onSubmit(){
     if (this.formEquipamento.valid) {
-      const nome = this.formEquipamento.value.nome;
-
+      const equipamento = new Equipamento();
+      equipamento.nome = this.formEquipamento.value.nome;
       // salva no localStorage
-    this.equipamentoService.inserir(nome);
-    this.router.navigate(['lista-equipamentos']);
+      this.equipamentoService.inserir(equipamento).subscribe(response => {
+        console.log("Criado:", response);
+      });    
+      this.router.navigate(['lista-equipamentos']);
     }
   }
 

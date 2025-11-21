@@ -8,6 +8,8 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import br.net.razer.reparo.reparo.model.Equipamento;
+/*
+
 import br.net.razer.reparo.reparo.repo.EquipamentoRepository;
 
 @CrossOrigin

@@ -35,13 +35,6 @@ export class Rf003Pagcliente implements OnInit
 
   carregarSolicitacoes(id: number) {
   this.solicitacaoService.buscarListaPorCliente(id)
-    .pipe(
-      map(data =>
-        data.sort(
-          (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
-        )
-      )
-    )
     .subscribe(solicitacoesOrdenadas => {
       this.solicitacoes = solicitacoesOrdenadas;
     });

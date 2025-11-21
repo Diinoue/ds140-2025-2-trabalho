@@ -30,9 +30,10 @@
             name="categoriaEquipamento" 
             required>
               <option value="" disabled selected>Selecione uma categoria</option>
-              <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
+              <option *ngFor="let cat of categorias" [ngValue]="cat">{{ cat.nome }}</option>
           </select>
         </div>
+
       </div>
 
       <!-- Campo descrição do defeito -->

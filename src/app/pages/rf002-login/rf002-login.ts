@@ -44,9 +44,6 @@ ngOnInit(): void {
     this.login.senha = this.loginForm.value.password!
     
     this.carregarUsuario(this.login);
-
-    this.redirecionar();
-
   }
 
   carregarUsuario(login: Login) {
