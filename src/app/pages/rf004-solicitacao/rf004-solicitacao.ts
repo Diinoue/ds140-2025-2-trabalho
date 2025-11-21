@@ -1,10 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { CommonModule, /* DatePipe */ } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
-import { Clienteservice } from '../../services/clienteservice';
-import { Cliente } from '../../shared/models/cliente.model';
 import { Router } from '@angular/router';
 import { EquipamentoService } from '../../services/equipamento-service';
 import { Equipamento } from '../../shared/models/equipamento.model';
@@ -20,7 +18,7 @@ import { Usuario } from '../../shared/models/usuario.model';
 })
 export class Rf004SolicitacaoComponent implements OnInit {
   descricaoEquipamento: string = '';
-  categoriaEquipamento: string = '';
+  categoriaEquipamento: Equipamento = new Equipamento;
   descricaoDefeito: string = '';
   categorias: Equipamento[] = [];
   solicitacoes: Solicitacao[] = [];
@@ -28,7 +26,6 @@ export class Rf004SolicitacaoComponent implements OnInit {
   login: Usuario = new Usuario();
   constructor(
     private solicitacaoService: Solicitacaoservice, 
-    private clienteService: Clienteservice,
     private router: Router,
     private equipamentoService: EquipamentoService,
     private loginService: Loginservice,
@@ -48,29 +45,32 @@ export class Rf004SolicitacaoComponent implements OnInit {
   });
 }
 
+formatarData(date: Date): string {
+  return date.toISOString().split('.')[0];
+}
+
   enviarSolicitacao(): void {
-    this.novaSolicitacao = {
-      ID: 0,
-      dataHora: new Date(),
-      descricaoEquipamento: this.descricaoEquipamento,
-      categoriaEquipamento: this.categoriaEquipamento,
-      descricaoDefeito: this.descricaoDefeito,
-      estado: 'ABERTA',
-      valorOrcado: 0,
-      clienteNome: this.login.nome,
-      clienteID: this.login.id,
-      dataDePagamento: new Date(),
-      motivo: '',
-      descricaoManutencao: '',
-      orientacoesCliente: '',
-      funcionarioID: 0,
-    };
+  const agora = new Date();
 
-    this.solicitacaoService.inserir(this.novaSolicitacao);
-
-    this.descricaoEquipamento = '';
-    this.categoriaEquipamento = '';
-    this.descricaoDefeito = '';
-    this.router.navigate(['cliente']);
+  this.novaSolicitacao = {
+    id: 0,
+    dataHora: this.formatarData(agora),
+    descricaoEquipamento: this.descricaoEquipamento,
+    categoriaEquipamento: this.categoriaEquipamento.nome,
+    descricaoDefeito: this.descricaoDefeito,
+    estado: 'ABERTA',
+    valorOrcado: 0,
+    clienteNome: this.login.nome,
+    clienteId: this.login.id,
+    dataDePagamento: this.formatarData(agora),
+    motivo: '',
+    descricaoManutencao: '',
+    orientacoesCliente: '',
+    funcionarioId: 0
+  };
+    console.log(JSON.stringify(this.novaSolicitacao));
+    this.solicitacaoService.inserir(this.novaSolicitacao).subscribe(response => {
+      this.router.navigate(['cliente']);
+    });
   }
 }

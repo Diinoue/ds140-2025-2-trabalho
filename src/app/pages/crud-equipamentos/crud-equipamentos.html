@@ -26,7 +26,7 @@
                     @for (s of equipamentos; track s; let i = $index)
                     {
                       <tr>
-                        <td class="9">{{s}}</td>
+                        <td class="9">{{s.nome}}</td>
                         <td class="3">
                           <button (click)="abrirModalEquipamento(s)" title="Editar" alt="Editar"
                           class="btn btn-xs btn-warning mx-1">

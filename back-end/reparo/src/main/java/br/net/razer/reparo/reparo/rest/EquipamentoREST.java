@@ -8,6 +8,8 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import br.net.razer.reparo.reparo.model.Equipamento;
+/*
+
 import br.net.razer.reparo.reparo.repo.EquipamentoRepository;
 
 @CrossOrigin
@@ -66,3 +68,4 @@ public class EquipamentoREST {
         return ResponseEntity.ok().build();
     }
 }
+ */

@@ -3,8 +3,6 @@ import { Equipamento } from '../shared/models/equipamento.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const LS_CHAVE = "equipamentos";
-
 @Injectable({providedIn: 'root'}) 
 
 export class EquipamentoService {

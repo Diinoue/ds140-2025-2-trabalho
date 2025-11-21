@@ -51,7 +51,7 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.carregarSolicitacao(id);
     this.carregarAlteracoes(id);
 
-    this.clienteService.buscarPorId(this.solicitacao.clienteID).subscribe(data => {this.cliente = data;});
+    this.clienteService.buscarPorId(this.solicitacao.clienteId).subscribe(data => {this.cliente = data;});
 
     this.funcionarioService.listarTodos().subscribe(data => {this.funcionarios = data;});
   }
@@ -78,14 +78,14 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracao.nomeFuncionarioRedirecionado = func.nome;
     console.log('Redirecionado para: ', func.nome);
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
-    this.alteracao.solicitacaoID = this.solicitacao.ID;
+    this.alteracao.solicitacaoID = this.solicitacao.id;
     this.alteracao.data = new Date();
     this.alteracao.tipo = 'Serviço Redirecionado';
     this.alteracao.descricao = '';
     this.alteracaoService.inserir(this.alteracao);
-    this.carregarAlteracoes(this.solicitacao.ID);
+    this.carregarAlteracoes(this.solicitacao.id);
 
-    this.solicitacao.funcionarioID = func.id;
+    this.solicitacao.funcionarioId = func.id;
     
     this.solicitacao.estado = 'REDIRECIONADA';
     this.solicitacaoService.atualizar(this.solicitacao);
@@ -94,7 +94,7 @@ export class VisualizarServicoFuncionario implements OnInit{
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
   salvarOrcamento(): void {
     this.solicitacao.estado = 'ORCADA';
-    this.solicitacao.funcionarioID = this.funcionarioLogin.id;
+    this.solicitacao.funcionarioId = this.funcionarioLogin.id;
     this.solicitacaoService.atualizar(this.solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
   }
@@ -106,12 +106,12 @@ export class VisualizarServicoFuncionario implements OnInit{
   }
 
   registrarAlteracao(tipo : string, desc : string): void {
-    this.alteracao.solicitacaoID = this.solicitacao.ID;
+    this.alteracao.solicitacaoID = this.solicitacao.id;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.alteracaoService.inserir(this.alteracao);
-    this.carregarAlteracoes(this.solicitacao.ID);
+    this.carregarAlteracoes(this.solicitacao.id);
   }
 }

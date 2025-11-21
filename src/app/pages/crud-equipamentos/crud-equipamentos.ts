@@ -30,12 +30,14 @@ export class CrudEquipamentos implements OnInit{
 }
 
 
-    deletarEquipamento(equipamento: Equipamento) : void {
-      if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
-      {
-        this.equipamentoService.remover(equipamento.id);
+  deletarEquipamento(equipamento: Equipamento) : void {
+    if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
+    {
+      this.equipamentoService.remover(equipamento.id).subscribe(response => {
         this.carregarEquipamentos();
-      }
+        console.log("Deletado:", response);
+      });
+    }
 }
 
   abrirModalEquipamento(equipamento: Equipamento) {

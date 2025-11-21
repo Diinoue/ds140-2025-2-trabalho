@@ -34,10 +34,10 @@ export class EditarEquipamento{
 
   onSubmit(){
     if (this.formEquipamento.valid) {
-      const nome = this.formEquipamento.value.nome;
+      this.equipamento.nome = this.formEquipamento.value.nome;
 
       // salva no localStorage
-    this.equipamentoService.atualizar(this.equipamento);
+    this.equipamentoService.atualizar(this.equipamento).subscribe(response => {console.log("teste")});
     this.activeModal.close();
     }
   }

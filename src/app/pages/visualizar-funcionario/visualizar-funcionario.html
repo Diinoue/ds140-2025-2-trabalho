@@ -14,7 +14,8 @@
             <h1 class="ms-4 mb-5 fw-bold"> Informações de {{funcionario.nome}}</h1>
             <p class="ms-4 mt-5"><strong>ID:</strong> {{ funcionario.id }}</p>
             <p class="ms-4"><strong>Email:</strong> {{ funcionario.email }}</p>
-            <p class="ms-4"><strong>Data Nascimento:</strong> {{ funcionario.dataNasc }}</p>
+            <p class="ms-4"><strong>Data Nascimento:</strong> {{ funcionario.dataNasc | date:'dd/MM/yyyy' }}
+</p>
           </div>
 
         </div>

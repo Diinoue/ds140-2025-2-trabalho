@@ -42,7 +42,7 @@
                     
                     @for (s of solicitacoes; track s; let i = $index)
                     {
-                    @if(s.funcionarioID == this.loginFuncionario || s.estado === 'FINALIZADA')
+                    @if(s.funcionarioId == this.loginFuncionario || s.estado === 'FINALIZADA')
                     {
                       <tr>
                         <td> {{ s.dataHora.toLocaleString() }} </td>
