@@ -1,63 +1,80 @@
 package br.net.razer.reparo.reparo.model;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "tb_solicitacao")
 public class Solicitacao {
-    private int id;
-    private Date dataHora;
-    private String descricaoEquipamento;
-    private String categoriaEquipamento;
-    private String descricaoDefeito;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_soli")
+    private Integer id;
+
+    @Column(name = "nome_soli")
+    private String nome;
+
+    @Column(name = "dt_inicio", insertable = false, updatable = false)
+    private LocalDateTime dataInicio;
+
+    @Column(name = "dt_pagamento")
+    private LocalDate dataPagamento;
+
+    @Column(name = "desc_soli")
+    private String descricao;
+
+    @Column(name = "estado_soli", insertable = false, updatable = false)
     private String estado;
-    private String clienteCPF;
-    private String clienteNome;
-    private int funcionarioID;
-    private double valorOrcado;
-    private Date dataDePagamento;
-    private String motivo;
-    private String descricaoManutencao;
-    private String orientacoesCliente;
+
+
+    @Column(name = "valor_soli")
+    private Double valor;
+
+    @Column(name = "cliente_soli")
+    private String clienteSoli;  
+
+    @Column(name = "funcionario_soli")
+    private Integer funcionarioId;
+
+    @Column(name = "orientacoe_soli")
+    private String orientacoes;
+
+    @Column(name = "eletronico_soli")
+    private Integer equipamentoId;
 
     // Getters e Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public Date getDataHora() { return dataHora; }
-    public void setDataHora(Date dataHora) { this.dataHora = dataHora; }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getDescricaoEquipamento() { return descricaoEquipamento; }
-    public void setDescricaoEquipamento(String descricaoEquipamento) { this.descricaoEquipamento = descricaoEquipamento; }
+    public LocalDateTime getDataInicio() { return dataInicio; }
+    public void setDataInicio(LocalDateTime dataInicio) { this.dataInicio = dataInicio; }
 
-    public String getCategoriaEquipamento() { return categoriaEquipamento; }
-    public void setCategoriaEquipamento(String categoriaEquipamento) { this.categoriaEquipamento = categoriaEquipamento; }
+    public LocalDate getDataPagamento() { return dataPagamento; }
+    public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
 
-    public String getDescricaoDefeito() { return descricaoDefeito; }
-    public void setDescricaoDefeito(String descricaoDefeito) { this.descricaoDefeito = descricaoDefeito; }
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
 
-    public String getClienteCPF() { return clienteCPF; }
-    public void setClienteCPF(String clienteCPF) { this.clienteCPF = clienteCPF; }
+    public Double getValor() { return valor; }
+    public void setValor(Double valor) { this.valor = valor; }
 
-    public String getClienteNome() { return clienteNome; }
-    public void setClienteNome(String clienteNome) { this.clienteNome = clienteNome; }
+    public String getClienteSoli() { return clienteSoli; }
+    public void setClienteSoli(String clienteSoli) { this.clienteSoli = clienteSoli; }
 
-    public int getFuncionarioID() { return funcionarioID; }
-    public void setFuncionarioID(int funcionarioID) { this.funcionarioID = funcionarioID; }
+    public Integer getFuncionarioId() { return funcionarioId; }
+    public void setFuncionarioId(Integer funcionarioId) { this.funcionarioId = funcionarioId; }
 
-    public double getValorOrcado() { return valorOrcado; }
-    public void setValorOrcado(double valorOrcado) { this.valorOrcado = valorOrcado; }
+    public String getOrientacoes() { return orientacoes; }
+    public void setOrientacoes(String orientacoes) { this.orientacoes = orientacoes; }
 
-    public Date getDataDePagamento() { return dataDePagamento; }
-    public void setDataDePagamento(Date dataDePagamento) { this.dataDePagamento = dataDePagamento; }
-
-    public String getMotivo() { return motivo; }
-    public void setMotivo(String motivo) { this.motivo = motivo; }
-
-    public String getDescricaoManutencao() { return descricaoManutencao; }
-    public void setDescricaoManutencao(String descricaoManutencao) { this.descricaoManutencao = descricaoManutencao; }
-
-    public String getOrientacoesCliente() { return orientacoesCliente; }
-    public void setOrientacoesCliente(String orientacoesCliente) { this.orientacoesCliente = orientacoesCliente; }
+    public Integer getEquipamentoId() { return equipamentoId; }
+    public void setEquipamentoId(Integer equipamentoId) { this.equipamentoId = equipamentoId; }
 }

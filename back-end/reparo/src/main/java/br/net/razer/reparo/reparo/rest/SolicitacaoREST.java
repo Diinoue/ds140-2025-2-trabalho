@@ -1,78 +1,77 @@
 package br.net.razer.reparo.reparo.rest;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import br.net.razer.reparo.reparo.model.Solicitacao;
+import br.net.razer.reparo.reparo.repo.SolicitacaoRepository;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/solicitacoes")
 public class SolicitacaoREST {
 
-    private static List<Solicitacao> solicitacoes = new ArrayList<>();
-    @GetMapping("/solicitacoes")
-    public ResponseEntity<List<Solicitacao>> obterTodas() {
-        if (solicitacoes.isEmpty())
+    @Autowired
+    private SolicitacaoRepository solicitacaoRepo;
+
+    // GET - todas
+    @GetMapping
+    public ResponseEntity<List<Solicitacao>> listarTodas() {
+        List<Solicitacao> lista = solicitacaoRepo.findAll();
+        if (lista.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(lista);
+    }
+
+    // GET - por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) {
+        return solicitacaoRepo.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // GET - por CPF do cliente
+    @GetMapping("/cliente/{cpf}")
+    public ResponseEntity<List<Solicitacao>> obterPorCliente(@PathVariable String cpf) {
+
+        List<Solicitacao> lista = solicitacaoRepo.findByClienteSoli(cpf);
+
+        if (lista.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.ok(solicitacoes);
+        }
+
+        return ResponseEntity.ok(lista);
     }
 
-    @PostMapping("/solicitacoes")
-    public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solicitacao) {
-        Solicitacao ultima = solicitacoes.stream()
-                .max(Comparator.comparing(Solicitacao::getId))
-                .orElse(null);
-
-        if (ultima == null)
-            solicitacao.setId(1);
-        else
-            solicitacao.setId(ultima.getId() + 1);
-
-        solicitacoes.add(solicitacao);
-        return ResponseEntity.status(HttpStatus.CREATED).body(solicitacao);
+    // POST
+    @PostMapping
+    public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solic) {
+        Solicitacao salva = solicitacaoRepo.save(solic);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-    @GetMapping("/solicitacoes/{id}")
-    public ResponseEntity<Solicitacao> obterPorId(@PathVariable int id) {
-        Solicitacao s = solicitacoes.stream().filter(x -> x.getId() == id).findAny().orElse(null);
-        if (s == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.ok(s);
+    // PUT
+    @PutMapping("/{id}")
+    public ResponseEntity<Solicitacao> atualizar(@PathVariable int id, @RequestBody Solicitacao nova) {
+        return solicitacaoRepo.findById(id)
+                .map(existente -> {
+                    nova.setId(id);
+                    return ResponseEntity.ok(solicitacaoRepo.save(nova));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    //IMPLEMENTAR A LOGICA DESSA SERVICE, DEVE RETORNAR TODAS AS SOLICITACOES DE UM CLIENTE EM ESPECIFICO
-    @GetMapping("/solicitacoes/cliente/{id}")
-    public ResponseEntity<Solicitacao> obterPorCliente(@PathVariable int id) {
-        Solicitacao s = solicitacoes.stream().filter(x -> x.getId() == id).findAny().orElse(null);
-        if (s == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.ok(s);
-    }
-
-    @PutMapping("/solicitacoes/{id}")
-    public ResponseEntity<Solicitacao> atualizar(@PathVariable int id, @RequestBody Solicitacao solicitacao) {
-        Solicitacao existente = solicitacoes.stream().filter(x -> x.getId() == id).findAny().orElse(null);
-        if (existente == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        solicitacoes.remove(existente);
-        solicitacao.setId(id);
-        solicitacoes.add(solicitacao);
-        return ResponseEntity.ok(solicitacao);
-    }
-
-    @DeleteMapping("/solicitacoes/{id}")
-    public ResponseEntity<Solicitacao> remover(@PathVariable int id) {
-        Solicitacao existente = solicitacoes.stream().filter(x -> x.getId() == id).findAny().orElse(null);
-        if (existente == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        solicitacoes.remove(existente);
-        return ResponseEntity.ok(existente);
+    // DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> remover(@PathVariable int id) {
+        return solicitacaoRepo.findById(id)
+                .map(s -> {
+                    solicitacaoRepo.delete(s);
+                    return ResponseEntity.ok().build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
