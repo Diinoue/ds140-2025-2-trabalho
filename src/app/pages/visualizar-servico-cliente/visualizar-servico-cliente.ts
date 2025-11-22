@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../shared/models/cliente.model';
 import { Clienteservice } from '../../services/clienteservice';
 import { DatePipe } from '@angular/common';
-import { dateTimestampProvider } from 'rxjs/internal/scheduler/dateTimestampProvider';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
@@ -101,8 +100,9 @@ constructor(
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
-    this.alteracaoService.inserir(this.alteracao);
-    this.carregarAlteracoes(this.solicitacao.id);
+    this.alteracaoService.inserir(this.alteracao).subscribe(data => {
+      this.carregarAlteracoes(this.solicitacao.id);
+  });
   }
 
 formatarData(date: Date): string {
