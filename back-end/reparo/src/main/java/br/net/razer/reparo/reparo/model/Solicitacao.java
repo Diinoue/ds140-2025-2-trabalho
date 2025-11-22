@@ -2,7 +2,6 @@ package br.net.razer.reparo.reparo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_solicitacao")
@@ -18,9 +17,6 @@ public class Solicitacao {
 
     @Column(name = "dt_inicio", insertable = false, updatable = false)
     private LocalDateTime dataInicio;
-
-    @Column(name = "dt_pagamento")
-    private LocalDate dataPagamento;
 
     @Column(name = "desc_soli")
     private String descricao;
@@ -53,9 +49,6 @@ public class Solicitacao {
 
     public LocalDateTime getDataInicio() { return dataInicio; }
     public void setDataInicio(LocalDateTime dataInicio) { this.dataInicio = dataInicio; }
-
-    public LocalDate getDataPagamento() { return dataPagamento; }
-    public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
 
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
