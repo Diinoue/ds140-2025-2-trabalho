@@ -33,7 +33,6 @@ public class ClienteREST {
 
     @PostMapping
     public ResponseEntity<?> inserir(@RequestBody Cliente cliente) {
-
         if (!"cliente".equalsIgnoreCase(cliente.getRota())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("Rota inválida. O campo 'rota' deve ser 'cliente'.");

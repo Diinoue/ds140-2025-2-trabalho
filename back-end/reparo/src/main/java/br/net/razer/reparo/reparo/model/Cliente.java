@@ -1,16 +1,20 @@
 package br.net.razer.reparo.reparo.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_cliente")
-@AttributeOverrides({
-    @AttributeOverride(name = "id", column = @Column(name = "id_cli")),
+ @AttributeOverrides({
     @AttributeOverride(name = "nome", column = @Column(name = "nome_cli")),
+    @AttributeOverride(name = "email", column = @Column(name = "email_cli")),
     @AttributeOverride(name = "senha", column = @Column(name = "senha_cli")),
     @AttributeOverride(name = "rota", column = @Column(name = "rota_cli")),
-    @AttributeOverride(name = "email", column = @Column(name = "email_cli"))
-})
+    
+}) 
 public class Cliente extends Usuario {
 
     @Column(name = "cpf_cli")
@@ -19,18 +23,22 @@ public class Cliente extends Usuario {
     @Column(name = "telefone_cli")
     private String telefone;
 
-    @Column(name = "endereco_cli")
-    private String endereco;
-
     @Column(name = "cep_cli")
     private String cep;
 
+    // Relação 1-1 para tabela endereço
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_endereco", referencedColumnName = "id")
+    private Endereco endereco;
+  
+ 
+    //Constructors
     public Cliente() {}
 
-  public Cliente(String email, String nome, String senha, String rota, Integer id,
-               String cpf, String telefone, String endereco, String cep) {
+  public Cliente(String nome, String email, String senha, String rota, Integer id,
+               String cpf, String telefone, String cep, Endereco endereco) {
 
-    super(email, nome, senha, rota, id);
+    super(email, nome, senha, rota, id );
     this.cpf = cpf;
     this.telefone = telefone;
     this.endereco = endereco;
@@ -42,8 +50,8 @@ public class Cliente extends Usuario {
     public String getTelefone() { return telefone; }
     public void setTelefone(String telefone) { this.telefone = telefone; }
 
-    public String getEndereco() { return endereco; }
-    public void setEndereco(String endereco) { this.endereco = endereco; }
+    public Endereco getEndereco() { return endereco; }
+    public void setEndereco(Endereco endereco) { this.endereco = endereco; }
 
     public String getCep() { return cep; }
     public void setCep(String cep) { this.cep = cep; }

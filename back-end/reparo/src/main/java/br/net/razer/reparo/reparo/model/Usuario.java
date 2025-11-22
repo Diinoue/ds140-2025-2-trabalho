@@ -1,7 +1,11 @@
 package br.net.razer.reparo.reparo.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @MappedSuperclass
 public class Usuario {
 
