@@ -35,12 +35,13 @@ export class Rf001Autocadastro {
     this.clienteService.buscarCep(user.cep).subscribe({
       next: (dados: any) => {
         // Preenche o endereço apenas se CEP for válido
-        const endereco = dados.erro ? null : {
-          logradouro: dados.logradouro,
-          bairro: dados.bairro,
-          cidade: dados.localidade,
-          uf: dados.uf
-        };
+        const endereco = new Endereco();
+
+        endereco.logradouro = dados.logradouro;
+        endereco.bairro = dados.bairro;
+        endereco.cidade = dados.localidade;
+        endereco.uf = dados.uf;
+
 
         // Atualiza o cliente
         this.clienteNovo = {
@@ -51,14 +52,27 @@ export class Rf001Autocadastro {
           cep: user.cep,
           telefone: user.telefone,
           senha: Math.floor(1000 + Math.random() * 9000).toString(),
-          endereco,
+          endereco: endereco,
+          rota: "cliente"
         };
 
-        // Insere no serviço
-        this.clienteService.inserir(this.clienteNovo);
+        console.log(this.clienteNovo);
 
+        // Insere no serviço
+        this.clienteService.inserir(this.clienteNovo).subscribe({
+          next: (resp: any) => {
         console.log("Novo usuário cadastrado:", this.clienteNovo);
         alert(`Usuário cadastrado!\nSenha enviada para ${user.email}: ${this.clienteNovo.senha}`);
+          },
+          error: (err: any) => {
+            console.error('Erro ao cadastrar no backend', err);
+            alert('Erro ao cadastrar.')
+          } 
+        });
+
+
+
+        
       },
       error: (err) => {
         console.error('Endereço não encontrado', err);

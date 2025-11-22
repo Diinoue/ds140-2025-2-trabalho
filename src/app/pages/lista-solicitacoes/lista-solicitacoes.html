@@ -46,7 +46,7 @@
                        
                     @for (s of solicitacoes; track s; let i = $index)
                     {
-                    @if(s.funcionarioID == this.loginFuncionario || s.estado === 'ABERTA')
+                    @if(s.funcionarioId == this.loginFuncionario || s.estado === 'ABERTA')
                     {
                       <tr>
                         <td> {{ s.dataHora.toLocaleString() }} </td>
@@ -99,28 +99,28 @@
                           {
                             @case('ABERTA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="EfetuarOrçamento" alt="EfetuarOrçamento"
+                                <a href="funcionario/visualizar-servico/{{s.id}}" title="EfetuarOrçamento" alt="EfetuarOrçamento"
                                 class="btn btn-xs btn-warning">
                                   <i class="fa fa-money aria-hidden=true"></i> Efetuar Orçamento
                                 </a>
                             }
                             @case('APROVADA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="EfetuarManutenção" alt="EfetuarManutenção"
+                                <a href="funcionario/visualizar-servico/{{s.id}}" title="EfetuarManutenção" alt="EfetuarManutenção"
                                 class="btn btn-xs btn-info">
                                   <i class="fa fa-wrench aria-hidden=true"></i> Efetuar Manutenção
                                 </a>
                             }
                             @case ('REDIRECIONADA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="EfetuarManutenção" alt="EfetuarManutenção"
+                                <a href="funcionario/visualizar-servico/{{s.id}}" title="EfetuarManutenção" alt="EfetuarManutenção"
                                 class="btn btn-xs btn-info">
                                   <i class="fa fa-wrench aria-hidden=true"></i> Efetuar Manutenção
                                 </a>
                             }
                             @case('PAGA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.ID}}" title="FinalizarSolicitação" alt="FinalizarSolicitação"
+                                <a href="funcionario/visualizar-servico/{{s.id}}" title="FinalizarSolicitação" alt="FinalizarSolicitação"
                                 class="btn btn-xs btn-success">
                                   <i class="fa fa-check aria-hidden=true"></i> Finalizar Solicitação
                                 </a>
