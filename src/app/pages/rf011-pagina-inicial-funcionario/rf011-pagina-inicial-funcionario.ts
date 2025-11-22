@@ -23,11 +23,9 @@ export class Rf011PaginaInicialFuncionario {
 
 
 constructor (
-  private funcionarioService: Funcionarioservice,
   private solicitacaoService: Solicitacaoservice,
   private loginService: Loginservice,
-){
-}
+){}
 
 ngOnInit(): void {
   let res = this.loginService.usuarioLogado;

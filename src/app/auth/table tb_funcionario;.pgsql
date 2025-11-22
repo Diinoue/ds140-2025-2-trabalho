@@ -36,7 +36,6 @@
         id_soli SERIAL PRIMARY KEY,
         nome_soli VARCHAR(50) NOT NULL,
         dt_inicio TIMESTAMP NOT NULL DEFAULT NOW(),
-        dt_pagamento DATE,
         desc_soli TEXT NOT NULL,
         estado_soli estado NOT NULL DEFAULT 'ABERTA',
         valor_soli NUMERIC(10,2),

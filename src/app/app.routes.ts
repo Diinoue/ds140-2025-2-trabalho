@@ -4,7 +4,7 @@ import { Rf001Autocadastro } from './pages/rf001-autocadastro/rf001-autocadastro
 import { Rf002Login } from './pages/rf002-login/rf002-login';
 import { Rf003Pagcliente } from './pages/rf003-pagcliente/rf003-pagcliente';
 import { Rf004SolicitacaoComponent } from './pages/rf004-solicitacao/rf004-solicitacao';
-import { visualizarServicoCliente } from './pages/visualizar-servico-cliente/visualizar-servico-cliente';
+import { VisualizarServicoCliente} from './pages/visualizar-servico-cliente/visualizar-servico-cliente';
 import { VisualizarServicoFuncionario } from './pages/visualizar-servico-funcionario/visualizar-servico-funcionario';
 import { Rf011PaginaInicialFuncionario } from './pages/rf011-pagina-inicial-funcionario/rf011-pagina-inicial-funcionario';
 import { CadastroFuncionarios } from './pages/cadastro-funcionarios/cadastro-funcionarios';
@@ -27,7 +27,7 @@ export const routes: Routes =
     canActivate: [AuthGuard],
     data: { role: 'FUNC,CLIENTE' }
      },
-    {path: 'visualizar-servico/:id', component: visualizarServicoCliente,
+    {path: 'visualizar-servico/:id', component: VisualizarServicoCliente,
     canActivate: [AuthGuard],
     data: { role: 'FUNC,CLIENTE' } },
     {path:'crudfuncionario',component: CrudFuncionario,canActivate: [AuthGuard],

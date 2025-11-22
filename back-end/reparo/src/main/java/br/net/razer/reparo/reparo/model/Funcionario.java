@@ -15,20 +15,20 @@ import java.time.LocalDate;
 public class Funcionario extends Usuario {
 
     @Column(name = "datanasc_func")
-    private LocalDate dataNascimento;
+    private LocalDate dataNasc; 
 
     public Funcionario() {}
 
-    public Funcionario(String nome, String senha, String rota, String email, Integer id, LocalDate dataNascimento) {
+    public Funcionario(String nome, String senha, String rota, String email, Integer id, LocalDate dataNasc) {
         super(email, nome, senha, rota, id);
-        this.dataNascimento = dataNascimento;
+        this.dataNasc = dataNasc;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public LocalDate getDataNasc() {
+        return dataNasc;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setDataNasc(LocalDate dataNasc) {
+        this.dataNasc = dataNasc;
     }
 }

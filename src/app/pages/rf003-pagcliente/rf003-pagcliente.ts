@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe, SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
-import { Clienteservice } from '../../services/clienteservice';
-import { Funcionarioservice } from '../../services/funcionarioservice';
-import { UntypedFormArray } from '@angular/forms';
 import { Loginservice } from '../../services/loginservice';
 import { Usuario } from '../../shared/models/usuario.model';
-import { map } from 'rxjs';
 
 @Component
   ({

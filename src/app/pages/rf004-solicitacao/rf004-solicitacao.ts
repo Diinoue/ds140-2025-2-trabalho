@@ -45,16 +45,12 @@ export class Rf004SolicitacaoComponent implements OnInit {
   });
 }
 
-formatarData(date: Date): string {
-  return date.toISOString().split('.')[0];
-}
-
   enviarSolicitacao(): void {
   const agora = new Date();
 
   this.novaSolicitacao = {
     id: 0,
-    dataHora: this.formatarData(agora),
+    dataHora: agora,
     descricaoEquipamento: this.descricaoEquipamento,
     categoriaEquipamento: this.categoriaEquipamento.nome,
     descricaoDefeito: this.descricaoDefeito,
@@ -62,7 +58,7 @@ formatarData(date: Date): string {
     valorOrcado: 0,
     clienteNome: this.login.nome,
     clienteId: this.login.id,
-    dataDePagamento: this.formatarData(agora),
+    dataDePagamento: agora,
     motivo: '',
     descricaoManutencao: '',
     orientacoesCliente: '',
