@@ -67,6 +67,12 @@ public class ClienteREST {
         if (!repo.existsById(id))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
+        // Carrega o endereço gerenciado pelo JPA
+         Endereco enderecoCliente = enderecoRepository.findById(cliente.getEndereco().getId())
+                           .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+            cliente.setEndereco(enderecoCliente);
+
+
         cliente.setId(id);
         Cliente atualizado = repo.save(cliente);
         return ResponseEntity.ok(atualizado);

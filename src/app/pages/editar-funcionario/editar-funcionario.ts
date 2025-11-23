@@ -41,14 +41,14 @@ onSubmitEmail(){
   if(res != undefined)this.funcionario.email = res;
   else throw console.error('erro');
   this.funcionarioService.atualizar(this.funcionario);
-  this.carregarFuncionario(this.funcionario.id);
+  this.carregarFuncionario(this.funcionario.id!);
   console.log(this.newEmailForm.value);
 }
 
 onSubmitDataNasc(){
   this.funcionario.dataNasc = this.newDataNascForm.value.dataNasc;
   this.funcionarioService.atualizar(this.funcionario);
-  this.carregarFuncionario(this.funcionario.id);
+  this.carregarFuncionario(this.funcionario.id!);
   console.log(this.newDataNascForm.value);
 }
 

@@ -93,7 +93,7 @@ export class VisualizarServicoFuncionario implements OnInit{
       console.log(this.solicitacao)
   });
 
-    this.solicitacao.funcionarioId = func.id;
+    this.solicitacao.funcionarioId = func.id!;
     
     this.solicitacao.estado = 'REDIRECIONADA';
     this.atualizarSolicitacao(this.solicitacao);
