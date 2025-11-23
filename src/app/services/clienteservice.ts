@@ -10,7 +10,7 @@ const LS_CHAVE = "clientes";
 })
 export class Clienteservice {
   private cepUrl = 'https://viacep.com.br/ws';
-  private apiUrl = 'http://localhost:8080/solicitacao';
+  private apiUrl = 'http://localhost:8080/clientes';
 
   constructor(private http: HttpClient) {
   }
@@ -20,7 +20,12 @@ export class Clienteservice {
   }
 
   inserir(cliente: Cliente) : Observable<Cliente> {
-    return this.http.post<Cliente>(this.apiUrl, cliente);
+    console.log("clienteservice ta indo");
+    console.log("URL chamada:", this.apiUrl);
+    console.log("Payload enviado:", JSON.stringify(cliente));
+    return this.http.post<Cliente>(this.apiUrl, cliente, {
+      headers: { 'Content-Type': 'application/json'}
+    });
   }
 
   buscarPorId(id: number): Observable<Cliente> {

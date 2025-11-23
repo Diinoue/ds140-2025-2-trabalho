@@ -3,7 +3,6 @@ package br.net.razer.reparo.reparo.rest;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +29,7 @@ public class EnderecoREST {
     private EnderecoRepository enderecoRepository;
 
     @PostMapping
-    public ResponseEntity<?> createEndereco(@RequestBody Endereco endereco) {
+    public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco endereco) {
         Endereco enderecoSalvo = enderecoRepository.save(endereco);
         return new ResponseEntity<>(enderecoSalvo, HttpStatus.CREATED);
     }

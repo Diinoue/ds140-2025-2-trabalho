@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import br.net.razer.reparo.reparo.model.Cliente;
+import br.net.razer.reparo.reparo.model.Endereco;
 import br.net.razer.reparo.reparo.repo.ClienteRepository;
+import br.net.razer.reparo.reparo.repo.EnderecoRepository;
 
 @CrossOrigin
 @RestController
@@ -14,7 +16,11 @@ import br.net.razer.reparo.reparo.repo.ClienteRepository;
 public class ClienteREST {
 
     @Autowired
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
     private ClienteRepository repo;
+    
 
     @GetMapping
     public ResponseEntity<List<Cliente>> obterTodos() {
@@ -32,14 +38,19 @@ public class ClienteREST {
     }
 
     @PostMapping
-    public ResponseEntity<?> inserir(@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
         if (!"cliente".equalsIgnoreCase(cliente.getRota())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Rota inválida. O campo 'rota' deve ser 'cliente'.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         if (repo.findByEmail(cliente.getEmail()) != null)
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
+        // Carrega o endereço gerenciado pelo JPA
+         Endereco enderecoCliente = enderecoRepository.findById(cliente.getEndereco().getId())
+                           .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+                    
+        cliente.setEndereco(enderecoCliente);
 
         Cliente novo = repo.save(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(novo);
