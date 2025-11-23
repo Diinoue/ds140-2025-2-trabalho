@@ -68,9 +68,15 @@ export class VisualizarServicoFuncionario implements OnInit{
   });
 }
 
+  atualizarSolicitacao(solicitacao: Solicitacao) {
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(data => {
+    this.carregarSolicitacao(solicitacao.id);
+  });
+  }
+
   efetuarManutencao() {
     this.solicitacao.estado = 'ARRUMADA';
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Manutenção Efetuada', '');
   }
 
@@ -82,26 +88,28 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracao.data = new Date();
     this.alteracao.tipo = 'Serviço Redirecionado';
     this.alteracao.descricao = '';
-    this.alteracaoService.inserir(this.alteracao);
-    this.carregarAlteracoes(this.solicitacao.id);
+    this.alteracaoService.inserir(this.alteracao).subscribe(data => {
+      this.carregarAlteracoes(this.solicitacao.id);
+      console.log(this.solicitacao)
+  });
 
     this.solicitacao.funcionarioId = func.id;
     
     this.solicitacao.estado = 'REDIRECIONADA';
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.atualizarSolicitacao(this.solicitacao);
     }
 
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
   salvarOrcamento(): void {
     this.solicitacao.estado = 'ORCADA';
     this.solicitacao.funcionarioId = this.funcionarioLogin.id;
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Orçado', '');
   }
 
   finalizarSolicitacao() : void {
     this.solicitacao.estado = 'FINALIZADA';
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Finalizado', '');
   }
 

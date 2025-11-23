@@ -5,7 +5,6 @@ import { VisualizarFuncionario } from '../visualizar-funcionario/visualizar-func
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Loginservice } from '../../services/loginservice';
 import { Usuario } from '../../shared/models/usuario.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crud-funcionario',

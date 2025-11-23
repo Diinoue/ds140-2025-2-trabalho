@@ -55,23 +55,11 @@ export class Loginservice {
       map(resp => {
         //Se back retornar um usuario no body, OK (200)
         if (resp.status === 200 && resp.body) {
-<<<<<<< HEAD
            this.usuarioLogado = new Usuario (resp.body.id, resp.body.nome, resp.body.email,
             resp.body.senha, resp.body.perfil);;
           // return resp.body;
           return new Usuario (resp.body.id, resp.body.nome, resp.body.email,
             resp.body.senha, resp.body.perfil);
-=======
-          this.user.id = resp.body.id;
-          this.user.email = resp.body.email;
-          this.user.nome = resp.body.nome;
-          this.user.perfil = resp.body.perfil;
-          this.user.senha = resp.body.senha;
-          this.usuarioLogado = this.user;
-          console.log(this.user.perfil);
-          
-          return this.user;
->>>>>>> c1b3d92b5417c48e6ae1abda57a96a6c7e25cb61
         } else {
           return null;
         }

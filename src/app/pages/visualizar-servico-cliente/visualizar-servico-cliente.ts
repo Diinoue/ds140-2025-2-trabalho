@@ -17,12 +17,13 @@ import { Alteracaoservice } from '../../services/alteracaoservice';
   styleUrl: './visualizar-servico-cliente.css'
 })
 
-export class visualizarServicoCliente implements OnInit {
+export class VisualizarServicoCliente implements OnInit {
 solicitacao: Solicitacao = new Solicitacao();
 cliente: Cliente = new Cliente();
 alteracaoHist: AlteracaoLog[] = [];
 alteracao: AlteracaoLog = new AlteracaoLog();
 funcionario: Funcionario = new Funcionario();
+id: number = 0;
 
 constructor(
   private solicitacaoService: Solicitacaoservice,
@@ -35,9 +36,9 @@ constructor(
 ) {}
 
   ngOnInit(): void {
-    let id = +this.route.snapshot.params['id'];
-    this.carregarSolicitacao(id);
-    this.carregarAlteracoes(id);
+    this.id = +this.route.snapshot.params['id'];
+    this.carregarSolicitacao(this.id);
+    this.carregarAlteracoes(this.id);
 
     this.clienteService.buscarPorId(this.solicitacao.clienteId).subscribe(data => {this.cliente = data;});
 
@@ -59,10 +60,16 @@ constructor(
   });
 }
 
+  atualizarSolicitacao(solicitacao: Solicitacao) {
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(data => {
+    this.carregarSolicitacao(solicitacao.id);
+  });
+  }
+
   aprovarServico() {
     alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valorOrcado}`);
     this.solicitacao.estado = 'APROVADA';
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Aprovado', '');
   }
 
@@ -72,7 +79,7 @@ constructor(
       alert('Serviço rejeitado');
       this.solicitacao.motivo = motivo;
       this.solicitacao.estado = 'REJEITADA';
-      this.solicitacaoService.atualizar(this.solicitacao);
+      this.atualizarSolicitacao(this.solicitacao);
       this.registrarAlteracao('Serviço Rejeitado', motivo);
       this.router.navigate(['cliente']);
     }
@@ -80,7 +87,7 @@ constructor(
 
   resgatarServico() {
     this.solicitacao.estado = 'APROVADA';
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Resgatado', '');
     console.log('Histórico: serviço resgatado em', new Date());
     alert('Serviço resgatado e aprovado novamente');
@@ -89,8 +96,8 @@ constructor(
 
   pagarServico() {
     this.solicitacao.estado = 'PAGA';
-    this.solicitacao.dataDePagamento = this.formatarData(new Date());
-    this.solicitacaoService.atualizar(this.solicitacao);
+    this.solicitacao.dataDePagamento = new Date();
+    this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Pago', '');
     alert('Serviço Pago');
   }
@@ -104,9 +111,5 @@ constructor(
       this.carregarAlteracoes(this.solicitacao.id);
   });
   }
-
-formatarData(date: Date): string {
-  return date.toISOString().split('.')[0];
-}
 
 }
