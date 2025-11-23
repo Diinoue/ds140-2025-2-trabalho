@@ -24,47 +24,10 @@ export class EditarFuncionario implements OnInit {
     private funcionarioService: Funcionarioservice,
   ) {}
 
-<<<<<<< HEAD
-constructor(
-  private route: ActivatedRoute,
-  private funcionarioService: Funcionarioservice,
-) {}
-
-
-ngOnInit(): void {
-  this.newDataNasc = new Date();
-  let id = +this.route.snapshot.params['id'];
-  this.carregarFuncionario(id);
-}
-
-onSubmitEmail(){
-  const res = this.newEmailForm.value.email;
-  if(res != undefined)this.funcionario.email = res;
-  else throw console.error('erro');
-  this.funcionarioService.atualizar(this.funcionario);
-  this.carregarFuncionario(this.funcionario.id!);
-  console.log(this.newEmailForm.value);
-}
-
-onSubmitDataNasc(){
-  this.funcionario.dataNasc = this.newDataNascForm.value.dataNasc;
-  this.funcionarioService.atualizar(this.funcionario);
-  this.carregarFuncionario(this.funcionario.id!);
-  console.log(this.newDataNascForm.value);
-}
-
-carregarFuncionario(id: number) {
-  this.funcionarioService.buscarPorId(id).subscribe(data => {
-    this.funcionario = data;
-  });
-}
-
-=======
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
     this.carregarFuncionario(id);
   }
->>>>>>> 4ff99b643c63758d2e0c3ad51003e724ec79d49a
 
   carregarFuncionario(id: number) {
     this.funcionarioService.buscarPorId(id).subscribe(data => {
