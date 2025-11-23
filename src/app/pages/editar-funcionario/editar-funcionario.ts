@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +22,7 @@ export class EditarFuncionario implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private funcionarioService: Funcionarioservice,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -55,8 +56,7 @@ export class EditarFuncionario implements OnInit {
     this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
       next: () => {
         alert('Email atualizado com sucesso!');
-        this.carregarFuncionario(this.funcionario.id!);
-        
+        this.router.navigate(['lista-funcionarios']);
       },
       error: (err) => {
         if (err.status === 409) {
@@ -76,7 +76,8 @@ export class EditarFuncionario implements OnInit {
     this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
       next: () => {
         alert('Data de nascimento atualizada com sucesso!');
-        this.carregarFuncionario(this.funcionario.id!);
+        this.router.navigate(['lista-funcionarios']);
+
       },
       error: () => alert('Erro ao atualizar data de nascimento.')
     });
@@ -90,7 +91,7 @@ export class EditarFuncionario implements OnInit {
     this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
       next: () => {
         alert('Nome atualizado com sucesso!');
-        this.carregarFuncionario(this.funcionario.id!);
+        this.router.navigate(['lista-funcionarios']);
       },
       error: () => alert('Erro ao atualizar nome.')
     });
@@ -104,7 +105,7 @@ export class EditarFuncionario implements OnInit {
     this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
       next: () => {
         alert('Senha atualizada com sucesso!');
-        this.carregarFuncionario(this.funcionario.id!);
+        this.router.navigate(['lista-funcionarios']);
       },
       error: () => alert('Erro ao atualizar senha.')
     });
