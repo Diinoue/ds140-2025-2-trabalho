@@ -30,8 +30,7 @@ export const routes: Routes =
     {path: 'visualizar-servico/:id', component: VisualizarServicoCliente,
     canActivate: [AuthGuard],
     data: { role: 'FUNC,CLIENTE' } },
-    {path:'crudfuncionario',component: CrudFuncionario,canActivate: [AuthGuard],
-    data: { role: 'FUNC' } },
+    {path:'crudfuncionario',component: CrudFuncionario,},
     /* ROTAS FUNCIONARIO */
     {path: 'funcionario', component: Rf011PaginaInicialFuncionario,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
@@ -42,10 +41,8 @@ export const routes: Routes =
     {path: '', redirectTo: '/login', pathMatch: 'full' },
     {path: 'visualizar-funcionario/:id',component: VisualizarFuncionario ,canActivate: [AuthGuard],
     data: { role: 'FUNC' } },
-    {path: 'editar-funcionario/:id',component: EditarFuncionario ,canActivate: [AuthGuard],
-    data: { role: 'FUNC' } },
-    {path: 'lista-funcionarios', component:CrudFuncionario ,canActivate: [AuthGuard],
-    data: { role: 'FUNC' } },
+    {path: 'editar-funcionario/:id',component: EditarFuncionario ,},
+    {path: 'lista-funcionarios', component:CrudFuncionario },
     
     /* ROTAS EQUIPAMENTO */
     {path: 'cadastro-equipamentos', component:CadastroEquipamentos ,canActivate: [AuthGuard],
@@ -58,6 +55,5 @@ export const routes: Routes =
     data: { role: 'FUNC' } },
     
     /* CAMINHOS DEBUG, REMOVER DEPOIS */
-    {path: 'cadastro-funcionario', component: CadastroFuncionarios  ,canActivate: [AuthGuard],
-    data: { role: 'FUNC' } },
+    {path: 'cadastro-funcionario', component: CadastroFuncionarios , },
 ]

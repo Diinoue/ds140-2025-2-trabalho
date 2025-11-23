@@ -5,40 +5,60 @@
         <div class="card shadow-2-strong card-registration">
           <div class="card">
             <div class="d-flex justify-content-end">
-                    <!-- BOTÃO DE VOLTAR -->
-                      <a href="crudfuncionario" title="Voltar"
-                        class="btn btn-outline-terciary btn me-3 mt-3 w-auto">
-                        <i class="fa fa-x" aria-hidden="true"></i>
-                        </a> 
-                </div>
-                <!-- FORMULÁRIO DE EDIÇÃO -->
-            <h2 class="ms-4 mb-5 fw-bold"> Editar informações de {{funcionario.nome}}</h2>
+              <!-- BOTÃO DE VOLTAR -->
+              <a href="crudfuncionario" title="Voltar"
+                class="btn btn-outline-terciary btn me-3 mt-3 w-auto">
+                <i class="fa fa-x" aria-hidden="true"></i>
+              </a> 
+            </div>
+
+            <!-- FORMULÁRIO DE EDIÇÃO -->
+            <h2 class="ms-4 mb-5 fw-bold">Editar informações de {{ funcionario.nome }}</h2>
             <p class="ms-4 mt-5"><strong>ID:</strong> {{ funcionario.id }}</p>
-            
+
             <!-- CAMPO EMAIL -->
-            <p class="ms-4"><strong>Email:</strong> {{ funcionario.email }}</p>
+            <p class="ms-4"><strong>Email atual:</strong> {{ funcionario.email }}</p>
             <form [formGroup]="newEmailForm" (ngSubmit)="onSubmitEmail()" class="mx-4">
-                <div class="form-group">
-                    <label class="form-label" for="email">Definir novo email para: {{newEmailForm.value.email}}</label>
-                    <input class="mb-3 form-control" id="email" type="email" formControlName="email" placeholder="email@exemplo.com">
-                </div>
-                <button type="submit" class="btn btn-primary">Confirmar mudanças</button>
+              <div class="form-group">
+                <label class="form-label" for="email">Novo email:</label>
+                <input class="mb-3 form-control" id="email" type="email" formControlName="email" placeholder="email@exemplo.com">
+              </div>
+              <button type="submit" class="btn btn-primary">Confirmar mudanças</button>
             </form>
 
-            <!-- CAMPO Data Nascimento -->
-            <p class="mt-5 ms-4"><strong>Data Nascimento:</strong> {{ funcionario.dataNasc }}</p>
+            <!-- CAMPO DATA NASCIMENTO -->
+            <p class="mt-5 ms-4"><strong>Data Nascimento atual:</strong> {{ funcionario.dataNasc }}</p>
             <form [formGroup]="newDataNascForm" (ngSubmit)="onSubmitDataNasc()" class="mx-4">
-                <div class="form-group">
-                    <label class="form-label"for="dataNasc">Definir nova data de nascimento para: {{newDataNascForm.value.dataNasc}} </label>
-                    <input class="mb-3  form-control" id="dataNasc" formControlName="dataNasc" type="date">
-                </div>
-            <button type="submit" class="btn btn-primary mb-5">Confirmar mudanças</button>
+              <div class="form-group">
+                <label class="form-label" for="dataNasc">Nova data de nascimento:</label>
+                <input class="mb-3 form-control" id="dataNasc" formControlName="dataNasc" type="date">
+              </div>
+              <button type="submit" class="btn btn-primary mb-5">Confirmar mudanças</button>
             </form>
-          </div>
 
+            <!-- CAMPO NOME -->
+            <p class="mt-5 ms-4"><strong>Nome atual:</strong> {{ funcionario.nome }}</p>
+            <form [formGroup]="newNomeForm" (ngSubmit)="onSubmitNome()" class="mx-4">
+              <div class="form-group">
+                <label class="form-label" for="nome">Novo nome:</label>
+                <input class="mb-3 form-control" id="nome" type="text" formControlName="nome" placeholder="Digite o novo nome">
+              </div>
+              <button type="submit" class="btn btn-primary">Confirmar mudanças</button>
+            </form>
+
+            <!-- CAMPO SENHA -->
+            <p class="mt-5 ms-4"><strong>Senha atual:</strong> {{ funcionario.senha }}</p>
+            <form [formGroup]="newSenhaForm" (ngSubmit)="onSubmitSenha()" class="mx-4">
+              <div class="form-group">
+                <label class="form-label" for="senha">Nova senha:</label>
+                <input class="mb-3 form-control" id="senha" type="password" formControlName="senha" placeholder="Digite a nova senha">
+              </div>
+              <button type="submit" class="btn btn-primary mb-5">Confirmar mudanças</button>
+            </form>
+
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-

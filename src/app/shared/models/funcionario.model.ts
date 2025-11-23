@@ -4,4 +4,6 @@ export class Funcionario {
     public nome: string = '';
     public dataNasc: Date = new Date();
     public senha: string = '';
+    public rota: string = 'funcionario'; 
+
 }

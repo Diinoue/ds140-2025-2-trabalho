@@ -7,39 +7,25 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public class Usuario {
+public abstract class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
     private String senha;
     private String rota;
     private String email;
+    private Boolean ativo = true; 
 
     public Usuario() {}
-
-    public Usuario(String email, String nome, String senha, String rota, Integer id) {
+    public Usuario(String email, String nome, String senha, String rota, Integer id, boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.rota = rota;
+        this.ativo = ativo;
     }
-
-
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-
-    public String getSenha() { return senha; }
-    public void setSenha(String senha) { this.senha = senha; }
-
-    public String getRota() { return rota; }
-    public void setRota(String rota) { this.rota = rota; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
 }

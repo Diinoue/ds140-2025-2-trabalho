@@ -16,15 +16,16 @@ private apiUrl = 'http://localhost:8080/funcionarios';
   constructor(private http: HttpClient) {}
 
   listarTodos(): Observable<Funcionario[]> {
-    return this.http.get<Funcionario[]>(this.apiUrl);
+     return this.http.get<Funcionario[]>(this.apiUrl);
   }
 
   inserir(funcionario: Funcionario): Observable<Funcionario> {
     return this.http.post<Funcionario>(this.apiUrl, funcionario);
+    
   }
 
   buscarPorId(id: number): Observable<Funcionario> {
-    return this.http.get<Funcionario>(`${this.apiUrl}/${id}`);
+     return this.http.get<Funcionario>(`${this.apiUrl}/${id}`);
   }
 
   atualizar(funcionario: Funcionario): Observable<Funcionario> {
