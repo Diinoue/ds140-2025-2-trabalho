@@ -21,43 +21,51 @@ constructor(
     private modalService: NgbModal,
   ) {}
 
-ngOnInit(): void {
+ngOnInit(): void 
+{
   this.carregarFuncionarios();
   const res = this.loginService.usuarioLogado;
-  if (res == null) console.log("nao logado");
+  if (res == null) console.log("não logado");
   else this.funcionarioLogin = res;
   //TEM QUE SABER O USUARIO LOGADO AQUI
 }
 
-carregarFuncionarios(): void {
+carregarFuncionarios(): void 
+{
   this.funcionarioService.listarTodos().subscribe({
     next: (dados) => this.Funcionarios = dados,
     error: () => alert('Erro ao carregar funcionários.')
   });
 }
 
-deletarFuncionario(id: number): void {
+deletarFuncionario(id: number): void 
+{
   if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
   {
 
-    if(this.funcionarioLogin.id != id) {
-      if(this.Funcionarios.length > 1) {
-      this.funcionarioService.remover(id).subscribe({
-        next:(res) => {
-          this.carregarFuncionarios();
-        },
-        error: () => {
+    if(this.funcionarioLogin.id != id) 
+      {
+       if(this.Funcionarios.length > 1) 
+       {
+       this.funcionarioService.remover(id).subscribe
+       ({
+          next:(res) => {
+           this.carregarFuncionarios();
+            },
+           error: () => {
               alert('Falha ao excluir funcionário.');
-        },
+            },
       });
-      } else alert("Existem apenas 1 funcionario, função indisponivel");
-    }
+      } 
+    else alert("Existem apenas 1 funcionario, função indisponivel");
+       }
     else alert("Você não pode se excluir");
 
   }
-}
+  }
 
-  abrirModalFuncionario(funcionario: Funcionario) {
+  abrirModalFuncionario(funcionario: Funcionario) 
+  {
     const modalRef = this.modalService.open(VisualizarFuncionario);
     modalRef.componentInstance.funcionario = funcionario;
   }

@@ -146,3 +146,6 @@ VALUES
  2, 
  'Cliente autorizou troca do teclado caso necessário.',
  5);
+
+
+SELECT * from endereco;

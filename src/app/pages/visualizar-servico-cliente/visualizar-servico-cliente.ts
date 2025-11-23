@@ -62,7 +62,7 @@ constructor(
 
   atualizarSolicitacao(solicitacao: Solicitacao) {
     this.solicitacaoService.atualizar(this.solicitacao).subscribe(data => {
-    this.carregarSolicitacao(solicitacao.id);
+    this.carregarSolicitacao(solicitacao.id!);
   });
   }
 
@@ -102,13 +102,14 @@ constructor(
     alert('Serviço Pago');
   }
   
-  registrarAlteracao(tipo : string, desc : string) {
-    this.alteracao.solicitacaoID = this.solicitacao.id;
+  registrarAlteracao(tipo : string, desc : string) 
+  {
+    this.alteracao.solicitacaoID = this.solicitacao.id!;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
     this.alteracaoService.inserir(this.alteracao).subscribe(data => {
-      this.carregarAlteracoes(this.solicitacao.id);
+      this.carregarAlteracoes(this.solicitacao.id!);
   });
   }
 

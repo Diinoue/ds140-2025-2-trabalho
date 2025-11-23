@@ -5,43 +5,50 @@ import { EquipamentoService } from '../../services/equipamento-service';
 import {  Router } from '@angular/router';
 import { Equipamento } from '../../shared/models/equipamento.model';
 
-@Component({
+@Component
+({
   selector: 'app-cadastro-equipamentos',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './cadastro-equipamentos.html',
-  styleUrls: ['./cadastro-equipamentos.css']
+  styleUrl: './cadastro-equipamentos.css'
 })
-export class CadastroEquipamentos {
-
-  // formulário reativo
+export class CadastroEquipamentos 
+{
   formEquipamento: FormGroup;
 
-  // lista de equipamentos já cadastrados
-
-  constructor(
+  constructor
+  (
     private fb: FormBuilder,
     private equipamentoService: EquipamentoService,
     private router: Router,
-  ) {
-    // inicializa o form com um campo obrigatório
-    this.formEquipamento = this.fb.group({
+  ) 
+  {
+    this.formEquipamento = this.fb.group
+    ({
       nome: ['', Validators.required],
     });
   }
 
+  onSubmit() 
+  {
+    if (this.formEquipamento.valid) 
+      {
+        const equipamento = new Equipamento();
+        equipamento.nome = this.formEquipamento.value.nome;
 
-  onSubmit(){
-    if (this.formEquipamento.valid) {
-      const equipamento = new Equipamento();
-      equipamento.nome = this.formEquipamento.value.nome;
-      // salva no localStorage
-      this.equipamentoService.inserir(equipamento).subscribe(response => {
-        console.log("Criado:", response);
-      });    
-      this.router.navigate(['lista-equipamentos']);
-    }
+       this.equipamentoService.inserir(equipamento).subscribe
+         ({
+           next: (response) => {
+           alert(`Equipamento "${response.nome}" cadastrado com sucesso!`);
+           this.formEquipamento.reset();
+           this.router.navigate(['lista-equipamentos']);
+                            },
+           error: (err) => {
+          console.error('Erro ao cadastrar equipamento', err);
+          alert('Erro ao cadastrar equipamento.');
+                           }
+        });
+      }
   }
-
-
 }

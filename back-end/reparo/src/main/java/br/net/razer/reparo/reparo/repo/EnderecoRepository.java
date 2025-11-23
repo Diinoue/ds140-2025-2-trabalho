@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import br.net.razer.reparo.reparo.model.Endereco;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
-
-}
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> 
+{}
