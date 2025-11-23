@@ -1,7 +1,11 @@
 package br.net.razer.reparo.reparo.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_equipamento")
 public class Equipamento {
@@ -14,15 +18,13 @@ public class Equipamento {
     @Column(name = "nome_equip", nullable = false, unique = true)
     private String nome;
 
+    @Column(name = "ativo_equip", nullable = false)
+    private Boolean ativo = true; 
+
     public Equipamento() {}
 
-    public Equipamento(String nome) {
+    public Equipamento(String nome, Boolean ativo) {
         this.nome = nome;
+        this.ativo = ativo;
     }
-
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
 }

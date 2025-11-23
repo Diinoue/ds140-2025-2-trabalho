@@ -1,5 +1,5 @@
 export class Solicitacao {
-    public id: number = 0;
+    public id?: number;
     public dataHora: Date = new Date();
     public descricaoEquipamento: string = '';
     public categoriaEquipamento: string = '';

@@ -6,41 +6,49 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditarEquipamento } from '../editar-equipamento/editar-equipamento'
 import { Equipamento } from '../../shared/models/equipamento.model';
 
-@Component({
+@Component
+({
   selector: 'app-crud-equipamentos',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './crud-equipamentos.html',
   styleUrl: './crud-equipamentos.css'
 })
-export class CrudEquipamentos implements OnInit{
+export class CrudEquipamentos implements OnInit
+{
     equipamentos:Equipamento[]=[];
-  constructor(
+  constructor
+    (
       private equipamentoService: EquipamentoService,
       private modalService: NgbModal,
     ) {}
 
-    ngOnInit(): void {
+    ngOnInit(): void 
+    {
       this.carregarEquipamentos();
     }
 
-  carregarEquipamentos() {
-  this.equipamentoService.listarTodos().subscribe(data => {
-    this.equipamentos = data;
-  });
-}
+  carregarEquipamentos() 
+  {
+     this.equipamentoService.listarTodos().subscribe(data => {
+     this.equipamentos = data;
+    });
+  }
 
 
-  deletarEquipamento(equipamento: Equipamento) : void {
+  deletarEquipamento(equipamento: Equipamento) : void 
+  {
     if(window.confirm("Você tem certeza? Os dados serão excluidos permanentemente."))
     {
-      this.equipamentoService.remover(equipamento.id).subscribe(response => {
+        this.equipamentoService.remover(equipamento.id!).subscribe(response => {
         this.carregarEquipamentos();
         console.log("Deletado:", response);
       });
     }
 }
 
-  abrirModalEquipamento(equipamento: Equipamento) {
+  abrirModalEquipamento(equipamento: Equipamento) 
+  {
+
     const modalRef = this.modalService.open(EditarEquipamento);
     modalRef.componentInstance.equipamento = equipamento;
   }

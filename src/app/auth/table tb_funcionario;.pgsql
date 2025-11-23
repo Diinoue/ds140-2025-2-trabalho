@@ -4,6 +4,7 @@
     CREATE TYPE tipo AS ENUM ('funcionario','cliente');
     CREATE TYPE estado AS ENUM ('ABERTA','ORCADA','REJEITADA','APROVADA','REDIRECIONADA','ARRUMADA','PAGA','FINALIZADA');
 
+
     DROP TABLE if EXISTS tb_funcionario;
     CREATE TABLE tb_funcionario (
         id_func SERIAL PRIMARY KEY,
@@ -11,6 +12,7 @@
         nome_func VARCHAR(30) NOT NULL,
         dataNasc_func DATE NOT NULL, 
         senha_func VARCHAR(60) NOT NULL,
+        ativo_func BOOLEAN DEFAULT TRUE,
         rota_func tipo NOT NULL
     );
     DROP TABLE if EXISTS tb_cliente;
@@ -23,11 +25,13 @@
         senha_cli VARCHAR(60) NOT NULL,
         telefone_cli VARCHAR(20) NOT NULL,
         endereco_cli VARCHAR(100) NOT NULL,
+        ativo_cli BOOLEAN DEFAULT TRUE,
         rota_cli tipo NOT NULL
     );
     DROP TABLE if EXISTS tb_equipamento;
     CREATE TABLE tb_equipamento (
         id_equip SERIAL PRIMARY KEY,
+         ativo_equip BOOLEAN DEFAULT TRUE,
         nome_equip VARCHAR(50) UNIQUE NOT NULL
     );
 
@@ -43,6 +47,7 @@
         funcionario_soli INTEGER,
         orientacoe_soli TEXT NOT NULL,
         eletronico_soli INTEGER NOT NULL,
+        ativo_soli BOOLEAN DEFAULT TRUE,
         FOREIGN KEY (cliente_soli) REFERENCES tb_cliente(cpf_cli),
         FOREIGN KEY (funcionario_soli) REFERENCES tb_funcionario(id_func),
         FOREIGN KEY (eletronico_soli) REFERENCES tb_equipamento(id_equip)
@@ -86,8 +91,6 @@
         ('Impressora'),
         ('Mouse'),
         ('Teclado');
-
-   SELECT * FROM tb_solicitacao;
 
 INSERT INTO tb_solicitacao 
 (nome_soli, desc_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
@@ -143,3 +146,6 @@ VALUES
  2, 
  'Cliente autorizou troca do teclado caso necessário.',
  5);
+
+
+SELECT * from endereco;

@@ -1,4 +1,4 @@
 export class Equipamento {
-    public id: number = 0;
+    public id?: number;
     public nome: string = ''; 
 }

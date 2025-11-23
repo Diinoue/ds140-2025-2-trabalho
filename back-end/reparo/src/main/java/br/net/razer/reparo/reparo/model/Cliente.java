@@ -8,51 +8,36 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tb_cliente")
- @AttributeOverrides({
+@AttributeOverrides({
+    @AttributeOverride(name = "id", column = @Column(name = "id_cli")),
     @AttributeOverride(name = "nome", column = @Column(name = "nome_cli")),
     @AttributeOverride(name = "email", column = @Column(name = "email_cli")),
     @AttributeOverride(name = "senha", column = @Column(name = "senha_cli")),
     @AttributeOverride(name = "rota", column = @Column(name = "rota_cli")),
-    
-}) 
+    @AttributeOverride(name = "ativo", column = @Column(name = "ativo_cli"))
+})
 public class Cliente extends Usuario {
 
-    @Column(name = "cpf_cli")
+    @Column(name = "cpf_cli", nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(name = "telefone_cli")
+    @Column(name = "telefone_cli", nullable = false, length = 20)
     private String telefone;
 
-    @Column(name = "cep_cli")
+    @Column(name = "cep_cli", nullable = false, length = 10)
     private String cep;
 
     // Relação 1-1 para tabela endereço
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_endereco", referencedColumnName = "id")
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     private Endereco endereco;
-  
- 
-    //Constructors
+
     public Cliente() {}
-
-  public Cliente(String nome, String email, String senha, String rota, Integer id,
-               String cpf, String telefone, String cep, Endereco endereco) {
-
-    super(email, nome, senha, rota, id );
-    this.cpf = cpf;
-    this.telefone = telefone;
-    this.endereco = endereco;
-    this.cep = cep;
-}
-    public String getCpf() { return cpf; }
-    public void setCpf(String cpf) { this.cpf = cpf; }
-
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { this.telefone = telefone; }
-
-    public Endereco getEndereco() { return endereco; }
-    public void setEndereco(Endereco endereco) { this.endereco = endereco; }
-
-    public String getCep() { return cep; }
-    public void setCep(String cep) { this.cep = cep; }
+    public Cliente(String nome, String email, String senha, String rota, Integer id,boolean ativo, String cpf, String telefone, String cep, Endereco endereco) {
+        super(email, nome, senha, rota, id, ativo);
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.cep = cep;
+        this.endereco = endereco;
+    }
 }

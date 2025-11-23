@@ -70,7 +70,7 @@ export class VisualizarServicoFuncionario implements OnInit{
 
   atualizarSolicitacao(solicitacao: Solicitacao) {
     this.solicitacaoService.atualizar(this.solicitacao).subscribe(data => {
-    this.carregarSolicitacao(solicitacao.id);
+    this.carregarSolicitacao(solicitacao.id!);
   });
   }
 
@@ -84,16 +84,16 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracao.nomeFuncionarioRedirecionado = func.nome;
     console.log('Redirecionado para: ', func.nome);
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
-    this.alteracao.solicitacaoID = this.solicitacao.id;
+    this.alteracao.solicitacaoID = this.solicitacao.id!;
     this.alteracao.data = new Date();
     this.alteracao.tipo = 'Serviço Redirecionado';
     this.alteracao.descricao = '';
     this.alteracaoService.inserir(this.alteracao).subscribe(data => {
-      this.carregarAlteracoes(this.solicitacao.id);
+      this.carregarAlteracoes(this.solicitacao.id!);
       console.log(this.solicitacao)
   });
 
-    this.solicitacao.funcionarioId = func.id;
+    this.solicitacao.funcionarioId = func.id!;
     
     this.solicitacao.estado = 'REDIRECIONADA';
     this.atualizarSolicitacao(this.solicitacao);
@@ -114,13 +114,13 @@ export class VisualizarServicoFuncionario implements OnInit{
   }
 
   registrarAlteracao(tipo : string, desc : string): void {
-    this.alteracao.solicitacaoID = this.solicitacao.id;
+    this.alteracao.solicitacaoID = this.solicitacao.id!;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.alteracaoService.inserir(this.alteracao).subscribe(data => {
-      this.carregarAlteracoes(this.solicitacao.id);
+      this.carregarAlteracoes(this.solicitacao.id!);
       console.log(this.solicitacao)
   });
   }

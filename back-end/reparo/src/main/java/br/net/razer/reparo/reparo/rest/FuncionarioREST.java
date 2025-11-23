@@ -12,7 +12,8 @@ import br.net.razer.reparo.reparo.repo.FuncionarioRepository;
 @CrossOrigin
 @RestController
 @RequestMapping("/funcionarios")
-public class FuncionarioREST {
+public class FuncionarioREST 
+{
 
     @Autowired
     private FuncionarioRepository repo;
@@ -20,26 +21,29 @@ public class FuncionarioREST {
     private static final List<String> ROTAS_VALIDAS = Arrays.asList("funcionario");
 
     @GetMapping
-    public ResponseEntity<List<Funcionario>> obterTodos() {
-        List<Funcionario> funcionarios = repo.findAll();
-        if (funcionarios.isEmpty())
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.ok(funcionarios);
+    public ResponseEntity<List<Funcionario>> obterTodos() 
+    {
+    List<Funcionario> funcionarios = repo.findByAtivoTrue();   
+    if (funcionarios.isEmpty())
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    return ResponseEntity.ok(funcionarios);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Funcionario> obterPorId(@PathVariable int id) {
+    public ResponseEntity<Funcionario> obterPorId(@PathVariable int id) 
+    {
         Optional<Funcionario> func = repo.findById(id);
-        return func.map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        return func.map(ResponseEntity::ok).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping
-    public ResponseEntity<?> inserir(@RequestBody Funcionario funcionario) {
+    public ResponseEntity<?> inserir(@RequestBody Funcionario funcionario) 
+    {
         
         String rota = funcionario.getRota();
-        if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) {
-            String mensagemErro = "Rota não permitida. O campo 'rota' deve ser 'funcionario'.";
+        if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) 
+        {
+            String mensagemErro = "O campo 'rota' deve ser 'funcionario'.";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
         }
         
@@ -50,28 +54,52 @@ public class FuncionarioREST {
         return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> alterar(@PathVariable int id, @RequestBody Funcionario funcionario) {
-        
-        String rota = funcionario.getRota();
-        if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) {
-            String mensagemErro = "Rota inválida. O campo 'rota' deve ser 'funcionario'";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
+   @PutMapping("/{id}")
+    public ResponseEntity<?> alterar(@PathVariable int id, @RequestBody Funcionario funcionario) 
+    {
+    Optional<Funcionario> existenteOpt = repo.findById(id);
+    if (existenteOpt.isEmpty()) 
+        {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionário " + id + " não encontrado.");
         }
-        
-        if (!repo.existsById(id))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            
-        funcionario.setId(id);
-        Funcionario atualizado = repo.save(funcionario);
-        return ResponseEntity.ok(atualizado);
+
+    Funcionario existente = existenteOpt.get();
+
+    Funcionario outroComMesmoEmail = repo.findByEmail(funcionario.getEmail());
+    if (outroComMesmoEmail != null && !outroComMesmoEmail.getId().equals(id)) 
+        {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email usado.");
+        }
+
+    existente.setEmail(funcionario.getEmail() != null ? funcionario.getEmail() : existente.getEmail());
+    existente.setNome(funcionario.getNome() != null ? funcionario.getNome() : existente.getNome());
+    existente.setSenha(funcionario.getSenha() != null ? funcionario.getSenha() : existente.getSenha());
+    existente.setDataNasc(funcionario.getDataNasc() != null ? funcionario.getDataNasc() : existente.getDataNasc());
+    existente.setRota(existente.getRota());
+
+    Funcionario atualizado = repo.save(existente);
+    return ResponseEntity.ok(atualizado);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable int id) {
-        if (!repo.existsById(id))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        repo.deleteById(id);
-        return ResponseEntity.ok().build();
+
+
+   @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desabilitar(@PathVariable int id) 
+    {
+    if (!repo.existsById(id)) 
+    {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
     }
+
+    Funcionario funcionario = repo.findById(id).get();
+    funcionario.setAtivo(false);
+    repo.save(funcionario);
+
+    return ResponseEntity.noContent().build();
+    }
+
+
+
+
+
 }
