@@ -27,6 +27,7 @@ newDataNascForm = new FormGroup({
 constructor(
   private route: ActivatedRoute,
   private funcionarioService: Funcionarioservice,
+  private router: Router,
 ) {}
 
 
@@ -43,6 +44,7 @@ onSubmitEmail(){
   this.funcionarioService.atualizar(this.funcionario);
   this.carregarFuncionario(this.funcionario.id);
   console.log(this.newEmailForm.value);
+  this.router.navigate(['lista-funcionarios']);
 }
 
 onSubmitDataNasc(){
@@ -50,6 +52,7 @@ onSubmitDataNasc(){
   this.funcionarioService.atualizar(this.funcionario);
   this.carregarFuncionario(this.funcionario.id);
   console.log(this.newDataNascForm.value);
+  this.router.navigate(['lista-funcionarios']);
 }
 
 carregarFuncionario(id: number) {
