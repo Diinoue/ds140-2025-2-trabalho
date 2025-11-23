@@ -111,7 +111,9 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
-    this.alteracaoService.inserir(this.alteracao);
-    this.carregarAlteracoes(this.solicitacao.id);
+    this.alteracaoService.inserir(this.alteracao).subscribe(data => {
+      this.carregarAlteracoes(this.solicitacao.id);
+      console.log(this.solicitacao)
+  });
   }
 }
