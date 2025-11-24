@@ -29,8 +29,9 @@ export class AuthGuard implements CanActivate
   ): boolean 
   {
 
-    const res = this.loginService.usuarioLogado;
-    if (res) this.usuarioLogado = res;
+    this.loginService.usuario$.subscribe(usuario => {
+      this.usuarioLogado = usuario!;
+    }); 
 
     if (!this.usuarioLogado) 
     {

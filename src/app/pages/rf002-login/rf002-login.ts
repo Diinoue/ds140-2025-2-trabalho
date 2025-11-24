@@ -5,6 +5,7 @@ import { Funcionarioservice } from '../../services/funcionarioservice';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from '../../shared/models/login.model';
 import { Loginservice } from '../../services/loginservice';
+import { Usuario } from '../../shared/models/usuario.model';
 
 @Component({
   selector: 'app-rf002-login',
@@ -15,14 +16,16 @@ import { Loginservice } from '../../services/loginservice';
 export class Rf002Login implements OnInit {
   login: Login = new Login();
   message: string = '';
-
+  usuarioLogado: Usuario = new Usuario();
   constructor(
     private loginService: Loginservice,
     private router: Router,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.loginService.usuario$.subscribe(usuario => {
+      this.usuarioLogado = usuario!;
+    });  
     this.redirecionar();
   }
 
@@ -35,13 +38,13 @@ export class Rf002Login implements OnInit {
     if (this.loginForm.valid) {
       this.login.email = this.loginForm.value.email!;
       this.login.senha = this.loginForm.value.password!;
-      this.carregarUsuario(this.login);
+      this.logarUsuario(this.login);
     } else {
       this.message = 'Preencha todos os campos corretamente.';
     }
   }
 
-  carregarUsuario(login: Login) {
+  logarUsuario(login: Login) {
     this.loginService.login(login).subscribe({
       next: (data) => {
         if (data !== null) {
@@ -58,10 +61,11 @@ export class Rf002Login implements OnInit {
     });
   }
 
+
   redirecionar() {
-    const usuario = this.loginService.usuarioLogado;
-    if (usuario) {
-      if (usuario.perfil.toLowerCase() === 'funcionario') {
+    console.log(this.usuarioLogado);
+    if (this.usuarioLogado) {
+      if (this.usuarioLogado.perfil.toLowerCase() === 'funcionario') {
         this.router.navigate(['/funcionario']);
       } else {
         this.router.navigate(['/cliente']);
