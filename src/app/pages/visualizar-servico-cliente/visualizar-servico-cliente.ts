@@ -28,11 +28,8 @@ id: number = 0;
 constructor(
   private solicitacaoService: Solicitacaoservice,
   private route: ActivatedRoute,
-  private clienteService: Clienteservice,
   private router: Router,
   private alteracaoService: Alteracaoservice,
-  private funcionarioService: Funcionarioservice,
-
 ) {}
 
   ngOnInit(): void {
@@ -55,7 +52,6 @@ voltar() {
 
   carregarAlteracoes(id: number) {
   this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
-    // CORREÇÃO: Garante que alteracaoHist é um array mesmo se 'data' for null
     this.alteracaoHist = data || []; 
     console.log(this.alteracaoHist);
   });

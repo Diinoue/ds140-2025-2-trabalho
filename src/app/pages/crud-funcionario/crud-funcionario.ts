@@ -27,7 +27,6 @@ ngOnInit(): void
   const res = this.loginService.usuarioLogado;
   if (res == null) console.log("não logado");
   else this.funcionarioLogin = res;
-  //TEM QUE SABER O USUARIO LOGADO AQUI
 }
 
 carregarFuncionarios(): void 

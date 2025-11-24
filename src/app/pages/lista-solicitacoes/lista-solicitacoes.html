@@ -97,37 +97,55 @@
                         <td class="text-center">
                           @switch(s.estado)
                           {
+
                             @case('ABERTA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.id}}" title="EfetuarOrçamento" alt="EfetuarOrçamento"
-                                class="btn btn-xs btn-warning">
-                                  <i class="fa fa-money aria-hidden=true"></i> Efetuar Orçamento
-                                </a>
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Efetuar Orçamento"
+                                class="btn btn-xs btn-warning mx-1">
+                                <i class="fa fa-money-bill-wave" aria-hidden="true"></i> Efetuar Orçamento
+                              </a>
                             }
+
                             @case('APROVADA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.id}}" title="EfetuarManutenção" alt="EfetuarManutenção"
-                                class="btn btn-xs btn-info">
-                                  <i class="fa fa-wrench aria-hidden=true"></i> Efetuar Manutenção
-                                </a>
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Efetuar Manutenção"
+                                class="btn btn-xs btn-info mx-1">
+                                <i class="fa fa-wrench" aria-hidden="true"></i> Efetuar Manutenção
+                              </a>
                             }
-                            @case ('REDIRECIONADA')
+
+                            @case('REDIRECIONADA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.id}}" title="EfetuarManutenção" alt="EfetuarManutenção"
-                                class="btn btn-xs btn-info">
-                                  <i class="fa fa-wrench aria-hidden=true"></i> Efetuar Manutenção
-                                </a>
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Efetuar Manutenção"
+                                class="btn btn-xs btn-info mx-1">
+                                <i class="fa fa-wrench" aria-hidden="true"></i> Efetuar Manutenção
+                              </a>
                             }
+
                             @case('PAGA')
                             {
-                                <a href="funcionario/visualizar-servico/{{s.id}}" title="FinalizarSolicitação" alt="FinalizarSolicitação"
-                                class="btn btn-xs btn-success">
-                                  <i class="fa fa-check aria-hidden=true"></i> Finalizar Solicitação
-                                </a>
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Finalizar Solicitação"
+                                class="btn btn-xs btn-success mx-1">
+                                <i class="fa fa-check" aria-hidden="true"></i> Finalizar Solicitação
+                              </a>
                             }
+
+                            @case('FINALIZADA')
+                            {
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Visualizar"
+                                class="btn btn-xs btn-secondary mx-1">
+                                <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                              </a>
+                            }
+
                           }
-                        
-                         </td>
+                        </td>
+
                     </tr>
                     }
                   }                 

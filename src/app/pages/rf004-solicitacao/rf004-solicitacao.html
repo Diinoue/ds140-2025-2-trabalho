@@ -1,5 +1,5 @@
 <!-- FORMULÁRIO PARA O CLIENTE CADASTRAR NOVA SOLICITAÇÃO -->
-<section class="vh-100 fundo-custom">
+<section class="vh-100" style="background-color: #e7f1ff;">
   <div class="container py-5 h-100">
         
     <h2 class="row my-5 justify-content-center">Solicitar nova manutenção</h2>
@@ -51,15 +51,25 @@
         </div>
       </div>
 
-      <!-- Botão -->
-      <div class="row justify-content-center">
+      <!-- Botões alinhados lado a lado -->
+      <div class="row justify-content-center mt-4">
         <div class="col-auto">
+
+          <!-- Botão Voltar -->
+          <a
+            href="/cliente"
+            class="btn btn-outline-primary px-4 me-3">
+            Voltar
+          </a>
+
+          <!-- Botão Registrar -->
           <button 
-            class="my-4 px-xl-4 btn btn-success" 
+            class="btn btn-success px-4"
             type="submit" 
             [disabled]="form.invalid">
               Registrar Solicitação
-          </button>  
+          </button>
+
         </div>
       </div>
 

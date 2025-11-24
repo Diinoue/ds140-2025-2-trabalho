@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, of, throwError} from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError} from 'rxjs';
 import { Usuario } from '../shared/models/usuario.model';
 import {map, catchError, tap } from 'rxjs/operators';
 import { Login } from '../shared/models/login.model';
@@ -28,6 +28,9 @@ SERÁ TROCADO POR UMA CONSULTA AOS USUÁRIOS CADASTRADOS EM UMA API REST;
 */
 export class Loginservice {
 
+  private usuarioSubject = new BehaviorSubject<Usuario | null>(this.getLogin());
+  usuario$ = this.usuarioSubject.asObservable();
+  
   public user = new Usuario();
 
   private http = inject(HttpClient);
@@ -35,9 +38,14 @@ export class Loginservice {
 
   private BASE_URL: string = 'http://localhost:8080/login'
   // Getter de usuário
-  public get usuarioLogado(): Usuario | null {
-    let usu = localStorage[LS_CHAVE];
-    return (usu ? JSON.parse(localStorage[LS_CHAVE]): null);
+  private getLogin(): Usuario | null {
+    const data = localStorage.getItem('usuarioLogado');
+    return data ? JSON.parse(data) : null;
+  }
+
+  public get usuarioLogado() {
+    const data = localStorage.getItem('usuarioLogado');
+    return data ? JSON.parse(data) : null;
   }
 
   public set usuarioLogado(usuario: Usuario | null) {
@@ -47,6 +55,7 @@ export class Loginservice {
   //Equivalente ao logout do slide do razer (779)
   clearLogin(): void{
     localStorage[LS_CHAVE] = null;
+    this.usuarioSubject.next(null);
   }
 
   login(login: Login): Observable<Usuario | null> {
@@ -62,7 +71,7 @@ export class Loginservice {
           this.user.senha = resp.body.senha;
           this.usuarioLogado = this.user;
           console.log(this.user.perfil);
-          
+          this.usuarioSubject.next(this.user);
           return this.user;
         } else {
           return null;
@@ -79,25 +88,4 @@ export class Loginservice {
       })
       )
   }
-
-  //Será trocado por uma consulta aos usuários cadastrados em uma API REST
-    /* login (login: Login): Observable<Usuario | null> {
-    let usu = new Usuario(1, login.login,
-                          login.login, login.senha, "FUNC");
-    // Neste caso, este IF abaixo estava ADMIN, ou seja, diferente de FUNC
-    // Pode ser que dê problemas no futuro
-      if (login.login == login.senha) {
-        if (login.login == "func") {
-        usu.perfil = "FUNC";
-      }
-        else if (login.login == "cliente") {
-        usu.perfil = "CLIENTE";
-      }
-      return of (usu);
-    }
-    else {
-      return of (null);
-    }
-  } */
-  
 }

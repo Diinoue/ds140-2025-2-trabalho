@@ -46,6 +46,7 @@ export class VisualizarServicoFuncionario implements OnInit{
 
     let id = +this.route.snapshot.params['id'];
     this.carregarSolicitacao(id);
+    this.carregarAlteracoes(id);
     this.carregarFuncionarios();
   }
 
@@ -57,14 +58,11 @@ export class VisualizarServicoFuncionario implements OnInit{
   this.solicitacaoService.buscarPorId(id).subscribe(data => {
     this.solicitacao = data;
     console.log(this.solicitacao);
-    this.carregarAlteracoes(this.solicitacao.id!);
-
   });
 }
 
   carregarAlteracoes(id: number) {
   this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
-    // CORREÇÃO: Garante que alteracaoHist é um array mesmo se 'data' for null
     this.alteracaoHist = data || []; 
     console.log(this.alteracaoHist);
   });
@@ -107,7 +105,6 @@ carregarFuncionarios() {
     this.atualizarSolicitacao(this.solicitacao);
     }
 
-  /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
   salvarOrcamento(): void {
     this.solicitacao.estado = 'ORCADA';
     this.solicitacao.funcionarioId = this.funcionarioLogin.id!;
