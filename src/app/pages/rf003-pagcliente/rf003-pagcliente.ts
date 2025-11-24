@@ -4,11 +4,12 @@ import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Loginservice } from '../../services/loginservice';
 import { Usuario } from '../../shared/models/usuario.model';
+import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 
 @Component
   ({
   selector: 'app-rf003-pagcliente',
-  imports: [DatePipe, SlicePipe], 
+  imports: [SlicePipe, DataptbrPipe], 
   templateUrl: './rf003-pagcliente.html',
   styleUrl: './rf003-pagcliente.css'
   })

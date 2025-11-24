@@ -31,7 +31,7 @@
                     {
                         @if(s.estado == 'ABERTA'){
                     <tr>
-                        <td> {{ s.dataHora | date:'short' }} </td>
+                        <td> {{ s.dataHora | dataptbr }} </td>
                         <td> {{ s.clienteNome }} </td>
                         <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
                         <td>

@@ -9,10 +9,11 @@ import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { Alteracaoservice } from '../../services/alteracaoservice';
+import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 
 @Component({
   selector: 'visualizar-servico-cliente',
-  imports: [DatePipe, CommonModule],
+  imports: [DataptbrPipe, CommonModule],
   templateUrl: './visualizar-servico-cliente.html',
   styleUrl: './visualizar-servico-cliente.css'
 })

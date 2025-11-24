@@ -9,10 +9,11 @@ import { Cliente } from '../../shared/models/cliente.model';
 import { ActivatedRoute } from '@angular/router';
 import { Loginservice } from '../../services/loginservice';
 import { Usuario } from '../../shared/models/usuario.model';
+import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 
 @Component({
   selector: 'app-rf011-pagina-inicial-funcionario',
-  imports: [DatePipe, SlicePipe],
+  imports: [DataptbrPipe, SlicePipe],
   templateUrl: './rf011-pagina-inicial-funcionario.html',
   styleUrl: './rf011-pagina-inicial-funcionario.css'
 })

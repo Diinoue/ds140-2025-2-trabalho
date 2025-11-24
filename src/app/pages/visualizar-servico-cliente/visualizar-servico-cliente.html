@@ -16,7 +16,7 @@
           <p class="mb-2"><strong>Equipamento:</strong> <span class="text-muted">{{ solicitacao.descricaoEquipamento }}</span></p>
           <p class="mb-2"><strong>Categoria:</strong> <span class="text-muted">{{ solicitacao.categoriaEquipamento }}</span></p>
           <p class="mb-2"><strong>Defeito Relatado:</strong> <span class="text-muted">{{ solicitacao.descricaoDefeito }}</span></p>
-          <p class="mb-0"><strong>Data da Solicitação:</strong> <span class="text-muted">{{ solicitacao.dataHora | date:'medium' }}</span></p>
+          <p class="mb-0"><strong>Data da Solicitação:</strong> <span class="text-muted">{{ solicitacao.dataHora | dataptbr }}</span></p>
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@
               <li class="list-group-item">
                 <div class="d-flex w-100 justify-content-between">
                   <h6 class="mb-1 fw-bold">{{ alt.tipo }}</h6>
-                  <small class="text-muted">{{ alt.data | date:'short' }}</small>
+                  <small class="text-muted">{{ alt.data | dataptbr }}</small>
                 </div>
                 
                 <p class="mb-1 small">
