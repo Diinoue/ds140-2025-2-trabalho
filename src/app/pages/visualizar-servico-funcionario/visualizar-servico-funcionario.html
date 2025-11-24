@@ -20,9 +20,14 @@
                 <div class="col-md-6">
                     <p class="mb-1"><b>Estado Atual:</b> <span class="badge bg-info text-dark">{{ solicitacao.estado }}</span></p>
                 </div>
-                <div class="col-12 mt-2">
+                <div class="col-md-6 mt-2">
                     <p class="mb-1"><b>Problema:</b> {{ solicitacao.descricaoDefeito }}</p>
                 </div>
+                @if (solicitacao.estado !== 'ABERTA') {
+                <div class="col-md-6 mt-2">
+                    <p class="mb-1"><b>Orçamento:</b> {{ solicitacao.valorOrcado | currency:'BRL':'symbol':'1.2-2'}}</p>
+                </div> 
+                }
             </div>
         </div>
     </div>
@@ -65,6 +70,20 @@
             </div>
         }
     }
+
+    @if (solicitacao.estado === 'REJEITADA') {
+    <div class="card border-danger mb-4">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">Motivo da Rejeição</h5>
+        </div>
+
+        <div class="card-body">
+            <p class="mb-0">
+                {{ solicitacao.motivo || 'Nenhum motivo informado.' }}
+            </p>
+        </div>
+    </div>
+}
 
     @if (solicitacao.estado === 'APROVADA' || (solicitacao.estado === "REDIRECIONADA" && solicitacao.funcionarioId === funcionarioLogin.id)) {
         <div class="card border-primary mb-4">

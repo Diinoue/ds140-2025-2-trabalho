@@ -3,11 +3,12 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
+import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 
 
 @Component({
   selector: 'app-rf011-pagina-inicial-funcionario',
-  imports: [ SlicePipe],
+  imports: [ SlicePipe, DataptbrPipe],
   templateUrl: './lista-solicitacoes.html',
   styleUrl: './lista-solicitacoes.css'
 })

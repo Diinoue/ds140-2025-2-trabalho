@@ -49,7 +49,7 @@
                     @if(s.funcionarioId == this.loginFuncionario || s.estado === 'ABERTA')
                     {
                       <tr>
-                        <td> {{ s.dataHora.toLocaleString() }} </td>
+                        <td> {{ s.dataHora | dataptbr}} </td>
                         <td> {{ s.clienteNome }} </td>
                         <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
 
@@ -86,7 +86,7 @@
                           }
                            <!-- VERDE: FINALIZADA -->
                            @case("FINALIZADA") {
-                          <i class="fa-solid fa-square" style="color: #05ec2c;"></i> PAGA
+                          <i class="fa-solid fa-square" style="color: #00ff22;"></i> Finalizada
                           }
                         }
                          </td>
@@ -142,7 +142,22 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
                               </a>
                             }
-
+                            @case('REJEITADA')
+                            {
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Visualizar"
+                                class="btn btn-xs btn-secondary mx-1">
+                                <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                              </a>
+                            }
+                            @case('ORCADA')
+                            {
+                              <a href="funcionario/visualizar-servico/{{s.id}}"
+                                title="Visualizar"
+                                class="btn btn-xs btn-secondary mx-1">
+                                <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                              </a>
+                            }
                           }
                         </td>
 
