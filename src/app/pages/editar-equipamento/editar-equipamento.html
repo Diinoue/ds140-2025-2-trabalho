@@ -1,41 +1,55 @@
-=<!-- O funcionário pode manter novos funcionários para acesso ao sistema, com os seguintes dados:
- e-mail único para login, nome, data de nascimento, senha.
- O funcionário não pode remover a si mesmo.
- Se houver somente um funcionário ele não poderá ser removido. -->
+<div class="modal-header bg-primary text-white">
+  <h4 class="modal-title" id="modal-basic-title">
+    <i class="fa fa-pencil-alt me-2"></i> Editar Equipamento: {{ equipamento?.nome }}
+  </h4>
+  <button 
+    type="button" 
+    class="btn-close" 
+    aria-label="Close" 
+    (click)="activeModal.dismiss('Cancelado pelo usuário')"
+  ></button>
+</div>
 
-<section class="vh-100 background-signup">
-    <div class="container py-2 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration">
-                    <div class="card-body p-4 p-md-5">
-          <!-- Corpo do formulário de cadastro -->
-          <div class="signUpForm">
-            <!-- Título registrar -->
-            <h2 class="card-title text-center h1 fw-bold mt-3 mb-5 mx-1 mx-md-4">{{equipamento.nome}}</h2>
+<div class="modal-body p-4">
+  <p class="text-muted">ID: {{ equipamento?.id }}</p>
+  
+  <form [formGroup]="formEquipamento" (ngSubmit)="onSubmit()">
 
-              <!-- Início formulário -->
-               <form class="signUpFields" [formGroup]="formEquipamento" (ngSubmit)="onSubmit()">
-
-                  <!-- Campo nome -->
-                   <div class="row">
-                      <div class="col mb-4">
-                        <div class="form-group px-3">
-                          <label class="form-label">Novo Nome:</label>
-                          <input class="form-control" formControlName="nome">
-                        </div>
-                      </div>
-                  </div> 
-
-                  <!-- Botão submit -->
-                   <div class="row mt-4 mx-3">
-                      <button type="submit" class="btn btn-primary w-100" [disabled]="formEquipamento.invalid">Confirmar edição</button>
-                    </div>
-                </form>
-          </div>
-          </div>
-        </div>
+    <div class="mb-3">
+      <label for="nome" class="form-label fw-bold">Novo Nome do Equipamento:</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="nome" 
+        formControlName="nome"
+        placeholder="Digite o novo nome"
+        [class.is-invalid]="formEquipamento.get('nome')?.invalid && formEquipamento.get('nome')?.touched"
+      >
+      
+      <div 
+        *ngIf="formEquipamento.get('nome')?.errors?.required && formEquipamento.get('nome')?.touched" 
+        class="invalid-feedback"
+      >
+        O nome é obrigatório.
       </div>
     </div>
-  </div>
-</section>
+    
+    <div class="modal-footer justify-content-between p-0 pt-3 border-0">
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary" 
+        (click)="activeModal.dismiss('Cancelado')"
+      >
+        Cancelar
+      </button>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="formEquipamento.invalid"
+      >
+        <i class="fa fa-save me-2"></i> Salvar Alteração
+      </button>
+    </div>
+  </form>
+</div>

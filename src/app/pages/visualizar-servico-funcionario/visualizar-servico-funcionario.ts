@@ -31,17 +31,14 @@ export class VisualizarServicoFuncionario implements OnInit{
 
   constructor(
   private solicitacaoService: Solicitacaoservice,
-  private funcionarioService: Funcionarioservice,
   private route: ActivatedRoute,
   private loginService: Loginservice,
-  private clienteService: Clienteservice,
+  private funcionarioService: Funcionarioservice,
   private alteracaoService: Alteracaoservice,
   private router: Router,
 ) {}
 
   ngOnInit(): void {
-    
-    
 
     const res3 = this.loginService.usuarioLogado;
     if (res3 == null) throw new Error ("usuario nao encontrado");
@@ -49,22 +46,33 @@ export class VisualizarServicoFuncionario implements OnInit{
 
     let id = +this.route.snapshot.params['id'];
     this.carregarSolicitacao(id);
-    this.carregarAlteracoes(id);
+    this.carregarFuncionarios();
+  }
 
-    this.clienteService.buscarPorId(this.solicitacao.clienteId).subscribe(data => {this.cliente = data;});
-
-    this.funcionarioService.listarTodos().subscribe(data => {this.funcionarios = data;});
+  voltar() {
+    this.router.navigate(['funcionario']);
   }
 
   carregarSolicitacao(id: number) {
   this.solicitacaoService.buscarPorId(id).subscribe(data => {
     this.solicitacao = data;
+    console.log(this.solicitacao);
+    this.carregarAlteracoes(this.solicitacao.id!);
+
   });
 }
 
   carregarAlteracoes(id: number) {
-  this.alteracaoService.buscarPorId(id).subscribe(data => {
-    this.alteracaoHist = data;
+  this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
+    // CORREÇÃO: Garante que alteracaoHist é um array mesmo se 'data' for null
+    this.alteracaoHist = data || []; 
+    console.log(this.alteracaoHist);
+  });
+}
+
+carregarFuncionarios() {
+  this.funcionarioService.listarTodos().subscribe(data => {
+    this.funcionarios = data || []; 
   });
 }
 
@@ -104,6 +112,7 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.solicitacao.estado = 'ORCADA';
     this.solicitacao.funcionarioId = this.funcionarioLogin.id;
     this.atualizarSolicitacao(this.solicitacao);
+    this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.registrarAlteracao('Serviço Orçado', '');
   }
 
@@ -121,7 +130,7 @@ export class VisualizarServicoFuncionario implements OnInit{
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.alteracaoService.inserir(this.alteracao).subscribe(data => {
       this.carregarAlteracoes(this.solicitacao.id!);
-      console.log(this.solicitacao)
+      console.log(this.alteracao);
   });
   }
 }

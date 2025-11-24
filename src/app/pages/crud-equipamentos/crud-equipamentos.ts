@@ -49,7 +49,9 @@ export class CrudEquipamentos implements OnInit
   abrirModalEquipamento(equipamento: Equipamento) 
   {
 
-    const modalRef = this.modalService.open(EditarEquipamento);
+    const modalRef = this.modalService.open(EditarEquipamento, {
+      centered: true
+    });
     modalRef.componentInstance.equipamento = equipamento;
   }
 

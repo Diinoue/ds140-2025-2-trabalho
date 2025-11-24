@@ -66,7 +66,9 @@ deletarFuncionario(id: number): void
 
   abrirModalFuncionario(funcionario: Funcionario) 
   {
-    const modalRef = this.modalService.open(VisualizarFuncionario);
+    const modalRef = this.modalService.open(VisualizarFuncionario, {
+      centered: true
+    });
     modalRef.componentInstance.funcionario = funcionario;
   }
 

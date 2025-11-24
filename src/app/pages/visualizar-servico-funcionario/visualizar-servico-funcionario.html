@@ -1,81 +1,113 @@
-<div class="container-fluid">
- 
-  <div class="title my-3">
-  <h2 >Efetuar Manutenção - Solicitação #{{ solicitacao.id }}</h2>
-</div>
+<div class="container my-4">
 
-  <section class="dados-solicitacao">
-    <p><b>Cliente:</b> {{ cliente.nome }}</p>
-    <p><b>Problema:</b> {{ solicitacao.descricaoDefeito }}</p>
-    <p><b>Estado Atual:</b> {{ solicitacao.estado }}</p>
-  </section>
-  <div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Manutenção - Solicitação #{{ solicitacao.id }}</h2>
+        </div>
 
-<!-- Estado: APROVADA -->
-@if (solicitacao.estado === 'APROVADA' || solicitacao.estado ==="REDIRECIONADA" && (solicitacao.funcionarioId) == funcionarioLogin.id) {
-      <h3>Registrar Manutenção</h3>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Detalhes do Serviço</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-1"><b>Cliente:</b> {{ solicitacao.clienteNome }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-1"><b>Estado Atual:</b> <span class="badge bg-info text-dark">{{ solicitacao.estado }}</span></p>
+                </div>
+                <div class="col-12 mt-2">
+                    <p class="mb-1"><b>Problema:</b> {{ solicitacao.descricaoDefeito }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <label>
-      Descrição da Manutenção:
-      <textarea [(ngModel)]="solicitacao.descricaoManutencao"></textarea>
-    </label>
-
-    <label>
-      Orientações para o Cliente:
-      <textarea [(ngModel)]="solicitacao.orientacoesCliente"></textarea>
-    </label>
-
-  <button (click)="efetuarManutencao()">Efetuar Manutenção</button>
-  <button (click)="redirecionar = true">Redirecionar</button>
-      @if (redirecionar) {
-        @for (s of funcionarios; track s; let i = $index)
-        {
-          <tr>
-            <td> {{ i }}</td>
-            <td>{{s.nome}}</td>
-            <td> {{ s.email}} </td>
-            
-            <td>
-            <!-- VISUALIZAR -->   
-            <a (click)="redirecionarManutencao(s)" title="select" alt="select"
-            class="btn btn-xs btn-info mx-1">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Select
-            </a>
+    @switch(solicitacao.estado) {
+        @case('ABERTA') {
+            <div class="card border-warning mb-4">
+                <div class="card-header bg-warning text-white">
+                    <h5>Orçamento</h5>
+                </div>
+                <div class="card-body">
+                    <label class="form-label"><b>Valor Orçado:</b></label>
+                    <input
+                        type="number"
+                        class="form-control mb-3"
+                        [(ngModel)]="solicitacao.valorOrcado"
+                        name="orcamento"
+                        placeholder="Digite o valor do orçamento"
+                        required
+                    />
+                    <button
+                        class="btn btn-success"
+                        (click)="salvarOrcamento()">
+                        Salvar Orçamento
+                    </button>
+                </div>
+            </div>
         }
-      }
-}
-
-
-  @switch(solicitacao.estado)
-  {
-    @case('ABERTA')
-    {
-  <div class="mb-3">
-    <label class="form-label"><b>Orçamento:</b></label>
-    <input 
-      type="number" 
-      class="form-control"
-      [(ngModel)]="solicitacao.valorOrcado"
-      name="orcamento" 
-      placeholder="Digite o valor do orçamento"
-      required
-    />
-  </div>
-
-  <button 
-    class="btn btn-success mt-2"
-    (click)="salvarOrcamento()">
-    Salvar Orçamento
-  </button>
+        
+        @case('PAGA') {
+            <div class="card border-success mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5>Finalização do Serviço</h5>
+                </div>
+                <div class="card-body">
+                    <button
+                    class="btn btn-primary"
+                    (click)="finalizarSolicitacao()">Finalizar Solicitação</button>
+                </div>
+            </div>
+        }
     }
-    @case('PAGA')
-    {
-      <div class="mb-3">
-        <button
-        class="btn btn-success mt-2"
-        (click)="finalizarSolicitacao()">Finalizar solicitação</button>
-      </div>
-    }
-  }
 
-  </div>
+    @if (solicitacao.estado === 'APROVADA' || (solicitacao.estado === "REDIRECIONADA" && solicitacao.funcionarioId === funcionarioLogin.id)) {
+        <div class="card border-primary mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5>Registrar Manutenção</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Descrição da Manutenção:</label>
+                    <textarea class="form-control" rows="3" [(ngModel)]="solicitacao.descricaoManutencao"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Orientações para o Cliente:</label>
+                    <textarea class="form-control" rows="3" [(ngModel)]="solicitacao.orientacoesCliente"></textarea>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success" (click)="efetuarManutencao()">Efetuar Manutenção</button>
+                    <button class="btn btn-outline-danger" (click)="redirecionar = !redirecionar">Redirecionar</button>
+                </div>
+
+                @if (redirecionar) {
+                    <h6 class="mt-4 border-top pt-3">Selecione o Funcionário para Redirecionar</h6>
+                    <table class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (s of funcionarios; track s) {
+                                <tr>
+                                    <td>{{s.nome}}</td>
+                                    <td>{{s.email}}</td>
+                                    <td>
+                                        <a (click)="redirecionarManutencao(s)" title="Selecionar" alt="Selecionar"
+                                        class="btn btn-sm btn-info text-white">
+                                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Select
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    }
+</div>

@@ -21,11 +21,11 @@ private apiUrl = 'http://localhost:8080/alteracoes';
   }
 
   buscarPorId(id: number): Observable<AlteracaoLog[]> {
-    return this.http.get<AlteracaoLog[]>(`solicitacoes/${this.apiUrl}/${id}`);
+    return this.http.get<AlteracaoLog[]>(`${this.apiUrl}${id}`);
   }
   
   buscarPorSolicitacao(id: number): Observable<AlteracaoLog[]> {
-    return this.http.get<AlteracaoLog[]>(`${this.apiUrl}/${id}`);
+    return this.http.get<AlteracaoLog[]>(`${this.apiUrl}/solicitacoes/${id}`);
   }
 
   atualizar(alteracao: AlteracaoLog): Observable<AlteracaoLog> {

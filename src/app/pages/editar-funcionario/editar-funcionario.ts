@@ -2,41 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-editar-funcionario',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule], 
   templateUrl: './editar-funcionario.html',
   styleUrl: './editar-funcionario.css'
 })
 export class EditarFuncionario implements OnInit {
   funcionario: Funcionario = new Funcionario();
-
-  // Forms independentes
-  newEmailForm = new FormGroup({ email: new FormControl('') });
-  newDataNascForm = new FormGroup({ dataNasc: new FormControl() });
-  newNomeForm = new FormGroup({ nome: new FormControl('') });
-  newSenhaForm = new FormGroup({ senha: new FormControl('') });
+  
+  editarFuncionarioForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private funcionarioService: Funcionarioservice,
     private router: Router,
+    private fb: FormBuilder 
   ) {}
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
     this.carregarFuncionario(id);
+    
+    this.editarFuncionarioForm = this.fb.group({
+      email: [''],
+      dataNasc: [null],
+      nome: [''],
+      senha: ['']
+    });
   }
 
   carregarFuncionario(id: number) {
     this.funcionarioService.buscarPorId(id).subscribe(data => {
       this.funcionario = data;
+      this.editarFuncionarioForm.patchValue({
+        email: data.email,
+        dataNasc: data.dataNasc,
+        nome: data.nome,
+        senha: '' 
+      });
     });
   }
 
-  /** Função auxiliar para montar objeto atualizado */
   private montarFuncionarioAtualizado(parcial: Partial<Funcionario>): Funcionario {
     return {
       id: this.funcionario.id!,
@@ -48,66 +57,53 @@ export class EditarFuncionario implements OnInit {
     };
   }
 
-  onSubmitEmail() {
-    const novoEmail = this.newEmailForm.value.email;
-    if (!novoEmail) return;
+  onSubmit() {
 
-    const funcionarioAtualizado = this.montarFuncionarioAtualizado({ email: novoEmail });
+    if (this.editarFuncionarioForm.pristine) {
+      alert('Nenhuma alteração detectada.');
+      return;
+    }
+
+    const alteracoes: Partial<Funcionario> = {};
+    const formValues = this.editarFuncionarioForm.value;
+
+    if (this.editarFuncionarioForm.get('email')?.dirty && formValues.email !== this.funcionario.email && formValues.email) {
+      alteracoes.email = formValues.email;
+    }
+    
+    if (this.editarFuncionarioForm.get('dataNasc')?.dirty && formValues.dataNasc !== this.funcionario.dataNasc && formValues.dataNasc) {
+      alteracoes.dataNasc = formValues.dataNasc;
+    }
+
+    if (this.editarFuncionarioForm.get('nome')?.dirty && formValues.nome !== this.funcionario.nome && formValues.nome) {
+      alteracoes.nome = formValues.nome;
+    }
+
+    if (this.editarFuncionarioForm.get('senha')?.dirty && formValues.senha) {
+      alteracoes.senha = formValues.senha;
+    }
+
+    if (Object.keys(alteracoes).length === 0) {
+      alert('Nenhuma alteração válida para ser salva.');
+      return;
+    }
+
+    const funcionarioAtualizado = this.montarFuncionarioAtualizado(alteracoes);
+
     this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
       next: () => {
-        alert('Email atualizado com sucesso!');
+        alert('Informações do funcionário atualizadas com sucesso!');
         this.router.navigate(['lista-funcionarios']);
       },
       error: (err) => {
         if (err.status === 409) {
-          alert('Esse email já está em uso por outro funcionário.');
+          alert('Erro: Esse email já está em uso por outro funcionário.');
         } else {
-          alert('Erro ao atualizar email.');
+          const camposAlterados = Object.keys(alteracoes).join(', ');
+          alert(`Erro ao atualizar os campos: ${camposAlterados}.`);
         }
       }
     });
   }
 
-  onSubmitDataNasc() {
-    const novaData = this.newDataNascForm.value.dataNasc;
-    if (!novaData) return;
-
-    const funcionarioAtualizado = this.montarFuncionarioAtualizado({ dataNasc: novaData });
-    this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
-      next: () => {
-        alert('Data de nascimento atualizada com sucesso!');
-        this.router.navigate(['lista-funcionarios']);
-
-      },
-      error: () => alert('Erro ao atualizar data de nascimento.')
-    });
-  }
-
-  onSubmitNome() {
-    const novoNome = this.newNomeForm.value.nome;
-    if (!novoNome) return;
-
-    const funcionarioAtualizado = this.montarFuncionarioAtualizado({ nome: novoNome });
-    this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
-      next: () => {
-        alert('Nome atualizado com sucesso!');
-        this.router.navigate(['lista-funcionarios']);
-      },
-      error: () => alert('Erro ao atualizar nome.')
-    });
-  }
-
-  onSubmitSenha() {
-    const novaSenha = this.newSenhaForm.value.senha;
-    if (!novaSenha) return;
-
-    const funcionarioAtualizado = this.montarFuncionarioAtualizado({ senha: novaSenha });
-    this.funcionarioService.atualizar(funcionarioAtualizado).subscribe({
-      next: () => {
-        alert('Senha atualizada com sucesso!');
-        this.router.navigate(['lista-funcionarios']);
-      },
-      error: () => alert('Erro ao atualizar senha.')
-    });
-  }
 }

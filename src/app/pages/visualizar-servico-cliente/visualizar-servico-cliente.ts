@@ -4,7 +4,7 @@ import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../shared/models/cliente.model';
 import { Clienteservice } from '../../services/clienteservice';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Funcionarioservice } from '../../services/funcionarioservice';
@@ -12,7 +12,7 @@ import { Alteracaoservice } from '../../services/alteracaoservice';
 
 @Component({
   selector: 'visualizar-servico-cliente',
-  imports: [DatePipe],
+  imports: [DatePipe, CommonModule],
   templateUrl: './visualizar-servico-cliente.html',
   styleUrl: './visualizar-servico-cliente.css'
 })
@@ -39,24 +39,25 @@ constructor(
     this.id = +this.route.snapshot.params['id'];
     this.carregarSolicitacao(this.id);
     this.carregarAlteracoes(this.id);
+  }
 
-    this.clienteService.buscarPorId(this.solicitacao.clienteId).subscribe(data => {this.cliente = data;});
-
-    if(this.solicitacao.estado !== 'ABERTA')
-    {
-    this.funcionarioService.buscarPorId(this.solicitacao.funcionarioId).subscribe(data => {this.funcionario = data;});
-    }
+voltar() {
+    this.router.navigate(['funcionario']);
   }
 
   carregarSolicitacao(id: number) {
   this.solicitacaoService.buscarPorId(id).subscribe(data => {
     this.solicitacao = data;
+    console.log(this.solicitacao);
+    this.carregarAlteracoes(this.solicitacao.id!);
   });
 }
 
   carregarAlteracoes(id: number) {
-  this.alteracaoService.buscarPorId(id).subscribe(data => {
-    this.alteracaoHist = data;
+  this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
+    // CORREÇÃO: Garante que alteracaoHist é um array mesmo se 'data' for null
+    this.alteracaoHist = data || []; 
+    console.log(this.alteracaoHist);
   });
 }
 
@@ -108,6 +109,7 @@ constructor(
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
+    console.log(this.alteracao);
     this.alteracaoService.inserir(this.alteracao).subscribe(data => {
       this.carregarAlteracoes(this.solicitacao.id!);
   });

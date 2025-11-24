@@ -1,26 +1,63 @@
-<section class="vh-100">
-  <div class="container py-2 h-100">
-    <div class="row justify-content-center h-100 mt-5">
-      <div class="col-12">
-        <div class="card shadow-2-strong card-registration">
-          <div class="card">
-            <div class="d-flex justify-content-end">
-                    
-                      <a href="crudfuncionario" title="Voltar"
-                        class="btn btn-outline-terciary btn me-3 mt-3 w-auto">
-                        <i class="fa fa-x" aria-hidden="true"></i>
-                        </a> 
-                </div>
-            <h1 class="ms-4 mb-5 fw-bold"> Informações de {{funcionario.nome}}</h1>
-            <p class="ms-4 mt-5"><strong>ID:</strong> {{ funcionario.id }}</p>
-            <p class="ms-4"><strong>Email:</strong> {{ funcionario.email }}</p>
-            <p class="ms-4"><strong>Data Nascimento:</strong> {{ funcionario.dataNasc | date:'dd/MM/yyyy' }}
-</p>
-          </div>
+<div class="modal-header bg-light border-0 pb-0">
+  <!-- Título do Modal -->
+  <h4 class="modal-title fw-bold" id="modal-visualizar-funcionario-label">
+    <i class="fa fa-user-circle me-2 text-primary"></i> Informações do Funcionário
+  </h4>
+  <!-- Botão para fechar o modal via NgbActiveModal -->
+  <button 
+    type="button" 
+    class="btn-close" 
+    aria-label="Close" 
+    (click)="activeModal.dismiss('Cancelado pelo usuário')"
+  ></button>
+</div>
 
-        </div>
-      </div>
+<div class="modal-body p-4">
+  
+  <h5 class="fw-semibold text-break mb-4">{{ funcionario.nome }}</h5>
+  
+  <hr class="mb-3">
+  
+  <!-- Detalhes do Funcionário em Layout de Lista -->
+  <div class="list-group list-group-flush border-bottom">
+    
+    <!-- ID -->
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+      <strong>ID:</strong>
+      <span class="text-muted">{{ funcionario.id }}</span>
     </div>
-  </div>
-</section>
+    
+    <!-- Email -->
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+      <strong>Email:</strong>
+      <span class="text-muted text-break">{{ funcionario.email }}</span>
+    </div>
+    
+    <!-- Data de Nascimento -->
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+      <strong>Data de Nascimento:</strong>
+      <!-- Usando o DatePipe, que foi importado no seu TS -->
+      <span class="text-muted">{{ funcionario.dataNasc | date:'dd/MM/yyyy' }}</span>
+    </div>
 
+    <!-- Rota (adicionado como um exemplo de campo extra) -->
+    <!-- Se o campo rota existir, ele será exibido -->
+    <div *ngIf="funcionario.rota" class="list-group-item d-flex justify-content-between align-items-center">
+      <strong>Rota:</strong>
+      <span class="text-muted">{{ funcionario.rota }}</span>
+    </div>
+
+  </div>
+  
+</div>
+
+<div class="modal-footer border-0 pt-0">
+  <!-- Botão para fechar o modal -->
+  <button 
+    type="button" 
+    class="btn btn-secondary" 
+    (click)="activeModal.dismiss('Fechar')"
+  >
+    Fechar
+  </button>
+</div>

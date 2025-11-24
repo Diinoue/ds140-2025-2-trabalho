@@ -1,64 +1,65 @@
-<section class="vh-100">
-  <div class="container py-2 h-100">
-    <div class="row justify-content-center h-100 mt-5">
-      <div class="col-12">
-        <div class="card shadow-2-strong card-registration">
-          <div class="card">
-            <div class="d-flex justify-content-end">
-              <!-- BOTÃO DE VOLTAR -->
+<section class="vh-100 bg-light"> <div class="container py-5 h-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-lg-8 col-xl-7"> <div class="card shadow-lg border-0">
+          <div class="card-body p-4 p-md-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h2 class="fw-bold mb-0">Editar Funcionário</h2>
               <a href="crudfuncionario" title="Voltar"
-                class="btn btn-outline-terciary btn me-3 mt-3 w-auto">
-                <i class="fa fa-x" aria-hidden="true"></i>
+                class="btn btn-outline-secondary btn-sm" aria-label="Voltar">
+                <i class="fa fa-times" aria-hidden="true"></i>
               </a> 
             </div>
+            
+            <hr class="mb-4">
 
-            <!-- FORMULÁRIO DE EDIÇÃO -->
-            <h2 class="ms-4 mb-5 fw-bold">Editar informações de {{ funcionario.nome }}</h2>
-            <p class="ms-4 mt-5"><strong>ID:</strong> {{ funcionario.id }}</p>
+            <div class="mb-4">
+                <p class="mb-1"><strong>ID: </strong> <span class="text-muted">{{ funcionario.id }}</span></p>
+                <p class="mb-1"><strong>Nome Atual: </strong> <span class="text-primary fw-semibold">{{ funcionario.nome }}</span></p>
+            </div>
+            
+            <form [formGroup]="editarFuncionarioForm" (ngSubmit)="onSubmit()">
 
-            <!-- CAMPO EMAIL -->
-            <p class="ms-4"><strong>Email atual:</strong> {{ funcionario.email }}</p>
-            <form [formGroup]="newEmailForm" (ngSubmit)="onSubmitEmail()" class="mx-4">
-              <div class="form-group">
-                <label class="form-label" for="email">Novo email:</label>
-                <input class="mb-3 form-control" id="email" type="email" formControlName="email" placeholder="email@exemplo.com">
+              <div class="row mb-4">
+                <div class="col-12">
+                  <label class="form-label d-block"><strong>Email Atual: </strong> <span class="text-muted">{{ funcionario.email }}</span></label>
+                  <label for="email" class="form-label mt-2">Novo Email: </label>
+                  <input class="form-control" id="email" type="email" formControlName="email" placeholder="email@exemplo.com">
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary">Confirmar mudanças</button>
-            </form>
 
-            <!-- CAMPO DATA NASCIMENTO -->
-            <p class="mt-5 ms-4"><strong>Data Nascimento atual:</strong> {{ funcionario.dataNasc }}</p>
-            <form [formGroup]="newDataNascForm" (ngSubmit)="onSubmitDataNasc()" class="mx-4">
-              <div class="form-group">
-                <label class="form-label" for="dataNasc">Nova data de nascimento:</label>
-                <input class="mb-3 form-control" id="dataNasc" formControlName="dataNasc" type="date">
+              <div class="row mb-4">
+                <div class="col-12">
+                  <label class="form-label d-block"><strong>Data Nascimento Atual: </strong> <span class="text-muted">{{ funcionario.dataNasc }}</span></label>
+                  <label for="dataNasc" class="form-label mt-2">Nova Data de Nascimento: </label>
+                  <input class="form-control" id="dataNasc" formControlName="dataNasc" type="date">
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary mb-5">Confirmar mudanças</button>
-            </form>
 
-            <!-- CAMPO NOME -->
-            <p class="mt-5 ms-4"><strong>Nome atual:</strong> {{ funcionario.nome }}</p>
-            <form [formGroup]="newNomeForm" (ngSubmit)="onSubmitNome()" class="mx-4">
-              <div class="form-group">
-                <label class="form-label" for="nome">Novo nome:</label>
-                <input class="mb-3 form-control" id="nome" type="text" formControlName="nome" placeholder="Digite o novo nome">
+              <div class="row mb-4">
+                <div class="col-12">
+                  <label for="nome" class="form-label">Novo Nome: </label>
+                  <input class="form-control" id="nome" type="text" formControlName="nome" placeholder="Digite o novo nome">
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary">Confirmar mudanças</button>
-            </form>
 
-            <!-- CAMPO SENHA -->
-            <p class="mt-5 ms-4"><strong>Senha atual:</strong> {{ funcionario.senha }}</p>
-            <form [formGroup]="newSenhaForm" (ngSubmit)="onSubmitSenha()" class="mx-4">
-              <div class="form-group">
-                <label class="form-label" for="senha">Nova senha:</label>
-                <input class="mb-3 form-control" id="senha" type="password" formControlName="senha" placeholder="Digite a nova senha">
+              <div class="row mb-5">
+                <div class="col-12">
+                  <p class="mb-1 text-muted fst-italic">Deixe em branco para manter a senha atual.</p>
+                  <label for="senha" class="form-label">Nova Senha:</label>
+                  <input class="form-control" id="senha" type="password" formControlName="senha" placeholder="Digite a nova senha">
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary mb-5">Confirmar mudanças</button>
+              
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fa fa-save me-2"></i> Confirmar todas as mudanças
+                </button>
+              </div>
             </form>
-
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
   </div>
 </section>
