@@ -1,6 +1,7 @@
 package br.net.razer.reparo.reparo.rest;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -11,67 +12,86 @@ import br.net.razer.reparo.reparo.repo.SolicitacaoRepository;
 @CrossOrigin
 @RestController
 @RequestMapping("/solicitacoes")
-public class SolicitacaoREST {
+public class SolicitacaoREST 
+{
 
     @Autowired
-    private SolicitacaoRepository solicitacaoRepo;
+    private SolicitacaoRepository repo;
 
-    // GET - todas
     @GetMapping
-    public ResponseEntity<List<Solicitacao>> listarTodas() {
-        List<Solicitacao> lista = solicitacaoRepo.findAll();
-        if (lista.isEmpty())
-            return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(lista);
-    }
-
-    // GET - por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) {
-        return solicitacaoRepo.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // GET - por CPF do cliente
-    @GetMapping("/cliente/{cpf}")
-    public ResponseEntity<List<Solicitacao>> obterPorCliente(@PathVariable String cpf) {
-
-        List<Solicitacao> lista = solicitacaoRepo.findByClienteSoli(cpf);
-
-        if (lista.isEmpty()) {
+    public ResponseEntity<List<Solicitacao>> listarTodas() 
+    {
+        List<Solicitacao> lista = repo.findByAtivoTrue();
+        if (lista.isEmpty()) 
+        {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-
         return ResponseEntity.ok(lista);
     }
 
-    // POST
+    @GetMapping("/{id}")
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) 
+    {
+        Optional<Solicitacao> solic = repo.findByIdAndAtivoTrue(id);
+        return solic.map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/cliente/{cpf}")
+    public ResponseEntity<List<Solicitacao>> obterPorCliente(@PathVariable String cpf)
+    {
+        List<Solicitacao> lista = repo.findByClienteSoliAndAtivoTrue(cpf);
+        if (lista.isEmpty()) 
+        {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+
     @PostMapping
-    public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solic) {
-        Solicitacao salva = solicitacaoRepo.save(solic);
+    public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solic) 
+    {
+        solic.setAtivo(true); 
+        Solicitacao salva = repo.save(solic);
         return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-    // PUT
     @PutMapping("/{id}")
-    public ResponseEntity<Solicitacao> atualizar(@PathVariable int id, @RequestBody Solicitacao nova) {
-        return solicitacaoRepo.findById(id)
-                .map(existente -> {
-                    nova.setId(id);
-                    return ResponseEntity.ok(solicitacaoRepo.save(nova));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody Solicitacao nova) {
+        Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);
+        if (existenteOpt.isEmpty()) 
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Solicitação " + id + " não encontrada ou desabilitada.");
+        }
+
+        Solicitacao existente = existenteOpt.get();
+
+        existente.setNome(nova.getNome() != null ? nova.getNome() : existente.getNome());
+        existente.setDescricao(nova.getDescricao() != null ? nova.getDescricao() : existente.getDescricao());
+        existente.setValor(nova.getValor() != null ? nova.getValor() : existente.getValor());
+        existente.setClienteSoli(nova.getClienteSoli() != null ? nova.getClienteSoli() : existente.getClienteSoli());
+        existente.setFuncionarioId(nova.getFuncionarioId() != null ? nova.getFuncionarioId() : existente.getFuncionarioId());
+        existente.setOrientacoes(nova.getOrientacoes() != null ? nova.getOrientacoes() : existente.getOrientacoes());
+        existente.setEquipamentoId(nova.getEquipamentoId() != null ? nova.getEquipamentoId() : existente.getEquipamentoId());
+        existente.setEstado(nova.getEstado() != null ? nova.getEstado() : existente.getEstado());
+
+        Solicitacao atualizada = repo.save(existente);
+        return ResponseEntity.ok(atualizada);
     }
 
-    // DELETE
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable int id) {
-        return solicitacaoRepo.findById(id)
-                .map(s -> {
-                    solicitacaoRepo.delete(s);
-                    return ResponseEntity.ok().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Void> desabilitar(@PathVariable int id) 
+    {
+        Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);
+        if (existenteOpt.isEmpty()) 
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Solicitacao existente = existenteOpt.get();
+        existente.setAtivo(false); 
+        repo.save(existente);
+
+        return ResponseEntity.noContent().build();
     }
 }

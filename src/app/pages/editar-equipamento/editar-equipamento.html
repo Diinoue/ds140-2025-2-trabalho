@@ -1,6 +1,6 @@
 <div class="modal-header bg-primary text-white">
   <h4 class="modal-title" id="modal-basic-title">
-    <i class="fa fa-pencil-alt me-2"></i> Editar Equipamento: {{ equipamento?.nome }}
+    <i class="fa fa-pencil-alt me-2"></i> Editar Equipamento: {{ equipamento.nome }}
   </h4>
   <button 
     type="button" 
@@ -11,7 +11,7 @@
 </div>
 
 <div class="modal-body p-4">
-  <p class="text-muted">ID: {{ equipamento?.id }}</p>
+  <p class="text-muted">ID: {{ equipamento.id }}</p>
   
   <form [formGroup]="formEquipamento" (ngSubmit)="onSubmit()">
 
@@ -26,12 +26,12 @@
         [class.is-invalid]="formEquipamento.get('nome')?.invalid && formEquipamento.get('nome')?.touched"
       >
       
-      <div 
-        *ngIf="formEquipamento.get('nome')?.errors?.required && formEquipamento.get('nome')?.touched" 
-        class="invalid-feedback"
-      >
-        O nome é obrigatório.
-      </div>
+   @if (formEquipamento.get('nome')?.errors?.['required'] && formEquipamento.get('nome')?.touched) 
+   {
+  <div class="invalid-feedback">
+    O nome é obrigatório.
+  </div>
+    }
     </div>
     
     <div class="modal-footer justify-content-between p-0 pt-3 border-0">

@@ -4,7 +4,7 @@ export class Usuario {
     public nome: string = "",
     public email: string = "", 
     public senha: string = "",
-    public perfil: string = "",  // equivale a rota
+    public perfil: string = "",  
     public ativo: boolean = true
     ) {}
 }

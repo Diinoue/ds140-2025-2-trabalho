@@ -1,12 +1,16 @@
 package br.net.razer.reparo.reparo.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_solicitacao")
-public class Solicitacao {
-
+public class Solicitacao 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_soli")
@@ -24,7 +28,6 @@ public class Solicitacao {
     @Column(name = "estado_soli", insertable = false, updatable = false)
     private String estado;
 
-
     @Column(name = "valor_soli")
     private Double valor;
 
@@ -40,34 +43,22 @@ public class Solicitacao {
     @Column(name = "eletronico_soli")
     private Integer equipamentoId;
 
-    // Getters e Setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    @Column(name = "ativo_soli", nullable = false)
+    private Boolean ativo = true;
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public Solicitacao() {}
 
-    public LocalDateTime getDataInicio() { return dataInicio; }
-    public void setDataInicio(LocalDateTime dataInicio) { this.dataInicio = dataInicio; }
-
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
-
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
-
-    public Double getValor() { return valor; }
-    public void setValor(Double valor) { this.valor = valor; }
-
-    public String getClienteSoli() { return clienteSoli; }
-    public void setClienteSoli(String clienteSoli) { this.clienteSoli = clienteSoli; }
-
-    public Integer getFuncionarioId() { return funcionarioId; }
-    public void setFuncionarioId(Integer funcionarioId) { this.funcionarioId = funcionarioId; }
-
-    public String getOrientacoes() { return orientacoes; }
-    public void setOrientacoes(String orientacoes) { this.orientacoes = orientacoes; }
-
-    public Integer getEquipamentoId() { return equipamentoId; }
-    public void setEquipamentoId(Integer equipamentoId) { this.equipamentoId = equipamentoId; }
+    public Solicitacao(String nome, Double valor, String clienteSoli, Integer funcionarioId,Integer equipamentoId, String descricao, String orientacoes,String estado, LocalDateTime dataInicio, Boolean ativo)
+    {
+        this.nome = nome;
+        this.valor = valor;
+        this.clienteSoli = clienteSoli;
+        this.funcionarioId = funcionarioId;
+        this.equipamentoId = equipamentoId;
+        this.descricao = descricao;
+        this.orientacoes = orientacoes;
+        this.estado = estado;
+        this.dataInicio = dataInicio;
+        this.ativo = ativo;
+    }
 }

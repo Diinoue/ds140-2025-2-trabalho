@@ -1,31 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError} from 'rxjs';
 import { Usuario } from '../shared/models/usuario.model';
-import {map, catchError, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Login } from '../shared/models/login.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-
-/* 
-  INCOMPLETO
-  12/11 - Service agr chama efetivamente pro back-end, tem que ver se trata os dados
-  para ser um obj da classe Usuario
-
-*/
-
-/*
-Importação de Observable, of e dos modelos Usuario, Login é feito
-pra poder retornar um Observable com os dados de login
-*/
 
 const LS_CHAVE: string = "usuarioLogado";
 
-@Injectable({providedIn: 'root'})
-
-/* 
-SLIDE 790
-SERÁ TROCADO POR UMA CONSULTA AOS USUÁRIOS CADASTRADOS EM UMA API REST;
-*/
+@Injectable({ providedIn: 'root' })
 export class Loginservice {
 
   private usuarioSubject = new BehaviorSubject<Usuario | null>(this.getLogin());
@@ -34,7 +16,6 @@ export class Loginservice {
   public user = new Usuario();
 
   private http = inject(HttpClient);
-  // ^ O serviço agr consegue requests HTTP pelo this.http
 
   private BASE_URL: string = 'http://localhost:8080/login'
   // Getter de usuário
@@ -49,7 +30,11 @@ export class Loginservice {
   }
 
   public set usuarioLogado(usuario: Usuario | null) {
-    localStorage[LS_CHAVE] = JSON.stringify(usuario);
+    if (usuario) {
+      localStorage.setItem(LS_CHAVE, JSON.stringify(usuario));
+    } else {
+      localStorage.removeItem(LS_CHAVE);
+    }
   }
 
   //Equivalente ao logout do slide do razer (779)
