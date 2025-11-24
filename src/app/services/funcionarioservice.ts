@@ -3,7 +3,6 @@ import { Funcionario } from '../shared/models/funcionario.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-const LS_CHAVE = "funcionarios";
 
 @Injectable({
   providedIn: 'root'

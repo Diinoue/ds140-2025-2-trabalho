@@ -1,46 +1,45 @@
 package br.net.razer.reparo.reparo.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
 import br.net.razer.reparo.reparo.model.Login;
 import br.net.razer.reparo.reparo.model.Usuario;
-
-// FAZER: Validação no cadasro para evitar usuários repetidos
+import br.net.razer.reparo.reparo.model.Funcionario;
+import br.net.razer.reparo.reparo.model.Cliente;
+import br.net.razer.reparo.reparo.repo.FuncionarioRepository;
+import br.net.razer.reparo.reparo.repo.ClienteRepository;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/login")
 public class LoginREST {
 
-    public static List<Usuario> usuarios = new ArrayList<>(); // <---------------********** acessar o banco de usuarios
-    
-/*     static {
-        Usuario usuario = new Funcionario("Diogo", "123", "FUNC", "Diogo@gmail.com", 0, true, LocalDate.now());
-        usuarios.add(usuario);
-        Usuario usuario2 = new Cliente("Pato", "pato@gmail.com", "123", "cliente", 0, true, "01325096954", "41996747329", "82640230", new Endereco());
-        usuarios.add(usuario2);
-    } */
+    @Autowired
+    private FuncionarioRepository funcionarioRepo;
 
-    @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody Login login) {
+    @Autowired
+    private ClienteRepository clienteRepo;
 
-        Usuario encontrado = usuarios.stream()
-            .filter(u -> u.getEmail().equals(login.getEmail()) && u.getSenha().equals(login.getSenha()))
-            .findAny()
-            .orElse(null);
+    @PostMapping
+    public ResponseEntity<?> login(@RequestBody Login login) {
+        Usuario encontrado = null;
+
+        Funcionario func = funcionarioRepo.findByEmail(login.getEmail());
+        if (func != null && func.getSenha().equals(login.getSenha()) && Boolean.TRUE.equals(func.getAtivo())) {
+            encontrado = func;
+        }
+
+        Cliente cli = clienteRepo.findByEmail(login.getEmail());
+        if (cli != null && cli.getSenha().equals(login.getSenha()) && Boolean.TRUE.equals(cli.getAtivo())) {
+            encontrado = cli;
+        }
 
         if (encontrado == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } else {
-            return ResponseEntity.ok(encontrado);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha inválidos.");
         }
-    }
 
+        return ResponseEntity.ok(encontrado);
+    }
 }
