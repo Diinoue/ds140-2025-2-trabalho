@@ -13,7 +13,7 @@ export class Cliente extends Usuario {
         nome: string,
         email: string,
         senha: string,
-        perfil: string,
+        perfil: string = 'cliente',
         ativo: boolean,
         cpf: string,
         telefone: string,

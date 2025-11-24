@@ -29,7 +29,14 @@ public class EnderecoREST {
     private EnderecoRepository enderecoRepository;
 
     @PostMapping
-    public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco endereco) {
+    public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco endereco) {      
+        Optional<Endereco> enderecoExistente = enderecoRepository.findByCep(endereco.getCep());
+        
+        if(enderecoExistente.isPresent())
+            {
+                return ResponseEntity.ok(enderecoExistente.get());
+            }
+
         Endereco enderecoSalvo = enderecoRepository.save(endereco);
         return new ResponseEntity<>(enderecoSalvo, HttpStatus.CREATED);
     }

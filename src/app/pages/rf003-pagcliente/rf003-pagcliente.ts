@@ -26,7 +26,7 @@ export class Rf003Pagcliente implements OnInit
     let res = this.loginService.usuarioLogado;
     if (res !== null) this.login = res;
     else throw new Error ("usuario nao encontrado");
-    this.carregarSolicitacoes(this.login.id);
+    this.carregarSolicitacoes(this.login.id!);
   }
 
   carregarSolicitacoes(id: number) {

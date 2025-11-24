@@ -12,13 +12,13 @@ import { Usuario } from '../../shared/models/usuario.model';
 @Component({
   selector: 'app-rf004-solicitacao',
   standalone: true,
-  imports: [CommonModule, FormsModule, /* DatePipe */],
+  imports: [CommonModule, FormsModule],
   templateUrl: './rf004-solicitacao.html',
   styleUrls: ['./rf004-solicitacao.css']
 })
 export class Rf004SolicitacaoComponent implements OnInit {
   descricaoEquipamento: string = '';
-  categoriaEquipamento: Equipamento = new Equipamento;
+  categoriaEquipamento: Equipamento = new Equipamento();
   descricaoDefeito: string = '';
   categorias: Equipamento[] = [];
   solicitacoes: Solicitacao[] = [];
@@ -57,7 +57,7 @@ export class Rf004SolicitacaoComponent implements OnInit {
     estado: 'ABERTA',
     valorOrcado: 0,
     clienteNome: this.login.nome,
-    clienteId: this.login.id,
+    clienteId: this.login.id!,
     dataDePagamento: agora,
     motivo: '',
     descricaoManutencao: '',

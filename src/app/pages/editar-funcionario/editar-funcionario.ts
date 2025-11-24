@@ -53,7 +53,7 @@ export class EditarFuncionario implements OnInit {
       senha: parcial.senha ?? this.funcionario.senha,
       email: parcial.email ?? this.funcionario.email,
       dataNasc: parcial.dataNasc ?? this.funcionario.dataNasc,
-      rota: this.funcionario.rota // rota nunca muda
+      perfil: this.funcionario.perfil // rota nunca muda
     };
   }
 

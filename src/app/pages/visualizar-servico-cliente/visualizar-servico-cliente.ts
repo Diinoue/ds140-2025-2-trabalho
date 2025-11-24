@@ -19,7 +19,7 @@ import { Alteracaoservice } from '../../services/alteracaoservice';
 
 export class VisualizarServicoCliente implements OnInit {
 solicitacao: Solicitacao = new Solicitacao();
-cliente: Cliente = new Cliente();
+cliente: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
 alteracaoHist: AlteracaoLog[] = [];
 alteracao: AlteracaoLog = new AlteracaoLog();
 funcionario: Funcionario = new Funcionario();

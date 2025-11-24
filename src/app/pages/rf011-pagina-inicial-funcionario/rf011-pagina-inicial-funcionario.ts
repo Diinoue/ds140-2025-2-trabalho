@@ -32,7 +32,7 @@ ngOnInit(): void {
   if (res !== null) this.loginFuncionario = res;
   else throw new Error ("usuario nao encontrado");
   
-  this.solicitacaoService.buscarListaPorFuncionario(this.loginFuncionario.id).subscribe(data => {
+  this.solicitacaoService.buscarListaPorFuncionario(this.loginFuncionario.id!).subscribe(data => {
       this.solicitacoes = data;
     });
 }

@@ -18,7 +18,7 @@ import { EnderecoService } from '../../services/endereco-service';
   styleUrl: './rf001-autocadastro.css'
 })
 export class Rf001Autocadastro {
-  clienteNovo: Cliente = new Cliente(0, '', '', '', '', false, '', '', '', '0');
+  clienteNovo: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
   
   formularioAutoCadastro: FormGroup;
   constructor(private fb: FormBuilder, private clienteService: Clienteservice, private enderecoService: EnderecoService) {
@@ -38,6 +38,7 @@ export class Rf001Autocadastro {
       next: (dados: any) => {
         // Preenche o endereço apenas se CEP for válido
         const endereco = new Endereco();
+        endereco.cep = user.cep;
         endereco.logradouro = dados.logradouro;
         endereco.bairro = dados.bairro;
         endereco.cidade = dados.localidade;
@@ -46,6 +47,8 @@ export class Rf001Autocadastro {
         /*
         Criação de novo endereço: Cria nova tupla Endereço no back
         */
+
+        const listaEnderecos = this.enderecoService.listarTodos
 
         console.log("Endereço:", endereco);
 
@@ -59,15 +62,14 @@ export class Rf001Autocadastro {
               perfil: "cliente",
               ativo: true,
               cpf: user.cpf,
-              telefone: user.telefone,
-              cep: user.cep,                  
+              telefone: user.telefone,     
               endereco: {id: enderecoSalvo.id},
                             
             }
 
             console.log("clienteNovo", this.clienteNovo);
 
-            this.clienteService.inserir(this.clienteNovo).subscribe({
+             this.clienteService.inserir(this.clienteNovo).subscribe({
               next: (clienteSalvo: Cliente) => {
                 console.log("Resposta do backend: ", clienteSalvo); // PROVISÓRIO
                 console.log("Novo usuário cadastrado:", clienteSalvo);
@@ -82,7 +84,7 @@ export class Rf001Autocadastro {
                 alert('Erro ao cadastrar.')
               }
             })
-
+ 
 
 
 

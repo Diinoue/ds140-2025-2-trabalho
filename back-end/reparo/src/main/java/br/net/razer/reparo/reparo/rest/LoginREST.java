@@ -1,6 +1,5 @@
 package br.net.razer.reparo.reparo.rest;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.net.razer.reparo.reparo.model.Cliente;
-import br.net.razer.reparo.reparo.model.Endereco;
-import br.net.razer.reparo.reparo.model.Funcionario;
 import br.net.razer.reparo.reparo.model.Login;
 import br.net.razer.reparo.reparo.model.Usuario;
 

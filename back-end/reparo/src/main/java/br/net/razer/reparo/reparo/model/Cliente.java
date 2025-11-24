@@ -26,9 +26,9 @@ public class Cliente extends Usuario {
 
 
 
-    // Relação 1-1 para tabela endereço
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
+    // Relação M-1 para tabela endereço
+    @ManyToOne
+    @JoinColumn(name = "id_endereco", nullable=false)
     private Endereco endereco;
 
     public Cliente() {}

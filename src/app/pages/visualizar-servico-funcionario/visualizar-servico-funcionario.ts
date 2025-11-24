@@ -22,7 +22,7 @@ import { Alteracaoservice } from '../../services/alteracaoservice';
 })
 export class VisualizarServicoFuncionario implements OnInit{
   solicitacao: Solicitacao = new Solicitacao();
-  cliente: Cliente = new Cliente();
+  cliente: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
   funcionarios: Funcionario[] = [];
   alteracao: AlteracaoLog = new AlteracaoLog();
   alteracaoHist: AlteracaoLog[] = [];
@@ -110,7 +110,7 @@ carregarFuncionarios() {
   /* Função executada quando Estado: ABERTA, para fazer a proposta do orçamento */
   salvarOrcamento(): void {
     this.solicitacao.estado = 'ORCADA';
-    this.solicitacao.funcionarioId = this.funcionarioLogin.id;
+    this.solicitacao.funcionarioId = this.funcionarioLogin.id!;
     this.atualizarSolicitacao(this.solicitacao);
     this.alteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.registrarAlteracao('Serviço Orçado', '');

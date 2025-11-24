@@ -46,7 +46,7 @@ export class CadastroFuncionarios
     this.funcionarioNovo.nome = dadosFormFuncionario.nome;
     this.funcionarioNovo.dataNasc = dadosFormFuncionario.dataNasc;
     this.funcionarioNovo.senha = dadosFormFuncionario.senha;
-    this.funcionarioNovo.rota = 'funcionario';
+    this.funcionarioNovo.perfil = 'funcionario';
 
     this.funcionarioService.inserir(this.funcionarioNovo).subscribe
       ({

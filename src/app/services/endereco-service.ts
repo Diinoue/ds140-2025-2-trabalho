@@ -14,6 +14,7 @@ export class EnderecoService {
 // REQUISIÇÕES POST
 
   inserir(endereco: Endereco): Observable<Endereco> {
+    console.log("enderecoService está executando")
     return this.http.post<Endereco>(this.apiUrl, endereco)
   }
   
