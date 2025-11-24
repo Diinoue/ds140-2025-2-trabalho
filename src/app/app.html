@@ -3,10 +3,10 @@
     <!-- Início navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark barraNav-top w-100"><!-- nav= div, mas usado para navegações  -->
       <div class="container-fluid">
-      @if (this.usuarioLogado?.perfil == 'CLIENTE') {
+      @if (this.usuarioLogado?.perfil == 'cliente') {
         <a class="navbar-brand me-4" href="/cliente">Pagina inicial</a>
         }
-      @if (this.usuarioLogado?.perfil == 'FUNC') {
+      @if (this.usuarioLogado?.perfil == 'funcionario') {
 
         <a class="navbar-brand me-4" routerLink="/funcionario">Pagina inicial</a>
 
