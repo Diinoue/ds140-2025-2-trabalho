@@ -1,5 +1,6 @@
 package br.net.razer.reparo.reparo.rest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.net.razer.reparo.reparo.model.Cliente;
+import br.net.razer.reparo.reparo.model.Endereco;
+import br.net.razer.reparo.reparo.model.Funcionario;
 import br.net.razer.reparo.reparo.model.Login;
 import br.net.razer.reparo.reparo.model.Usuario;
 
@@ -21,6 +25,13 @@ public class LoginREST {
 
     public static List<Usuario> usuarios = new ArrayList<>(); // <---------------********** acessar o banco de usuarios
     
+/*     static {
+        Usuario usuario = new Funcionario("Diogo", "123", "FUNC", "Diogo@gmail.com", 0, true, LocalDate.now());
+        usuarios.add(usuario);
+        Usuario usuario2 = new Cliente("Pato", "pato@gmail.com", "123", "cliente", 0, true, "01325096954", "41996747329", "82640230", new Endereco());
+        usuarios.add(usuario2);
+    } */
+
     @PostMapping("/login")
     public ResponseEntity<Usuario> login(@RequestBody Login login) {
 

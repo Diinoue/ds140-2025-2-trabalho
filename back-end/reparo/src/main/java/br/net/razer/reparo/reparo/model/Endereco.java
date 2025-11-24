@@ -29,9 +29,16 @@ import jakarta.persistence.Table;
         @Column(name="id")
         private Integer id;
 
+        @Column(name = "cep_cli", nullable = false, length = 10)
+        private String cep;        
+
         // Linka a relação 1-1 cliente
         @OneToOne(mappedBy = "endereco")
         private Cliente cliente;
+
+        // Equivale a numero
+        @Column(name="numero")
+        private Integer numero;
 
         @Column(name="logradouro")
         private String logradouro;

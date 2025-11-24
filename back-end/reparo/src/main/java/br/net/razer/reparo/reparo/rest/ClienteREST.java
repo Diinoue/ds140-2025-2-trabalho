@@ -39,7 +39,7 @@ public class ClienteREST {
 
     @PostMapping
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
-        if (!"cliente".equalsIgnoreCase(cliente.getRota())) {
+        if (!"cliente".equalsIgnoreCase(cliente.getPerfil())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
@@ -59,7 +59,7 @@ public class ClienteREST {
     @PutMapping("/{id}")
     public ResponseEntity<?> alterar(@PathVariable int id, @RequestBody Cliente cliente) {
 
-        if (!"cliente".equalsIgnoreCase(cliente.getRota())) {
+        if (!"cliente".equalsIgnoreCase(cliente.getPerfil())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("Rota inválida. O campo 'rota' deve ser 'cliente'.");
         }

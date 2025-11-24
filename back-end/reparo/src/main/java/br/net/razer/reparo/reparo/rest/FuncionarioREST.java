@@ -40,7 +40,7 @@ public class FuncionarioREST
     public ResponseEntity<?> inserir(@RequestBody Funcionario funcionario) 
     {
         
-        String rota = funcionario.getRota();
+        String rota = funcionario.getPerfil();
         if (rota == null || !ROTAS_VALIDAS.contains(rota.toLowerCase())) 
         {
             String mensagemErro = "O campo 'rota' deve ser 'funcionario'.";
@@ -75,7 +75,7 @@ public class FuncionarioREST
     existente.setNome(funcionario.getNome() != null ? funcionario.getNome() : existente.getNome());
     existente.setSenha(funcionario.getSenha() != null ? funcionario.getSenha() : existente.getSenha());
     existente.setDataNasc(funcionario.getDataNasc() != null ? funcionario.getDataNasc() : existente.getDataNasc());
-    existente.setRota(existente.getRota());
+    existente.setPerfil(existente.getPerfil());
 
     Funcionario atualizado = repo.save(existente);
     return ResponseEntity.ok(atualizado);

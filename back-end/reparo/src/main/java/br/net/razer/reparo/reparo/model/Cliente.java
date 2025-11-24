@@ -24,8 +24,7 @@ public class Cliente extends Usuario {
     @Column(name = "telefone_cli", nullable = false, length = 20)
     private String telefone;
 
-    @Column(name = "cep_cli", nullable = false, length = 10)
-    private String cep;
+
 
     // Relação 1-1 para tabela endereço
     @OneToOne(cascade = CascadeType.ALL)
@@ -33,11 +32,10 @@ public class Cliente extends Usuario {
     private Endereco endereco;
 
     public Cliente() {}
-    public Cliente(String nome, String email, String senha, String rota, Integer id,boolean ativo, String cpf, String telefone, String cep, Endereco endereco) {
+    public Cliente(String nome, String email, String senha, String rota, Integer id,boolean ativo, String cpf, String telefone, Endereco endereco) {
         super(email, nome, senha, rota, id, ativo);
         this.cpf = cpf;
         this.telefone = telefone;
-        this.cep = cep;
         this.endereco = endereco;
     }
 }

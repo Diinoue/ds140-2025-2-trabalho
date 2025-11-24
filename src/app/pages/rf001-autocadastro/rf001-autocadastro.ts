@@ -18,7 +18,8 @@ import { EnderecoService } from '../../services/endereco-service';
   styleUrl: './rf001-autocadastro.css'
 })
 export class Rf001Autocadastro {
-  clienteNovo: Cliente = new Cliente();
+  clienteNovo: Cliente = new Cliente(0, '', '', '', '', false, '', '', '', '0');
+  
   formularioAutoCadastro: FormGroup;
   constructor(private fb: FormBuilder, private clienteService: Clienteservice, private enderecoService: EnderecoService) {
     this.formularioAutoCadastro = this.fb.group({
@@ -52,14 +53,16 @@ export class Rf001Autocadastro {
           next: (enderecoSalvo: Endereco) => {
             console.log("endereçoSalvo:", enderecoSalvo);
             this.clienteNovo = {
-              cpf: user.cpf,
               nome: user.nome,
               email: user.email,
-              cep: user.cep,
-              telefone: user.telefone,
               senha: Math.floor(1000 + Math.random() * 9000).toString(),
+              perfil: "cliente",
+              ativo: true,
+              cpf: user.cpf,
+              telefone: user.telefone,
+              cep: user.cep,                  
               endereco: {id: enderecoSalvo.id},
-              rota: "cliente"
+                            
             }
 
             console.log("clienteNovo", this.clienteNovo);

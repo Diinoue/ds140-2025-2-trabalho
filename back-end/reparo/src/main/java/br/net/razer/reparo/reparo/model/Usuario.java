@@ -15,17 +15,17 @@ public abstract class Usuario {
 
     private String nome;
     private String senha;
-    private String rota;
+    private String perfil;
     private String email;
     private Boolean ativo = true; 
 
     public Usuario() {}
-    public Usuario(String email, String nome, String senha, String rota, Integer id, boolean ativo) {
+    public Usuario(String email, String nome, String senha, String perfil, Integer id, boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.rota = rota;
+        this.perfil = perfil;
         this.ativo = ativo;
     }
 }
