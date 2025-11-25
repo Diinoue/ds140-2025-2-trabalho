@@ -17,14 +17,12 @@ public class SolicitacaoREST {
     @Autowired
     private SolicitacaoRepository repo;
 
-    // Listar todas as solicitações ativas
     @GetMapping
     public ResponseEntity<List<Solicitacao>> listarTodas() {
         List<Solicitacao> lista = repo.findByAtivoTrue();
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    // Buscar solicitação ativa por ID
     @GetMapping("/{id}")
     public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) {
         return repo.findByIdAndAtivoTrue(id)
@@ -32,35 +30,32 @@ public class SolicitacaoREST {
                    .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    // Buscar solicitações ativas de um cliente específico
     @GetMapping("/cliente/{idCliente}")
     public ResponseEntity<List<Solicitacao>> obterPorCliente(@PathVariable Integer idCliente) {
         List<Solicitacao> lista = repo.findByClienteIdAndAtivoTrue(idCliente);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    // Buscar solicitações ativas de um funcionário específico
     @GetMapping("/funcionario/{idFuncionario}")
     public ResponseEntity<List<Solicitacao>> obterPorFuncionario(@PathVariable Integer idFuncionario) {
         List<Solicitacao> lista = repo.findByFuncionarioIdAndAtivoTrue(idFuncionario);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    // Buscar solicitações ativas de um equipamento específico
     @GetMapping("/equipamento/{idEquipamento}")
     public ResponseEntity<List<Solicitacao>> obterPorEquipamento(@PathVariable Integer idEquipamento) {
         List<Solicitacao> lista = repo.findByEquipamentoIdAndAtivoTrue(idEquipamento);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    // Buscar solicitações ativas por estado (ABERTA, ORCADA, REJEITADA, CONCLUIDA)
+   
+    //  ABERTA, ORCADA, REJEITADA, APROVADA, REDIRECIONADA, ARRUMADA, PAGA, FINALIZADA
     @GetMapping("/estado/{estado}")
     public ResponseEntity<List<Solicitacao>> obterPorEstado(@PathVariable String estado) {
-        List<Solicitacao> lista = repo.findByEstadoAndAtivoTrue(estado);
+        List<Solicitacao> lista = repo.findByEstadoAndAtivoTrue(estado.toUpperCase());
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    // Criar nova solicitação
     @PostMapping
     public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solic) {
         solic.setAtivo(true);
@@ -68,13 +63,11 @@ public class SolicitacaoREST {
         return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-    // Atualizar solicitação existente
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody Solicitacao nova) {
         Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);
         if (existenteOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Solicitação " + id + " não encontrada ou desabilitada.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Solicitação " + id + " não encontrada ou desabilitada.");
         }
 
         Solicitacao existente = existenteOpt.get();
@@ -86,12 +79,11 @@ public class SolicitacaoREST {
         existente.setFuncionarioId(nova.getFuncionarioId() != null ? nova.getFuncionarioId() : existente.getFuncionarioId());
         existente.setOrientacoes(nova.getOrientacoes() != null ? nova.getOrientacoes() : existente.getOrientacoes());
         existente.setEquipamentoId(nova.getEquipamentoId() != null ? nova.getEquipamentoId() : existente.getEquipamentoId());
-        existente.setEstado(nova.getEstado() != null ? nova.getEstado() : existente.getEstado());
+        existente.setEstado(nova.getEstado() != null ? nova.getEstado().toUpperCase() : existente.getEstado());
 
         return ResponseEntity.ok(repo.save(existente));
     }
 
-    // Desabilitar solicitação (soft delete)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> desabilitar(@PathVariable int id) {
         Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);

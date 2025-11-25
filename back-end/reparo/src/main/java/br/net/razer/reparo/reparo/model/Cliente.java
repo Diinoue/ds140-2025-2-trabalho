@@ -24,9 +24,6 @@ public class Cliente extends Usuario {
     @Column(name = "telefone_cli", nullable = false, length = 20)
     private String telefone;
 
-
-
-    // Relação M-1 para tabela endereço
     @ManyToOne
     @JoinColumn(name = "id_endereco", nullable=false)
     private Endereco endereco;

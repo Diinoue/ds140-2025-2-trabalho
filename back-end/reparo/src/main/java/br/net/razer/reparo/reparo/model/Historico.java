@@ -1,15 +1,25 @@
 package br.net.razer.reparo.reparo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "tb_historico")
 public class Historico {
 
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_hist")
     private Integer id;
@@ -24,16 +34,9 @@ public class Historico {
     @Column(name = "dt_registro", updatable = false)
     private LocalDateTime dataRegistro;
 
-    public Historico() {}
-
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public Integer getSolicitacaoId() { return solicitacaoId; }
-    public void setSolicitacaoId(Integer solicitacaoId) { this.solicitacaoId = solicitacaoId; }
-
-    public Integer getFuncionarioId() { return funcionarioId; }
-    public void setFuncionarioId(Integer funcionarioId) { this.funcionarioId = funcionarioId; }
-
-    public LocalDateTime getDataRegistro() { return dataRegistro; }
+    // Construtor adicional para facilitar criação rápida sem ID e timestamp
+    public Historico(Integer solicitacaoId, Integer funcionarioId) {
+        this.solicitacaoId = solicitacaoId;
+        this.funcionarioId = funcionarioId;
+    }
 }
