@@ -32,8 +32,11 @@ ngOnInit(): void {
 }
 
 carregarSolicitacoes() {
+  console.log('AAAAAAAAAAAAAA');
   this.solicitacaoService.listarTodas().subscribe(data => {
     this.solicitacoes = data;
+    console.log(data);
+    console.log('Funcionário logado:', this.loginFuncionario.id);
   });
 } 
 }

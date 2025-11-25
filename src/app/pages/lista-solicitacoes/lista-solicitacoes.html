@@ -35,7 +35,7 @@
 
                   <!-- Linhas -->
                   @for (s of solicitacoes; track s; let i = $index) {
-                    @if(s.funcionarioId == this.loginFuncionario.id) {
+                    @if(s.funcionarioId == loginFuncionario.id) {
                       <tr>
                         <td>{{ (s.dataInicio ?? null) | dataptbr }}</td>
                         <td>{{ s.defeito }}</td>

@@ -72,7 +72,7 @@ public class SolicitacaoREST {
 
         Solicitacao existente = existenteOpt.get();
 
-        existente.setNome(nova.getNome() != null ? nova.getNome() : existente.getNome());
+        existente.setDefeito(nova.getDefeito() != null ? nova.getDefeito() : existente.getDefeito());
         existente.setDescricao(nova.getDescricao() != null ? nova.getDescricao() : existente.getDescricao());
         existente.setValor(nova.getValor() != null ? nova.getValor() : existente.getValor());
         existente.setClienteId(nova.getClienteId() != null ? nova.getClienteId() : existente.getClienteId());

@@ -17,15 +17,15 @@ public class Solicitacao {
     @Column(name = "id_soli")
     private Integer id;
 
-    @Column(name = "nome_soli", nullable = false, length = 50)
-    private String nome;
+    @Column(name = "defeito_soli", nullable = false, length = 50)
+    private String defeito;
 
     @CreationTimestamp
     @Column(name = "dt_inicio", nullable = false, updatable = false)
     private LocalDateTime dataInicio;
 
     @Column(name = "desc_soli", nullable = false, columnDefinition = "TEXT")
-    private String descricao;
+    private String descricao; 
 
     @Column(name = "estado_soli")
     private String estado; 
@@ -43,7 +43,7 @@ public class Solicitacao {
     private String orientacoes;
 
     @Column(name = "eletronico_soli", nullable = false)
-    private Integer equipamentoId;
+   private Integer equipamentoId;
 
     @Column(name = "ativo_soli", nullable = false)
     private Boolean ativo = true;

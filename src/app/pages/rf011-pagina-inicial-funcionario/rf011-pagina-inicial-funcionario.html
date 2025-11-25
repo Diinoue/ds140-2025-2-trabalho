@@ -44,6 +44,24 @@
                           </a>
                         </td>
                       </tr>
+
+                      @if(s.funcionarioId === loginFuncionario.id) {
+                        <tr>
+                          <td>{{ (s.dataInicio ?? null) | dataptbr }}</td>
+                          <td>{{ s.defeito }}</td>
+                          <td>{{ s.descricao| slice:0:30 }}</td>
+                          <td>
+                            <i class="fa-solid fa-square" style="color: #8b8b8b;"></i> ABERTA
+                        </td>
+                          <td class="text-center">
+                            <a href="funcionario/visualizar-servico/{{s.id}}" 
+                              title="Efetuar Orçamento" alt="Efetuar Orçamento"
+                                class="btn btn-xs btn-warning">
+                            <i class="fa fa-money-bill-wave" aria-hidden="true"></i> Efetuar Orçamento
+                          </a>
+                        </td>
+                      </tr>
+                      }
                     }
                   }
                 </tbody>

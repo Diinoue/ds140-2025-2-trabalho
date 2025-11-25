@@ -27,10 +27,17 @@ ngOnInit(): void {
   let res = this.loginService.usuarioLogado;
   if (res !== null) this.loginFuncionario = res;
   else throw new Error ("usuario nao encontrado");
-  
-  this.solicitacaoService.buscarListaPorFuncionario(this.loginFuncionario.id!).subscribe(data => {
-      this.solicitacoes = data;
-    });
+  console.log("login:", this.loginFuncionario.id);
+
+  /* this.solicitacaoService.buscarListaPorFuncionario(this.loginFuncionario.id!).subscribe(data => {
+      this.solicitacoes = data;      
+    }); */
+
+    this.solicitacaoService.listarTodas().subscribe(data => {
+    this.solicitacoes = data;
+    console.log('Solicitações recebidas:', data);
+  });
+
 }
 
 
