@@ -18,10 +18,8 @@ import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 })
 export class VisualizarServicoCliente implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
-  cliente: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
   alteracaoHist: AlteracaoLog[] = [];
   alteracao: AlteracaoLog = new AlteracaoLog();
-  funcionario: Funcionario = new Funcionario();
   id: number = 0;
 
   constructor(

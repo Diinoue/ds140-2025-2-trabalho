@@ -3,6 +3,8 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
+import { Loginservice } from '../../services/loginservice';
+import { Usuario } from '../../shared/models/usuario.model';
 
 
 @Component({
@@ -14,15 +16,17 @@ import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 export class ListaSolicitacoes {
   solicitacoes: Solicitacao[] = [];
   clientes: string[] = [];
-  loginFuncionario: number = 0;
+  loginFuncionario: Usuario = new Usuario();
 
 constructor (
   private solicitacaoService: Solicitacaoservice, 
+  private loginService: Loginservice, 
 ){
 }
 
 ngOnInit(): void {
   this.carregarSolicitacoes();
+  this.loginFuncionario = this.loginService.usuarioLogado!;
 }
 
 carregarSolicitacoes() {

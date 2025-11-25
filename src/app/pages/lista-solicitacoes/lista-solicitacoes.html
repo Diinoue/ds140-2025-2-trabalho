@@ -35,7 +35,7 @@
 
                   <!-- Linhas -->
                   @for (s of solicitacoes; track s; let i = $index) {
-                    @if(s.funcionarioId == this.loginFuncionario || s.estado === 'ABERTA') {
+                    @if(s.funcionarioId == this.loginFuncionario.id) {
                       <tr>
                         <td>{{ (s.dataInicio ?? null) | dataptbr }}</td>
                         <td>{{ s.clienteId }}</td>
