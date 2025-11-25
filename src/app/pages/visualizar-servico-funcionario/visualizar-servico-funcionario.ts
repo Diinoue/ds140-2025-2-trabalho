@@ -2,22 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Solicitacao } from '../../shared/models/solicitacao.model';
-import { Cliente } from '../../shared/models/cliente.model';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Historico } from '../../shared/models/historico';
 import { Usuario } from '../../shared/models/usuario.model';
+
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Loginservice } from '../../services/loginservice';
 import { Funcionarioservice } from '../../services/funcionarioservice';
-import { Alteracaoservice } from '../../services/alteracaoservice';
+import { HistoricoService } from '../../services/historicoservice';
 
 @Component({
   selector: 'visualizar-servico-funcionario',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './visualizar-servico-funcionario.html',
-  styleUrl: './visualizar-servico-funcionario.css'
+  styleUrls: ['./visualizar-servico-funcionario.css']
 })
 export class VisualizarServicoFuncionario implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
@@ -34,7 +35,7 @@ export class VisualizarServicoFuncionario implements OnInit {
     private route: ActivatedRoute,
     private loginService: Loginservice,
     private funcionarioService: Funcionarioservice,
-    private alteracaoService: Alteracaoservice,
+    private historicoService: HistoricoService, 
     private router: Router,
   ) {}
 
@@ -55,26 +56,29 @@ export class VisualizarServicoFuncionario implements OnInit {
 
   carregarSolicitacao(id: number): void {
     this.solicitacaoService.buscarPorId(id).subscribe({
-      next: (data) => this.solicitacao = data,error: (err) => alert('Erro ao carregar solicitação')
+      next: (data: Solicitacao) => this.solicitacao = data,
+      error: () => alert('Erro ao carregar solicitação')
     });
   }
 
   carregarAlteracoes(id: number): void {
-    this.alteracaoService.buscarPorSolicitacao(id).subscribe({
-      next: (data) => this.alteracaoHist = data || [],error: (err) => alert('Erro ao carregar histórico de alterações')
+    this.historicoService.buscarPorSolicitacao(id).subscribe({
+      next: (data: Historico[]) => this.alteracaoHist = data || [],
+      error: () => alert('Erro ao carregar histórico de alterações')
     });
   }
 
   carregarFuncionarios(): void {
     this.funcionarioService.listarTodos().subscribe({
-      next: (data) => this.funcionarios = data || [],error: (err) => alert('Erro ao carregar funcionários')
+      next: (data: Funcionario[]) => this.funcionarios = data || [],
+      error: () => alert('Erro ao carregar funcionários')
     });
   }
 
   atualizarSolicitacao(): void {
     this.solicitacaoService.atualizar(this.solicitacao).subscribe({
       next: () => this.carregarSolicitacao(this.solicitacao.id!),
-      error: (err) => alert('Erro ao atualizar solicitação')
+      error: () => alert('Erro ao atualizar solicitação')
     });
   }
 
@@ -82,7 +86,7 @@ export class VisualizarServicoFuncionario implements OnInit {
     this.solicitacao.estado = 'ARRUMADA';
     this.solicitacao.orientacoes = this.orientacoesCliente;
     this.atualizarSolicitacao();
-    this.registrarAlteracao('Manutenção Efetuada', this.descricaoManutencao);
+    this.registrarAlteracao('ARRUMADA', this.descricaoManutencao);
   }
 
   redirecionarManutencao(func: Funcionario): void {
@@ -90,7 +94,7 @@ export class VisualizarServicoFuncionario implements OnInit {
     this.solicitacao.estado = 'REDIRECIONADA';
     this.novaAlteracao.nomeFuncionario = func.nome;
     this.atualizarSolicitacao();
-    this.registrarAlteracao('Serviço Redirecionado', `Redirecionado para ${func.nome}`);
+    this.registrarAlteracao('REDIRECIONADA', `Redirecionado para ${func.nome}`);
   }
 
   salvarOrcamento(): void {
@@ -98,24 +102,27 @@ export class VisualizarServicoFuncionario implements OnInit {
     this.solicitacao.funcionarioId = this.funcionarioLogin.id!;
     this.novaAlteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.atualizarSolicitacao();
-    this.registrarAlteracao('Serviço Orçado', '');
+    this.registrarAlteracao('ORCADA', '');
   }
 
   finalizarSolicitacao(): void {
     this.solicitacao.estado = 'FINALIZADA';
     this.atualizarSolicitacao();
-    this.registrarAlteracao('Serviço Finalizado', '');
+    this.registrarAlteracao('FINALIZADA', '');
   }
 
   registrarAlteracao(tipo: string, desc: string): void {
-    this.novaAlteracao.solicitacaoID = this.solicitacao.id!;
-    this.novaAlteracao.data = new Date();
-    this.novaAlteracao.tipo = tipo;
-    this.novaAlteracao.descricao = desc;
+    const nova: Historico = {
+      solicitacaoId: this.solicitacao.id!,
+      funcionarioId: this.funcionarioLogin.id!,
+      descricao: desc,
+      tipo: tipo,
+      nomeFuncionario: this.funcionarioLogin.nome
+    };
 
-    this.alteracaoService.inserir(this.novaAlteracao).subscribe({
+    this.historicoService.inserir(nova).subscribe({
       next: () => this.carregarAlteracoes(this.solicitacao.id!),
-      error: (err) => alert('Erro ao registrar alteração')
+      error: () => alert('Erro ao registrar alteração')
     });
   }
 }

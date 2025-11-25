@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cliente } from '../../shared/models/cliente.model';
 import { CommonModule } from '@angular/common';
 import { Historico } from '../../shared/models/historico';
-import { Funcionario } from '../../shared/models/funcionario.model';
-import { Alteracaoservice } from '../../services/alteracaoservice';
+import { HistoricoService } from '../../services/historicoservice';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 import { EquipamentoService } from '../../services/equipamento-service';
 import { Equipamento } from '../../shared/models/equipamento.model';
@@ -21,7 +19,7 @@ import { Equipamento } from '../../shared/models/equipamento.model';
 export class VisualizarServicoCliente implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
   alteracaoHist: Historico[] = [];
-  alteracao: Historico = new Historico();
+  alteracao: Historico = {} as Historico;
   equipamento: Equipamento = new Equipamento();
   id: number = 0;
 
@@ -29,7 +27,7 @@ export class VisualizarServicoCliente implements OnInit {
     private solicitacaoService: Solicitacaoservice,
     private route: ActivatedRoute,
     private router: Router,
-    private alteracaoService: Alteracaoservice,
+    private historicoService: HistoricoService,  
     private equipamentoService: EquipamentoService,
   ) {}
 
@@ -58,7 +56,7 @@ export class VisualizarServicoCliente implements OnInit {
   }
 
   carregarAlteracoes(id: number) {
-    this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
+    this.historicoService.buscarPorSolicitacao(id).subscribe((data: Historico[]) => {
       this.alteracaoHist = data || [];
     });
   }
@@ -73,17 +71,17 @@ export class VisualizarServicoCliente implements OnInit {
     alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valor}`);
     this.solicitacao.estado = 'APROVADA';
     this.atualizarSolicitacao(this.solicitacao);
-    this.registrarAlteracao('Serviço Aprovado', '');
+    this.registrarAlteracao('APROVADA', 'Serviço aprovado');
   }
 
   rejeitarServico() {
     const motivo = prompt('Informe o motivo da rejeição:');
     if (motivo && motivo.trim() !== '') {
       alert('Serviço rejeitado');
-      this.solicitacao.orientacoes = motivo; // ✅ substitui 'motivo'
+      this.solicitacao.orientacoes = motivo;
       this.solicitacao.estado = 'REJEITADA';
       this.atualizarSolicitacao(this.solicitacao);
-      this.registrarAlteracao('Serviço Rejeitado', motivo);
+      this.registrarAlteracao('REJEITADA', motivo);
       this.router.navigate(['cliente']);
     }
   }
@@ -91,25 +89,28 @@ export class VisualizarServicoCliente implements OnInit {
   resgatarServico() {
     this.solicitacao.estado = 'APROVADA';
     this.atualizarSolicitacao(this.solicitacao);
-    this.registrarAlteracao('Serviço Resgatado', '');
+    this.registrarAlteracao('APROVADA', 'Serviço resgatado e aprovado novamente');
     alert('Serviço resgatado e aprovado novamente');
     this.router.navigate(['cliente']);
   }
 
   pagarServico() {
     this.solicitacao.estado = 'PAGA';
-    // ✅ não existe mais dataDePagamento, registrar via AlteracaoLog
     this.atualizarSolicitacao(this.solicitacao);
-    this.registrarAlteracao('Serviço Pago', '');
+    this.registrarAlteracao('PAGA', 'Serviço pago');
     alert('Serviço Pago');
   }
   
   registrarAlteracao(tipo: string, desc: string) {
-    this.alteracao.solicitacaoID = this.solicitacao.id!;
-    this.alteracao.data = new Date();
-    this.alteracao.tipo = tipo;
-    this.alteracao.descricao = desc;
-    this.alteracaoService.inserir(this.alteracao).subscribe(() => {
+    const novoHistorico: Historico = {
+      solicitacaoId: this.solicitacao.id!,
+      funcionarioId: 1, 
+      descricao: desc,
+      tipo: tipo,
+      nomeFuncionario: 'Cliente' 
+    };
+
+    this.historicoService.inserir(novoHistorico).subscribe(() => {
       this.carregarAlteracoes(this.solicitacao.id!);
     });
   }
