@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Solicitacao } from '../shared/models/solicitacao.model';
-import { AlteracaoLog } from '../shared/models/alteracao-log';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
-const LS_CHAVE = "solicitacoes";
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +25,11 @@ export class Solicitacaoservice {
     return this.http.get<Solicitacao>(`${this.apiUrl}/${id}`);
   }
 
-  buscarListaPorCliente(id: number) : Observable<Solicitacao[]> {
+  buscarListaPorCliente(id: number): Observable<Solicitacao[]> {
     return this.http.get<Solicitacao[]>(`${this.apiUrl}/cliente/${id}`);
   }
 
-  buscarListaPorFuncionario(id: number) : Observable<Solicitacao[]> {
+  buscarListaPorFuncionario(id: number): Observable<Solicitacao[]> {
     return this.http.get<Solicitacao[]>(`${this.apiUrl}/funcionario/${id}`);
   }
 
@@ -39,39 +37,47 @@ export class Solicitacaoservice {
     return this.http.put<Solicitacao>(`${this.apiUrl}/${solicitacao.id}`, solicitacao);
   }
   
-  remover(id: number): Observable<Solicitacao> {
-    return this.http.delete<Solicitacao>(`${this.apiUrl}/${id}`);
+  remover(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-/* 
-  ORDENA A Solicitacao[] POR DATA/HORA, USADO POR: rf003-pagcliente, lista-solicitacoes
-  listarTodosOrdenadoData(): Solicitacao[]{
-    const solicitacoes = this.listarTodos();
-    return solicitacoes.sort(
-      (a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime()
+  // 🔎 Métodos auxiliares para ordenação e filtragem
+
+  listarTodosOrdenadoData(): Observable<Solicitacao[]> {
+    return this.listarTodas().pipe(
+      map(solicitacoes =>
+        solicitacoes.sort(
+          (a, b) =>
+            new Date(a.dataInicio!).getTime() - new Date(b.dataInicio!).getTime()
+        )
+      )
     );
-   Pega as solicitações por funcionário  
   }
 
-  listarHoje(): Solicitacao[] {
+  listarHoje(): Observable<Solicitacao[]> {
     const hoje = new Date();
-    return this.listarTodos().filter(solicitacao => {
-      const data = solicitacao.dataHora;
-      return (
-        data.getDate() === hoje.getDate() &&
-        data.getMonth() === hoje.getMonth() &&
-        data.getFullYear() === hoje.getFullYear()
-      );
-    });
+    return this.listarTodas().pipe(
+      map(solicitacoes =>
+        solicitacoes.filter(solicitacao => {
+          const data = new Date(solicitacao.dataInicio!);
+          return (
+            data.getDate() === hoje.getDate() &&
+            data.getMonth() === hoje.getMonth() &&
+            data.getFullYear() === hoje.getFullYear()
+          );
+        })
+      )
+    );
   }
 
-  listarPeriodo(min: Date, max: Date): Solicitacao[] {
-    const hoje = new Date();
-    return this.listarTodos().filter(solicitacao => {
-    const data = solicitacao.dataHora;
-    return data >= min && data <= max;
-  });
-}
-*/
-
+  listarPeriodo(min: Date, max: Date): Observable<Solicitacao[]> {
+    return this.listarTodas().pipe(
+      map(solicitacoes =>
+        solicitacoes.filter(solicitacao => {
+          const data = new Date(solicitacao.dataInicio!);
+          return data >= min && data <= max;
+        })
+      )
+    );
+  }
 }

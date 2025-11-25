@@ -3,7 +3,7 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../shared/models/cliente.model';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Alteracaoservice } from '../../services/alteracaoservice';
@@ -11,25 +11,25 @@ import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 
 @Component({
   selector: 'visualizar-servico-cliente',
+  standalone: true,
   imports: [DataptbrPipe, CommonModule],
   templateUrl: './visualizar-servico-cliente.html',
-  styleUrl: './visualizar-servico-cliente.css'
+  styleUrls: ['./visualizar-servico-cliente.css']
 })
-
 export class VisualizarServicoCliente implements OnInit {
-solicitacao: Solicitacao = new Solicitacao();
-cliente: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
-alteracaoHist: AlteracaoLog[] = [];
-alteracao: AlteracaoLog = new AlteracaoLog();
-funcionario: Funcionario = new Funcionario();
-id: number = 0;
+  solicitacao: Solicitacao = new Solicitacao();
+  cliente: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
+  alteracaoHist: AlteracaoLog[] = [];
+  alteracao: AlteracaoLog = new AlteracaoLog();
+  funcionario: Funcionario = new Funcionario();
+  id: number = 0;
 
-constructor(
-  private solicitacaoService: Solicitacaoservice,
-  private route: ActivatedRoute,
-  private router: Router,
-  private alteracaoService: Alteracaoservice,
-) {}
+  constructor(
+    private solicitacaoService: Solicitacaoservice,
+    private route: ActivatedRoute,
+    private router: Router,
+    private alteracaoService: Alteracaoservice
+  ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
@@ -37,33 +37,31 @@ constructor(
     this.carregarAlteracoes(this.id);
   }
 
-voltar() {
-    this.router.navigate(['funcionario']);
+  voltar() {
+    this.router.navigate(['cliente']);
   }
 
   carregarSolicitacao(id: number) {
-  this.solicitacaoService.buscarPorId(id).subscribe(data => {
-    this.solicitacao = data;
-    console.log(this.solicitacao);
-    this.carregarAlteracoes(this.solicitacao.id!);
-  });
-}
+    this.solicitacaoService.buscarPorId(id).subscribe(data => {
+      this.solicitacao = data;
+      this.carregarAlteracoes(this.solicitacao.id!);
+    });
+  }
 
   carregarAlteracoes(id: number) {
-  this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
-    this.alteracaoHist = data || []; 
-    console.log(this.alteracaoHist);
-  });
-}
+    this.alteracaoService.buscarPorSolicitacao(id).subscribe(data => {
+      this.alteracaoHist = data || [];
+    });
+  }
 
   atualizarSolicitacao(solicitacao: Solicitacao) {
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe(data => {
-    this.carregarSolicitacao(solicitacao.id!);
-  });
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
+      this.carregarSolicitacao(solicitacao.id!);
+    });
   }
 
   aprovarServico() {
-    alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valorOrcado}`);
+    alert(`Serviço aprovado no valor de R$ ${this.solicitacao.valor}`);
     this.solicitacao.estado = 'APROVADA';
     this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Aprovado', '');
@@ -71,9 +69,9 @@ voltar() {
 
   rejeitarServico() {
     const motivo = prompt('Informe o motivo da rejeição:');
-    if (motivo !== null && motivo.trim() !== '') {
+    if (motivo && motivo.trim() !== '') {
       alert('Serviço rejeitado');
-      this.solicitacao.motivo = motivo;
+      this.solicitacao.orientacoes = motivo; // ✅ substitui 'motivo'
       this.solicitacao.estado = 'REJEITADA';
       this.atualizarSolicitacao(this.solicitacao);
       this.registrarAlteracao('Serviço Rejeitado', motivo);
@@ -85,29 +83,25 @@ voltar() {
     this.solicitacao.estado = 'APROVADA';
     this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Resgatado', '');
-    console.log('Histórico: serviço resgatado em', new Date());
     alert('Serviço resgatado e aprovado novamente');
-      this.router.navigate(['cliente']);
+    this.router.navigate(['cliente']);
   }
 
   pagarServico() {
     this.solicitacao.estado = 'PAGA';
-    this.solicitacao.dataDePagamento = new Date();
+    // ✅ não existe mais dataDePagamento, registrar via AlteracaoLog
     this.atualizarSolicitacao(this.solicitacao);
     this.registrarAlteracao('Serviço Pago', '');
     alert('Serviço Pago');
   }
   
-  registrarAlteracao(tipo : string, desc : string) 
-  {
+  registrarAlteracao(tipo: string, desc: string) {
     this.alteracao.solicitacaoID = this.solicitacao.id!;
     this.alteracao.data = new Date();
     this.alteracao.tipo = tipo;
     this.alteracao.descricao = desc;
-    console.log(this.alteracao);
-    this.alteracaoService.inserir(this.alteracao).subscribe(data => {
+    this.alteracaoService.inserir(this.alteracao).subscribe(() => {
       this.carregarAlteracoes(this.solicitacao.id!);
-  });
+    });
   }
-
 }

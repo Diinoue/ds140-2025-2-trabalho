@@ -1,7 +1,6 @@
-
 <!--
 PÁGINA INICIAL DO CLIENTE
-Nesta página, todas as solicitações criadas criadas pelo cliente são listadas
+Nesta página, todas as solicitações criadas pelo cliente são listadas
 -->
 <section class="vh-100 solicitacoesFundo">
   <div class="container py-2 h-100">
@@ -14,91 +13,83 @@ Nesta página, todas as solicitações criadas criadas pelo cliente são listada
               <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Suas solicitações</h2>
 
               <!-- Início tabela de solicitações -->
-               <table class="table table-striped table-bordered table-hover text-center align-middle ">
-                  <tbody>
-                    <!-- Colunas -->
+              <table class="table table-striped table-bordered table-hover text-center align-middle">
+                <tbody>
+                  <!-- Colunas -->
+                  <tr>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Horário</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Detalhes</th>
+                    <!-- Botão de criar nova solicitação -->
+                    <th class="text-center">
+                      <a href="solicitacao" title="Novo" alt="Novo"
+                         class="btn btn-xs btn-success">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                      </a>
+                    </th>
+                  </tr>
+
+                  <!-- Listagem de solicitações criadas pelo cliente -->
+                  @for (s of solicitacoes; track s; let i = $index)
+                  {
                     <tr>
-                      <th scope="col">Nº</th>
-                      <th scope="col">Horário</th>
-                      <th scope="col">Descrição</th>
-                      <th scope="col">Categoria</th>
-                      <th scope="col">Estado</th>
-                      <th scope="col">Defeito</th>
-                      <!-- Botão de criar nova solicitação -->
-                      <th class="text-center">
-                          <a href="solicitacao" title="Novo" alt="Novo"
-                          class="btn btn-xs btn-success">
-                          <i class="fa fa-plus" aria-hidden="true"></i> Novo
-                          </a>
-                      </th>
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ s.dataInicio | date:'short' }}</td>
+                      <td>{{ s.nome | slice:0:30 }}</td>
+                      <td>{{ s.equipamentoId }}</td>
+                      <td>{{ s.estado }}</td>
+                      <td>{{ s.descricao | slice:0:30 }}</td>
+
+                      <!-- Botões de ação conforme estado -->
+                      @switch (s.estado)
+                      {
+                        @case('ORCADA')
+                        {
+                          <td>
+                            <a href="visualizar-servico/{{s.id}}" title="Aprovar/Rejeitar" alt="Aprovar/Rejeitar"
+                               class="btn btn-xs btn-info">
+                              <i class="fa fa-search"></i> Conferir
+                            </a>
+                          </td>
+                        }
+                        @case('REJEITADA')
+                        {
+                          <td>
+                            <a href="visualizar-servico/{{s.id}}" title="Resgatar" alt="Resgatar"
+                               class="btn btn-xs btn-info">
+                              <i class="fa fa-redo"></i> Resgatar
+                            </a>
+                          </td>
+                        }
+                        @case('ARRUMADA')
+                        {
+                          <td>
+                            <a href="visualizar-servico/{{s.id}}" title="Pagar" alt="Pagar"
+                               class="btn btn-xs btn-info">
+                              <i class="fa fa-money-bill"></i> Pagar
+                            </a>
+                          </td>
+                        }
+                        @case('FINALIZADA')
+                        {
+                          <td>
+                            <a href="visualizar-servico/{{s.id}}" title="Visualizar" alt="Visualizar"
+                               class="btn btn-xs btn-secondary">
+                              <i class="fa fa-eye"></i> Visualizar
+                            </a>
+                          </td>
+                        }
+                        @default {
+                          <td></td>
+                        }
+                      }
                     </tr>
-
-                    <!-- Início listagem de solicitações criadas pelo cliente -->
-                    @for (s of solicitacoes; track s; let i = $index)
-                    {
-                      <tr>
-                        <td> {{ i }}</td>
-                        <td> {{ s.dataHora | dataptbr }} </td>
-                        <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
-                        <td> {{ s.categoriaEquipamento }} </td>
-                        <td> {{ s.estado }} </td>
-                        <td> {{ s.descricaoDefeito | slice:0:30 }} </td>
-                        <!--
-                        Botão conforme a ação que o usuário deve efetuar (se não houver ação, não mostrar botão).
-                         As ações são as seguintes, conforma o estado:
-                            1. ORÇADA: Botão Aprovar/Rejeitar Serviço, que apresenta a tela de Mostrar orçamento (RF005)
-                            2. APROVADA: Sem botão de ação    
-                            3. REJEITADA: Botão Resgatar Serviço (RF009)    
-                            4. ARRUMADA: Botão Pagar Serviço (RF010)    
-                            5. Outros estados: Botão Visualizar Serviço
-                        -->
-                          @switch (s.estado)
-                          {
-                            @case('ORCADA')
-                            {
-                        <td>
-                          <a href="visualizar-servico/{{s.id}}" title="AprovarRejeitar" alt="AprovarRejeitar"
-                          class="btn btn-xs btn-info">
-                          <i class="fa-solid fa-magnifying-glass aria-hidden=true"></i> Conferir
-                          </a>
-                        </td>
-                            }
-                            @case('REJEITADA')
-                            {
-                        <td>
-                          <a href="visualizar-servico/{{s.id}}" title="Resgatar" alt="Resgatar"
-                          class="btn btn-xs btn-info">
-                          <i class="fa-solid fa-redo aria-hidden=true"></i> Resgatar
-                          </a>
-                        </td>
-                            }
-                            @case('ARRUMADA')
-                            {
-                        <td>
-                          <a href="visualizar-servico/{{s.id}}" title="Visualizar" alt="Visualizar"
-                          class="btn btn-xs btn-info">
-                          <i class="fa-solid fa-money aria-hidden=true"></i> Pagar
-                          </a>
-                        </td>
-                            }
-                            @case('FINALIZADA')
-                            {
-                        <td>
-                          <a href="visualizar-servico/{{s.id}}" title="Visualizar" alt="Visualizar"
-                          class="btn btn-xs btn-info">
-                          <i class="fa-solid fa-money aria-hidden=true"></i> Visualizar
-                          </a>
-                        </td>
-                            }
-                            @default {
-                        <td></td>
-                            }
-                          }
-                      </tr>
-                    }
-
-                  </tbody>
-                </table>
+                  }
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

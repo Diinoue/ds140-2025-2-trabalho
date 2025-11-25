@@ -68,7 +68,7 @@ create table tb_cliente (ativo_cli BOOLEAN DEFAULT TRUE, id_cli integer generate
         estado_soli estado NOT NULL DEFAULT 'ABERTA',
         valor_soli NUMERIC(10,2),
         cliente_soli INTEGER NOT NULL,
-        funcionario_soli INTEGER,
+        funcionario_soli INTEGER DEFAULT NULL,
         orientacoe_soli TEXT NOT NULL,
         eletronico_soli INTEGER NOT NULL,
         ativo_soli BOOLEAN DEFAULT TRUE,
@@ -127,22 +127,22 @@ VALUES
 
 
 INSERT INTO tb_solicitacao
-(nome_soli, desc_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli, valor_soli)
+(nome_soli, desc_soli, estado_soli, valor_soli, cliente_soli, funcionario_soli, orientacoe_soli, eletronico_soli)
 VALUES
-('Notebook não liga', 'Notebook não liga mesmo conectado na tomada.', 5, 1, 'Verificar fonte e bateria.', 1, 150.00),
-('Desktop reiniciando', 'Computador reinicia sozinho durante jogos.', 6, 2, 'Testar fonte e temperatura.', 2, 220.00),
-('Impressora travando', 'Impressora trava ao imprimir várias páginas.', 7, 1, 'Limpar roletes e sensores.', 3, 90.00),
-('Mouse sem resposta', 'Mouse parou de funcionar do nada.', 8, 2, 'Testar porta USB e drivers.', 4, 45.00),
-('Teclado falhando', 'Algumas teclas não funcionam.', 5, 1, 'Limpar switches e testar placa.', 5, 70.00),
-('Notebook lento', 'Notebook extremamente lento para iniciar.', 6, 2, 'Verificar HD/SSD e vírus.', 1, 180.00),
-('Desktop sem vídeo', 'Liga mas não aparece imagem.', 7, 1, 'Testar cabos, GPU e monitor.', 2, 250.00),
-('Impressora desalinhada', 'Impressões saindo tortas.', 8, 2, 'Realizar alinhamento e limpeza interna.', 3, 80.00),
-('Mouse duplo clique', 'Mouse faz duplo clique sozinho.', 5, 1, 'Trocar micro switch.', 4, 40.00),
-('Notebook superaquecendo', 'Notebook esquenta muito e desliga.', 6, 1, 'Trocar pasta térmica e limpar cooler.', 1, 200.00),
-('Desktop sem som', 'Computador não emite som.', 7, 2, 'Verificar drivers e conexões.', 2, 60.00),
-('Impressora sem tinta', 'Impressora não reconhece cartucho novo.', 8, 2, 'Resetar memória e limpar contatos.', 3, 55.00),
-('Teclado RGB falhando', 'Leds do teclado piscam aleatoriamente.', 5, 1, 'Atualizar firmware e verificar cabos.', 5, 120.00),
-('Notebook não carrega', 'Carregador conectado mas não carrega.', 7, 2, 'Testar entrada de energia e bateria.', 1, 140.00),
-('Desktop travando', 'PC trava após alguns minutos de uso.', 8, 1, 'Testar memória RAM e HD.', 2, 175.00);
+('Troca de Tela', 'Tela quebrada após queda.', 'ABERTA', 300.00, 1, 1, 'Diagnosticar antes da troca', 1),
+('Formatação Completa', 'Computador muito lento.', 'ORCADA', 150.00, 2, 2, 'Backup antes da formatação', 2),
+('Limpeza interna', 'Ventoinha fazendo muito ruído.', 'ABERTA', 90.00, 3, 1, 'Verificar pasta térmica', 2),
+('Troca de teclado', 'Teclas falhando após derramamento de líquido.', 'ABERTA', 200.00, 4, 2, 'Testar todas as teclas após troca', 5),
+('Impressora não imprime', 'Falha geral ao tentar imprimir.', 'ORCADA', 120.00, 1, 1, 'Testar cabeçote e cartuchos', 3),
+('Mouse desconectando', 'Mouse USB não reconhecido.', 'REJEITADA', 40.00, 2, 2, 'Cliente não autorizou reparo', 4),
+('Troca de HD', 'HD com setores danificados.', 'APROVADA', 350.00, 3, 1, 'Clonar dados antes da troca', 2),
+('Atualização de drivers', 'Drivers desatualizados causando travamentos.', 'FINALIZADA', 80.00, 4, 1, 'Atualizar BIOS se necessário', 1),
+('Falha na placa mãe', 'Computador não liga.', 'ORCADA', 500.00, 1, 2, 'Testar fonte antes da placa', 2),
+('Troca de fonte', 'Fonte queimou após queda de energia.', 'ABERTA', 180.00, 2, 1, 'Revisar voltagem da tomada', 2),
+('Reparo de portas USB', 'Nenhuma porta USB funciona.', 'APROVADA', 220.00, 3, 2, 'Testar com periféricos variados', 2),
+('Limpeza de impressora', 'Impressora puxando folhas erradas.', 'ABERTA', 110.00, 4, 1, 'Testar roletes após limpeza', 3),
+('Troca de bateria de notebook', 'Notebook desligando sozinho.', 'ABERTA', 250.00, 1, 2, 'Testar carregador também', 1),
+('Teclado travando', 'Algumas teclas não respondem.', 'ORCADA', 90.00, 2, 1, 'Testar com teclado externo', 5),
+('Configuração de rede', 'Conexão instável no desktop.', 'ABERTA', 130.00, 3, 2, 'Trocar cabo e testar ping', 2);
 
 select *  from tb_cliente;

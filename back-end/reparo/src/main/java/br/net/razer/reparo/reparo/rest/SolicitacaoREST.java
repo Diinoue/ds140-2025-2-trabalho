@@ -12,56 +12,69 @@ import br.net.razer.reparo.reparo.repo.SolicitacaoRepository;
 @CrossOrigin
 @RestController
 @RequestMapping("/solicitacoes")
-public class SolicitacaoREST 
-{
+public class SolicitacaoREST {
 
     @Autowired
     private SolicitacaoRepository repo;
 
+    // Listar todas as solicitações ativas
     @GetMapping
-    public ResponseEntity<List<Solicitacao>> listarTodas() 
-    {
+    public ResponseEntity<List<Solicitacao>> listarTodas() {
         List<Solicitacao> lista = repo.findByAtivoTrue();
-        if (lista.isEmpty()) 
-        {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.ok(lista);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
+    // Buscar solicitação ativa por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) 
-    {
-        Optional<Solicitacao> solic = repo.findByIdAndAtivoTrue(id);
-        return solic.map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) {
+        return repo.findByIdAndAtivoTrue(id)
+                   .map(ResponseEntity::ok)
+                   .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @GetMapping("/cliente/{cpf}")
-    public ResponseEntity<List<Solicitacao>> obterPorCliente(@PathVariable String cpf)
-    {
-        List<Solicitacao> lista = repo.findByClienteSoliAndAtivoTrue(cpf);
-        if (lista.isEmpty()) 
-        {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.ok(lista);
+    // Buscar solicitações ativas de um cliente específico
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<List<Solicitacao>> obterPorCliente(@PathVariable Integer idCliente) {
+        List<Solicitacao> lista = repo.findByClienteIdAndAtivoTrue(idCliente);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
+    // Buscar solicitações ativas de um funcionário específico
+    @GetMapping("/funcionario/{idFuncionario}")
+    public ResponseEntity<List<Solicitacao>> obterPorFuncionario(@PathVariable Integer idFuncionario) {
+        List<Solicitacao> lista = repo.findByFuncionarioIdAndAtivoTrue(idFuncionario);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    // Buscar solicitações ativas de um equipamento específico
+    @GetMapping("/equipamento/{idEquipamento}")
+    public ResponseEntity<List<Solicitacao>> obterPorEquipamento(@PathVariable Integer idEquipamento) {
+        List<Solicitacao> lista = repo.findByEquipamentoIdAndAtivoTrue(idEquipamento);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    // Buscar solicitações ativas por estado (ABERTA, ORCADA, REJEITADA, CONCLUIDA)
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<Solicitacao>> obterPorEstado(@PathVariable String estado) {
+        List<Solicitacao> lista = repo.findByEstadoAndAtivoTrue(estado);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    // Criar nova solicitação
     @PostMapping
-    public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solic) 
-    {
-        solic.setAtivo(true); 
+    public ResponseEntity<Solicitacao> criar(@RequestBody Solicitacao solic) {
+        solic.setAtivo(true);
         Solicitacao salva = repo.save(solic);
         return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
+    // Atualizar solicitação existente
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody Solicitacao nova) {
         Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);
-        if (existenteOpt.isEmpty()) 
-        {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Solicitação " + id + " não encontrada ou desabilitada.");
+        if (existenteOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("Solicitação " + id + " não encontrada ou desabilitada.");
         }
 
         Solicitacao existente = existenteOpt.get();
@@ -69,27 +82,25 @@ public class SolicitacaoREST
         existente.setNome(nova.getNome() != null ? nova.getNome() : existente.getNome());
         existente.setDescricao(nova.getDescricao() != null ? nova.getDescricao() : existente.getDescricao());
         existente.setValor(nova.getValor() != null ? nova.getValor() : existente.getValor());
-        existente.setClienteSoli(nova.getClienteSoli() != null ? nova.getClienteSoli() : existente.getClienteSoli());
+        existente.setClienteId(nova.getClienteId() != null ? nova.getClienteId() : existente.getClienteId());
         existente.setFuncionarioId(nova.getFuncionarioId() != null ? nova.getFuncionarioId() : existente.getFuncionarioId());
         existente.setOrientacoes(nova.getOrientacoes() != null ? nova.getOrientacoes() : existente.getOrientacoes());
         existente.setEquipamentoId(nova.getEquipamentoId() != null ? nova.getEquipamentoId() : existente.getEquipamentoId());
         existente.setEstado(nova.getEstado() != null ? nova.getEstado() : existente.getEstado());
 
-        Solicitacao atualizada = repo.save(existente);
-        return ResponseEntity.ok(atualizada);
+        return ResponseEntity.ok(repo.save(existente));
     }
 
+    // Desabilitar solicitação (soft delete)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> desabilitar(@PathVariable int id) 
-    {
+    public ResponseEntity<Void> desabilitar(@PathVariable int id) {
         Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);
-        if (existenteOpt.isEmpty()) 
-        {
+        if (existenteOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         Solicitacao existente = existenteOpt.get();
-        existente.setAtivo(false); 
+        existente.setAtivo(false);
         repo.save(existente);
 
         return ResponseEntity.noContent().build();

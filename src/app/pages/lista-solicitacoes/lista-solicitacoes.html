@@ -1,9 +1,4 @@
-<!-- RF011 - Página Inicial de Funcionário: Devem ser mostradas todas as solicitações no estado ABERTA,
- pois necessitam de atenção imediata do funcionário.
- Devem ser mostradas data/hora da abertura, nome do cliente, e descrição do produto, limitado a 30 caracteres.
- Para estas solicitações deve ser apresentado um botão para Efetuar Orçamento (RF012).
- -->
-
+<!-- RF011 - Página Inicial de Funcionário -->
 <section class="vh-100 solicitacoesFundo">
   <div class="container py-2 h-100">
     <div class="row justify-content-center h-100 mt-4">
@@ -11,162 +6,100 @@
         <div class="card shadow-2-strong card-registration">
           <div class="card-body p-4 p-md-5">
             <div class="listaSolicitacoes">
-              <!-- Título Suas solicitações -->
-              <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de solicitações</h2>
-              <!-- Início tabela de solicitações -->
-               <table class="table table-bordered table-hover">
-                
-                  <tbody>
-                    <!-- Colunas -->
-                    <tr>
-                      <th scope="col">Horário de abertura</th>
-                      <th scope="col">Nome do cliente</th>
-                      <th scope="col">Descrição do produto</th>
-                      <th scope="col">Estado: </th>
+              <!-- Título -->
+              <h2 class="card-title fw-bold mt-3 mb-5 text-center">Lista de solicitações</h2>
 
-                       <th scope="col">
-                        <!-- Filtro -->
-
+              <!-- Tabela -->
+              <table class="table table-bordered table-hover text-center">
+                <tbody>
+                  <!-- Cabeçalho -->
+                  <tr>
+                    <th scope="col">Horário de abertura</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Descrição do produto</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">
+                      <!-- Filtro -->
                       <div class="input-group">
                         <span class="input-group-text">
-                          <i class="d-inline-block fa-solid fa-filter"></i>Filtrar por...
+                          <i class="fa-solid fa-filter"></i> Filtrar
                         </span>
+                        <select class="form-select">
+                          <option selected value="1">Todas</option>
+                          <option value="2">Hoje</option>
+                          <option value="3">Período</option>
+                        </select>
+                      </div>
+                    </th>
+                  </tr>
 
-                      <select class="form-select">
-                        <option selected value="1"> Todas </option>
-                        <option value="2"> Hoje </option>
-                        <option value="3"> Período </option>
-                       </select>
-
-                       </div>
-                       </th>
-                      </tr>
-                    
-                      <!-- Botão de filtro -->
-                       
-                    @for (s of solicitacoes; track s; let i = $index)
-                    {
-                    @if(s.funcionarioId == this.loginFuncionario || s.estado === 'ABERTA')
-                    {
+                  <!-- Linhas -->
+                  @for (s of solicitacoes; track s; let i = $index) {
+                    @if(s.funcionarioId == this.loginFuncionario || s.estado === 'ABERTA') {
                       <tr>
-                        <td> {{ s.dataHora | dataptbr}} </td>
-                        <td> {{ s.clienteNome }} </td>
-                        <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
+                        <td>{{ (s.dataInicio ?? null) | dataptbr }}</td>
+                        <td>{{ s.clienteId }}</td>
+                        <td>{{ s.nome | slice:0:30 }}</td>
 
-                        <!-- Cores dinâmicas -->
-                         <td class="text-center">
+                        <!-- Estado com cores -->
+                        <td>
                           @switch (s.estado) {
-                          <!-- Cinza = ABERTA -->
-                           @case("ABERTA") {
-                          <i class="fa-solid fa-square" style="color: #8b8b8b;"></i> ABERTA
+                            @case("ABERTA") { <i class="fa-solid fa-square" style="color:#8b8b8b;"></i> ABERTA }
+                            @case("ORCADA") { <i class="fa-solid fa-square" style="color:#794122;"></i> ORCADA }
+                            @case("REJEITADA") { <i class="fa-solid fa-square" style="color:#ff2b2b;"></i> REJEITADA }
+                            @case("APROVADA") { <i class="fa-solid fa-square" style="color:#ffee03;"></i> APROVADA }
+                            @case("REDIRECIONADA") { <i class="fa-solid fa-square" style="color:#B197FC;"></i> REDIRECIONADA }
+                            @case("ARRUMADA") { <i class="fa-solid fa-square" style="color:#1f2ce2;"></i> ARRUMADA }
+                            @case("PAGA") { <i class="fa-solid fa-square" style="color:#ee940e;"></i> PAGA }
+                            @case("FINALIZADA") { <i class="fa-solid fa-square" style="color:#00ff22;"></i> FINALIZADA }
                           }
-                          <!-- Marrom = ORCADA -->
-                           @case("ORCADA") {
-                          <i class="fa-solid fa-square" style="color: #794122;"></i> ORCADA
-                          }
-                          <!-- Vermelho = REJEITADA -->
-                           @case("REJEITADA") {
-                          <i class="fa-solid fa-square" style="color: #ff2b2b;"></i> REJEITADA
-                          }
-                          <!-- Amarelo = APROVADA -->
-                           @case("APROVADA") {
-                          <i class="fa-solid fa-square" style="color: #ffee03;"></i> APROVADA
-                          }
-                          <!-- Roxo = REDIRECIONADA -->
-                          @case("REDIRECIONADA") {
-                          <i class="fa-solid fa-square" style="color: #B197FC;"></i> REDIRECIONADA
-                          }
-                          <!-- AZUL = ARRUMADA-->
-                           @case("ARRUMADA") {
-                          <i class="fa-solid fa-square" style="color: #1f2ce2;"></i> ARRUMADA
-                          }
-                          <!-- ALARANJADO = PAGA -->
-                           @case("PAGA") {
-                          <i class="fa-solid fa-square" style="color: #ee940e;"></i> PAGA
-                          }
-                           <!-- VERDE: FINALIZADA -->
-                           @case("FINALIZADA") {
-                          <i class="fa-solid fa-square" style="color: #00ff22;"></i> Finalizada
-                          }
-                        }
-                         </td>
-<!--                          Devem ser apresentados links/botões de ação para cada solicitação em seu estado atual:
-	                            1. ABERTA: botão/link para Efetuar Orçamento (RF012)
-                              2. APROVADA/REDIRECIONADA: botão/link para Efetuar Manutenção (RF014)
-                              3. PAGA: botão/link para Finalizar Solicitação (RF016) -->
-                        <td class="text-center">
-                          @switch(s.estado)
-                          {
+                        </td>
 
-                            @case('ABERTA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Efetuar Orçamento"
-                                class="btn btn-xs btn-warning mx-1">
-                                <i class="fa fa-money-bill-wave" aria-hidden="true"></i> Efetuar Orçamento
+                        <!-- Botões de ação -->
+                        <td>
+                          @switch(s.estado) {
+                            @case('ABERTA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-money-bill-wave"></i> Efetuar Orçamento
                               </a>
                             }
-
-                            @case('APROVADA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Efetuar Manutenção"
-                                class="btn btn-xs btn-info mx-1">
-                                <i class="fa fa-wrench" aria-hidden="true"></i> Efetuar Manutenção
+                            @case('APROVADA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-info">
+                                <i class="fa fa-wrench"></i> Efetuar Manutenção
                               </a>
                             }
-
-                            @case('REDIRECIONADA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Efetuar Manutenção"
-                                class="btn btn-xs btn-info mx-1">
-                                <i class="fa fa-wrench" aria-hidden="true"></i> Efetuar Manutenção
+                            @case('REDIRECIONADA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-info">
+                                <i class="fa fa-wrench"></i> Efetuar Manutenção
                               </a>
                             }
-
-                            @case('PAGA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Finalizar Solicitação"
-                                class="btn btn-xs btn-success mx-1">
-                                <i class="fa fa-check" aria-hidden="true"></i> Finalizar Solicitação
+                            @case('PAGA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-success">
+                                <i class="fa fa-check"></i> Finalizar Solicitação
                               </a>
                             }
-
-                            @case('FINALIZADA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Visualizar"
-                                class="btn btn-xs btn-secondary mx-1">
-                                <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                            @case('FINALIZADA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-secondary">
+                                <i class="fa fa-eye"></i> Visualizar
                               </a>
                             }
-                            @case('REJEITADA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Visualizar"
-                                class="btn btn-xs btn-secondary mx-1">
-                                <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                            @case('REJEITADA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-secondary">
+                                <i class="fa fa-eye"></i> Visualizar
                               </a>
                             }
-                            @case('ORCADA')
-                            {
-                              <a href="funcionario/visualizar-servico/{{s.id}}"
-                                title="Visualizar"
-                                class="btn btn-xs btn-secondary mx-1">
-                                <i class="fa fa-eye" aria-hidden="true"></i> Visualizar
+                            @case('ORCADA') {
+                              <a href="funcionario/visualizar-servico/{{s.id}}" class="btn btn-xs btn-secondary">
+                                <i class="fa fa-eye"></i> Visualizar
                               </a>
                             }
                           }
                         </td>
-
-                    </tr>
+                      </tr>
                     }
-                  }                 
-
-                  </tbody>
-                </table>
+                  }
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
