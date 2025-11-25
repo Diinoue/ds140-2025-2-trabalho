@@ -96,7 +96,6 @@ create table tb_cliente (ativo_cli BOOLEAN DEFAULT TRUE, id_cli integer generate
     );
 
 
-
 INSERT INTO endereco (bairro,cidade, logradouro, cep_cli, uf)
 VALUES
 ('Centro', 'Curitiba', 'Rua Abrão dos Santos', '80010000', 'PR'),
@@ -145,4 +144,4 @@ VALUES
 ('Teclado travando', 'Algumas teclas não respondem.', 'ORCADA', 90.00, 2, 1, 'Testar com teclado externo', 5),
 ('Configuração de rede', 'Conexão instável no desktop.', 'ABERTA', 130.00, 3, 2, 'Trocar cabo e testar ping', 2);
 
-select *  from tb_cliente;
+select *  from tb_solicitacao;
