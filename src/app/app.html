@@ -3,9 +3,26 @@
     <!-- Início navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark barraNav-top w-100"><!-- nav= div, mas usado para navegações  -->
       <div class="container-fluid">
+
+        
+        @if(this.usuarioLogado?.perfil != 'cliente' && this.usuarioLogado?.perfil != 'funcionario') {
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="cadastro">Fazer Cadastro</a>
+            </li>
+          </ul>
+          
+        }
+
       @if (this.usuarioLogado?.perfil == 'cliente') {
         <a class="navbar-brand me-4" href="/cliente">Pagina inicial</a>
+
+            <div class="d-flex align-items-center ms-auto">
+            <a href="#" class="btn btn-outline-light me-2" routerLink="/login" (click)="sair()" role="button">Sair</a>
+          </div>
         }
+        
+
       @if (this.usuarioLogado?.perfil == 'funcionario') {
 
         <a class="navbar-brand me-4" routerLink="/funcionario">Pagina inicial</a>
@@ -13,6 +30,7 @@
       <!-- Início links redirecionamento -->
       <ul class="navbar-nav">
         <!-- REMOVER DEPOIS -->
+
         <li class="nav-item">
           <a class="nav-link" routerLink="lista-funcionarios">Funcionarios</a>
         </li>
@@ -32,12 +50,18 @@
               <a class="nav-link" routerLink="relatorio">Relatorios</a>
           </li>
           </ul>
-      }
 
-        <!-- Botões login e sign up -->
           <div class="d-flex align-items-center ms-auto">
             <a href="#" class="btn btn-outline-light me-2" routerLink="/login" (click)="sair()" role="button">Sair</a>
           </div>
+      }
+
+
+        <!-- Botões login e sign up -->
+
+
+      
+
         </div>
       </nav>
     <router-outlet></router-outlet>  
