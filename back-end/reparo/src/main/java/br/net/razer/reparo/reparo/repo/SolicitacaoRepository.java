@@ -20,4 +20,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Intege
     List<Solicitacao> findByEquipamentoIdAndAtivoTrue(Integer equipamentoId);
 
     List<Solicitacao> findByEstadoAndAtivoTrue(String estado);
+
+    List<Solicitacao> findByFuncionarioIdAndEstadoAndAtivoTrue(Integer funcionarioId, String estado);
+
+    List<Solicitacao> findByAtivoTrueOrderByDataInicioDesc();
 }

@@ -27,9 +27,8 @@ public class Solicitacao {
     @Column(name = "desc_soli", nullable = false, columnDefinition = "TEXT")
     private String descricao; 
 
-    @Column(name = "estado_soli")
-    private String estado; 
-
+    @Column(name = "estado_soli", nullable = false)
+    private String estado = "ABERTA"; 
     @Column(name = "valor_soli")
     private Double valor;
 
