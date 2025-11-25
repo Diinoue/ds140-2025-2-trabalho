@@ -1,6 +1,6 @@
 export class Solicitacao {
   public id?: number;
-  public nome: string = '';            
+  public defeito: string = '';            
   public dataInicio?: Date;              
   public descricao: string = '';         
   public estado: string = 'ABERTA';      

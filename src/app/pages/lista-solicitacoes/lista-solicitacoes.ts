@@ -26,7 +26,9 @@ constructor (
 
 ngOnInit(): void {
   this.carregarSolicitacoes();
-  this.loginFuncionario = this.loginService.usuarioLogado!;
+  this.loginService.usuario$.subscribe(usuario => {
+      this.loginFuncionario = usuario!;
+    }); 
 }
 
 carregarSolicitacoes() {

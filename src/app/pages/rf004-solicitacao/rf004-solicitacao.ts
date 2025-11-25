@@ -57,8 +57,8 @@ export class Rf004SolicitacaoComponent implements OnInit {
 
   enviarSolicitacao(): void {
     this.novaSolicitacao = {
-      nome: this.descricaoEquipamento, 
-      descricao: this.descricaoDefeito,
+      descricao: this.descricaoEquipamento, 
+      defeito: this.descricaoDefeito,
       valor: 0,
       clienteId: this.login.id!,
       orientacoes: 'Aguardando análise do funcionário',
