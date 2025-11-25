@@ -3,11 +3,9 @@ import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../shared/models/cliente.model';
-import { Clienteservice } from '../../services/clienteservice';
 import { CommonModule, DatePipe } from '@angular/common';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
-import { Funcionarioservice } from '../../services/funcionarioservice';
 import { Alteracaoservice } from '../../services/alteracaoservice';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 

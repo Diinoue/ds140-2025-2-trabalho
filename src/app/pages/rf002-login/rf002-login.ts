@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule,Validators, FormControl, FormGroup} from '@angular/forms';
-import { Clienteservice } from '../../services/clienteservice';
-import { Funcionarioservice } from '../../services/funcionarioservice';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Login } from '../../shared/models/login.model';
 import { Loginservice } from '../../services/loginservice';
 import { Usuario } from '../../shared/models/usuario.model';

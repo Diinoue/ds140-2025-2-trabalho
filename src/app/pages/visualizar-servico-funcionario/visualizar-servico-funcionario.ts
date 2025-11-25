@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Clienteservice } from '../../services/clienteservice';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Cliente } from '../../shared/models/cliente.model';
 import { Funcionario } from '../../shared/models/funcionario.model';

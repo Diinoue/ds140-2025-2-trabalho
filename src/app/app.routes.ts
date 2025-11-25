@@ -30,7 +30,6 @@ export const routes: Routes =
     {path: 'visualizar-servico/:id', component: VisualizarServicoCliente,
     canActivate: [AuthGuard],
     data: { role: 'funcionario,cliente' } },
-    {path:'crudfuncionario',component: CrudFuncionario,},
     /* ROTAS FUNCIONARIO */
     {path: 'funcionario', component: Rf011PaginaInicialFuncionario,canActivate: [AuthGuard],
     data: { role: 'funcionario' } },

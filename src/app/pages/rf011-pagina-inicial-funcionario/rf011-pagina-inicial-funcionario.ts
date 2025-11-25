@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
-import { DatePipe } from '@angular/common';
-import { Funcionarioservice } from '../../services/funcionarioservice';
 import { SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
-import { Clienteservice } from '../../services/clienteservice';
-import { Cliente } from '../../shared/models/cliente.model';
-import { ActivatedRoute } from '@angular/router';
 import { Loginservice } from '../../services/loginservice';
 import { Usuario } from '../../shared/models/usuario.model';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
-import { Funcionarioservice } from '../../services/funcionarioservice';
 import { SlicePipe } from '@angular/common';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';

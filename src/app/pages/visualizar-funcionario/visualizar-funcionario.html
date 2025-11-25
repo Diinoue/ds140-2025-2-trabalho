@@ -42,10 +42,10 @@
 
     <!-- Perfil (adicionado como um exemplo de campo extra) -->
     <!-- Se o campo perfil existir, ele será exibido -->
-    <div *ngIf="funcionario.perfil" class="list-group-item d-flex justify-content-between align-items-center">
+     @if (funcionario.perfil) {
       <strong>Perfil:</strong>
       <span class="text-muted">{{ funcionario.perfil }}</span>
-    </div>
+     }
 
   </div>
   
