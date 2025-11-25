@@ -25,9 +25,7 @@ public class SolicitacaoREST {
 
     @GetMapping("/{id}")
     public ResponseEntity<Solicitacao> buscarPorId(@PathVariable int id) {
-        return repo.findByIdAndAtivoTrue(id)
-                   .map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        return repo.findByIdAndAtivoTrue(id).map(ResponseEntity::ok).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @GetMapping("/cliente/{idCliente}")
@@ -48,8 +46,6 @@ public class SolicitacaoREST {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-   
-    //  ABERTA, ORCADA, REJEITADA, APROVADA, REDIRECIONADA, ARRUMADA, PAGA, FINALIZADA
     @GetMapping("/estado/{estado}")
     public ResponseEntity<List<Solicitacao>> obterPorEstado(@PathVariable String estado) {
         List<Solicitacao> lista = repo.findByEstadoAndAtivoTrue(estado.toUpperCase());
@@ -72,7 +68,7 @@ public class SolicitacaoREST {
 
         Solicitacao existente = existenteOpt.get();
 
-        existente.setNome(nova.getNome() != null ? nova.getNome() : existente.getNome());
+        existente.setDefeito(nova.getDefeito() != null ? nova.getDefeito() : existente.getDefeito());
         existente.setDescricao(nova.getDescricao() != null ? nova.getDescricao() : existente.getDescricao());
         existente.setValor(nova.getValor() != null ? nova.getValor() : existente.getValor());
         existente.setClienteId(nova.getClienteId() != null ? nova.getClienteId() : existente.getClienteId());
@@ -87,7 +83,8 @@ public class SolicitacaoREST {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> desabilitar(@PathVariable int id) {
         Optional<Solicitacao> existenteOpt = repo.findByIdAndAtivoTrue(id);
-        if (existenteOpt.isEmpty()) {
+        if (existenteOpt.isEmpty()) 
+        {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 

@@ -17,8 +17,8 @@ public class Solicitacao {
     @Column(name = "id_soli")
     private Integer id;
 
-    @Column(name = "nome_soli", nullable = false, length = 50)
-    private String nome;
+    @Column(name = "defeito_soli", nullable = false, length = 50)
+    private String defeito;
 
     @CreationTimestamp
     @Column(name = "dt_inicio", nullable = false, updatable = false)
@@ -27,16 +27,15 @@ public class Solicitacao {
     @Column(name = "desc_soli", nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
-    @Column(name = "estado_soli")
-    private String estado; 
-
+    @Column(name = "estado_soli", nullable = false)
+    private String estado = "ABERTA"; 
     @Column(name = "valor_soli")
     private Double valor;
 
     @Column(name = "cliente_soli", nullable = false)
     private Integer clienteId;
 
-    @Column(name = "funcionario_soli", nullable = true)
+    @Column(name = "funcionario_soli")
     private Integer funcionarioId;
 
     @Column(name = "orientacoe_soli", nullable = false, columnDefinition = "TEXT")
