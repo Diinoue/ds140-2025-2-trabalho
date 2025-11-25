@@ -1,12 +1,14 @@
-import { Component, OnInit} from '@angular/core';
-import { CommonModule, /* DatePipe */ } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Solicitacaoservice } from '../../services/solicitacaoservice';
-import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Router } from '@angular/router';
+
+import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { EquipamentoService } from '../../services/equipamento-service';
-import { Equipamento } from '../../shared/models/equipamento.model';
 import { Loginservice } from '../../services/loginservice';
+
+import { Solicitacao } from '../../shared/models/solicitacao.model';
+import { Equipamento } from '../../shared/models/equipamento.model';
 import { Usuario } from '../../shared/models/usuario.model';
 
 @Component({
@@ -14,59 +16,67 @@ import { Usuario } from '../../shared/models/usuario.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './rf004-solicitacao.html',
-  styleUrls: ['./rf004-solicitacao.css']
+  styleUrl:'./rf004-solicitacao.css'
 })
 export class Rf004SolicitacaoComponent implements OnInit {
   descricaoEquipamento: string = '';
   categoriaEquipamento: Equipamento = new Equipamento();
   descricaoDefeito: string = '';
   categorias: Equipamento[] = [];
-  solicitacoes: Solicitacao[] = [];
   novaSolicitacao: Solicitacao = new Solicitacao();
   login: Usuario = new Usuario();
+
   constructor(
-    private solicitacaoService: Solicitacaoservice, 
+    private solicitacaoService: Solicitacaoservice,
     private router: Router,
     private equipamentoService: EquipamentoService,
-    private loginService: Loginservice,
-  ) {
-  }
+    private loginService: Loginservice
+  ) {}
 
   ngOnInit(): void {
     this.carregarEquipamentos();
-    let res = this.loginService.usuarioLogado;
-    if (res !== null) this.login = res;
-    else throw new Error ("usuario nao encontrado");
+
+    const usuarioLogado = this.loginService.usuarioLogado;
+    if (usuarioLogado !== null) {
+      this.login = usuarioLogado;
+    } else {
+      throw new Error('Usuário não encontrado');
+    }
   }
 
-  carregarEquipamentos() {
-  this.equipamentoService.listarTodos().subscribe(data => {
-    this.categorias = data;
-  });
-}
+  carregarEquipamentos(): void {
+    this.equipamentoService.listarTodos().subscribe({
+      next: (data) => {
+        this.categorias = data;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar equipamentos', err);
+      }
+    });
+  }
 
   enviarSolicitacao(): void {
-  const agora = new Date();
+    this.novaSolicitacao = {
+      nome: this.descricaoEquipamento, 
+      descricao: this.descricaoDefeito,
+      valor: 0,
+      clienteId: this.login.id!,
+      orientacoes: 'Aguardando análise do funcionário',
+      equipamentoId: this.categoriaEquipamento.id!,
+      estado: 'ABERTA',
+      ativo: true,
+      dataInicio: new Date()  
+    };
 
-  this.novaSolicitacao = {
-    id: 0,
-    dataHora: agora,
-    descricaoEquipamento: this.descricaoEquipamento,
-    categoriaEquipamento: this.categoriaEquipamento.nome,
-    descricaoDefeito: this.descricaoDefeito,
-    estado: 'ABERTA',
-    valorOrcado: 0,
-    clienteNome: this.login.nome,
-    clienteId: this.login.id!,
-    dataDePagamento: agora,
-    motivo: '',
-    descricaoManutencao: '',
-    orientacoesCliente: '',
-    funcionarioId: 0
-  };
-    console.log(JSON.stringify(this.novaSolicitacao));
-    this.solicitacaoService.inserir(this.novaSolicitacao).subscribe(response => {
-      this.router.navigate(['cliente']);
+    console.log('Solicitação enviada:', JSON.stringify(this.novaSolicitacao));
+
+    this.solicitacaoService.inserir(this.novaSolicitacao).subscribe({
+      next: () => {
+        this.router.navigate(['cliente']);
+      },
+      error: (err) => {
+        console.error('Erro ao enviar solicitação', err);
+      }
     });
   }
 }

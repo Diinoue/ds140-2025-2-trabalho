@@ -11,12 +11,14 @@
       <div class="card shadow-sm h-100">
         <div class="card-header bg-light fw-bold">Informações do Serviço</div>
         <div class="card-body">
-          <p class="mb-2"><strong>Cliente:</strong> <span class="text-muted">{{ solicitacao.clienteNome }}</span></p>
+          <p class="mb-2"><strong>Cliente:</strong> <span class="text-muted">{{ solicitacao.clienteId }}</span></p>
           <hr>
-          <p class="mb-2"><strong>Equipamento:</strong> <span class="text-muted">{{ solicitacao.descricaoEquipamento }}</span></p>
-          <p class="mb-2"><strong>Categoria:</strong> <span class="text-muted">{{ solicitacao.categoriaEquipamento }}</span></p>
-          <p class="mb-2"><strong>Defeito Relatado:</strong> <span class="text-muted">{{ solicitacao.descricaoDefeito }}</span></p>
-          <p class="mb-0"><strong>Data da Solicitação:</strong> <span class="text-muted">{{ solicitacao.dataHora | dataptbr }}</span></p>
+          <p class="mb-2"><strong>Equipamento:</strong> <span class="text-muted">{{ solicitacao.nome }}</span></p>
+          <p class="mb-2"><strong>Categoria:</strong> <span class="text-muted">{{ solicitacao.equipamentoId }}</span></p>
+          <p class="mb-2"><strong>Defeito Relatado:</strong> <span class="text-muted">{{ solicitacao.descricao }}</span></p>
+          <p class="mb-0"><strong>Data da Solicitação:</strong> 
+            <span class="text-muted">{{ (solicitacao.dataInicio ?? null) | dataptbr }}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -41,8 +43,8 @@
             
             <h3 class="fw-bold my-4"> 
               Orçamento: 
-              <span [ngClass]="{'text-success': solicitacao.valorOrcado, 'text-muted': !solicitacao.valorOrcado}">
-                {{ solicitacao.valorOrcado ? (solicitacao.valorOrcado | currency:'BRL':'symbol':'1.2-2') : 'Aguardando Orçamento' }}
+              <span [ngClass]="{'text-success': solicitacao.valor, 'text-muted': !solicitacao.valor}">
+                {{ solicitacao.valor ? (solicitacao.valor | currency:'BRL':'symbol':'1.2-2') : 'Aguardando Orçamento' }}
               </span>
             </h3>
           </div>
@@ -51,7 +53,7 @@
 
             @if (solicitacao.estado === 'ORCADA') {
               <button (click)="aprovarServico()" class="btn btn-success btn-lg">
-                <i class="fa fa-check-circle me-2"></i> Aprovar Serviço (R$ {{ solicitacao.valorOrcado }})
+                <i class="fa fa-check-circle me-2"></i> Aprovar Serviço (R$ {{ solicitacao.valor }})
               </button>
               <button (click)="rejeitarServico()" class="btn btn-danger btn-sm">
                 <i class="fa fa-times-circle me-2"></i> Rejeitar Serviço
@@ -60,7 +62,7 @@
 
             @if (solicitacao.estado === 'REJEITADA') {
               <div class="alert alert-danger text-center" role="alert">
-                Serviço rejeitado. Motivo: **{{ solicitacao.motivo || 'Não informado.' }}**
+                Serviço rejeitado. Motivo: **{{ solicitacao.orientacoes || 'Não informado.' }}**
               </div>
               <button (click)="resgatarServico()" class="btn btn-primary btn-lg">
                 <i class="fa fa-reply me-2"></i> Resgatar e Aprovar Novamente
@@ -70,13 +72,11 @@
             @if (solicitacao.estado === 'ARRUMADA') {
               <div class="alert alert-success" role="alert">
                 <p class="fw-bold mb-1">Serviço Concluído! Pronto para Pagamento.</p>
-                <p class="mb-0 small"><strong>Orientações:</strong> {{ solicitacao.orientacoesCliente }}</p>
+                <p class="mb-0 small"><strong>Orientações:</strong> {{ solicitacao.orientacoes }}</p>
               </div>
               
-              <p class="mb-2 small">Descrição da Manutenção: {{ solicitacao.descricaoManutencao }}</p>
-
               <button (click)="pagarServico()" class="btn btn-warning btn-lg text-dark">
-                <i class="fa fa-credit-card me-2"></i> Pagar Serviço (R$ {{ solicitacao.valorOrcado }})
+                <i class="fa fa-credit-card me-2"></i> Pagar Serviço (R$ {{ solicitacao.valor }})
               </button>
             }
 
@@ -103,7 +103,7 @@
               <li class="list-group-item">
                 <div class="d-flex w-100 justify-content-between">
                   <h6 class="mb-1 fw-bold">{{ alt.tipo }}</h6>
-                  <small class="text-muted">{{ alt.data | dataptbr }}</small>
+                  <small class="text-muted">{{ (alt.data ?? null) | dataptbr }}</small>
                 </div>
                 
                 <p class="mb-1 small">

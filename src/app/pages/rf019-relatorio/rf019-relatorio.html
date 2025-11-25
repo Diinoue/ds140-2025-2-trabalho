@@ -7,77 +7,70 @@
             <div class="listaSolicitacoes">
               <!-- Título seus Relatorios -->
               <h2 class="card-title fw-bold mt-3 mb-5 mx-1 mx-md-4 text-center">Lista de Relatorios</h2>
+              
               <!-- Início tabela de relatorio -->
-               <table class="table table-bordered table-hover">
-                
-    <tbody>
-                    <!-- Colunas -->
-                    <tr>
-                      <th scope="col">Data de conclusão</th>
-                      <th scope="col">Nome do cliente</th>
-                      <th scope="col">Descrição do produto</th>
-                      <th scope="col">Estado </th>
-                      <th scope="col">Categoria </th>
-                      <th scope="col">Valor </th>
-
-                       <th scope="col">
-                        <!-- Filtro -->
-
+              <table class="table table-bordered table-hover">
+                <tbody>
+                  <!-- Colunas -->
+                  <tr>
+                    <th scope="col">Data de conclusão</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Descrição do produto</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">
+                      <!-- Filtro -->
                       <div class="input-group">
                         <span class="input-group-text">
-                          <i class="d-inline-block fa-solid fa-filter"></i>Filtrar por...
+                          <i class="d-inline-block fa-solid fa-filter"></i> Filtrar por...
                         </span>
-
-                      <select class="form-select">
-                        <option selected value="1"> Todas </option>
-                        <option value="2"> Categoria </option>
-                       </select>
-
-                       </div>
-                       </th>
-                      </tr>
-                      
-                      <!-- Botão de filtro -->
-            
-                    
-                    @for (s of solicitacoes; track s; let i = $index)
-                    {
+                        <select class="form-select">
+                          <option selected value="1">Todas</option>
+                          <option value="2">Categoria</option>
+                        </select>
+                      </div>
+                    </th>
+                  </tr>
+                  
+                  <!-- Listagem -->
+                  @for (s of solicitacoes; track s; let i = $index)
+                  {
                     @if(s.funcionarioId == this.loginFuncionario || s.estado === 'FINALIZADA')
                     {
                       <tr>
-                        <td> {{ s.dataHora.toLocaleString() }} </td>
-                        <td> {{ s.clienteNome }} </td>
-                        <td> {{ s.descricaoEquipamento | slice:0:30 }} </td>
-                        <td> {{ s.categoriaEquipamento| slice:0:30 }} </td>
-                         <td> {{ s.valorOrcado}} </td>
+                        <td>{{ s.dataInicio | date:'short' }}</td>
+                        <td>{{ s.clienteId }}</td>
+                        <td>{{ s.nome | slice:0:30 }}</td>
+                        <td>{{ s.equipamentoId }}</td>
+                        <td>{{ s.estado }}</td>
+                        <td>{{ s.valor }}</td>
+                        
                         <!-- Cores dinâmicas -->
-                         <td class="text-center">
+                        <td class="text-center">
                           @switch (s.estado) {
-                           <!-- VERDE: FINALIZADA -->
-                           @case("FINALIZADA") {
-                          <i class="fa-solid fa-square" style="color: #05ec2c;"></i> PAGA
+                            @case("FINALIZADA") {
+                              <i class="fa-solid fa-square" style="color: #05ec2c;"></i> PAGA
+                            }
                           }
-                        }
-                         </td>
-                        </tr>
-<!--                          Devem ser apresentados links/botões  svisualizar as finalizadas:
-	                            1. botão para aparecer cada uma
-                              2. filtro por tipo 
-                              3.   botão de print com suas aplicações -->
+                        </td>
+                      </tr>
                     }
-                  }                 
+                  }
                 </tbody>
               </table>
-            <div class="text-end fw-bold mt-3 me-3 fs-5">
-                Total: {{   calcularTotal()  }}
+
+              <div class="text-end fw-bold mt-3 me-3 fs-5">
+                Total: {{ calcularTotal() }}
               </div>
             </div>
+
             <div class="row mt-4 mx-3">
-                        <button class="confirm" (click)="imprimirTela()">Imprimir Relatorio</button>
+              <button class="confirm" (click)="imprimirTela()">Imprimir Relatorio</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>   
+</section>
