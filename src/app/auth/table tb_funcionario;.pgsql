@@ -55,7 +55,7 @@ create table tb_cliente (ativo_cli BOOLEAN DEFAULT TRUE, id_cli integer generate
         func_hist INT NOT NULL,
         dt_registro TIMESTAMP NOT NULL DEFAULT NOW(),
         desc_hist TEXT NOT NULL,
-        tipo_desc  char (10) NOT NULL,
+        tipo_desc  char (15) NOT NULL,
         func_orca  varchar NOT NULL, 
         FOREIGN KEY (soli_hist) REFERENCES tb_solicitacao(id_soli),
         FOREIGN KEY (func_hist) REFERENCES tb_funcionario(id_func)

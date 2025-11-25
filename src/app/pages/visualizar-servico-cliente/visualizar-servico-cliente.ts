@@ -4,7 +4,7 @@ import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../shared/models/cliente.model';
 import { CommonModule } from '@angular/common';
-import { AlteracaoLog } from '../../shared/models/alteracao-log';
+import { Historico } from '../../shared/models/historico';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Alteracaoservice } from '../../services/alteracaoservice';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
@@ -20,8 +20,8 @@ import { Equipamento } from '../../shared/models/equipamento.model';
 })
 export class VisualizarServicoCliente implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
-  alteracaoHist: AlteracaoLog[] = [];
-  alteracao: AlteracaoLog = new AlteracaoLog();
+  alteracaoHist: Historico[] = [];
+  alteracao: Historico = new Historico();
   equipamento: Equipamento = new Equipamento();
   id: number = 0;
 

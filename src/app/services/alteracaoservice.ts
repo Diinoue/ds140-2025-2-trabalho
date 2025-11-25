@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AlteracaoLog } from '../shared/models/alteracao-log';
+import { Historico } from '../shared/models/historico';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +12,27 @@ private apiUrl = 'http://localhost:8080/alteracoes';
 
   constructor(private http: HttpClient) {}
 
-  listarTodas(): Observable<AlteracaoLog[]> {
-    return this.http.get<AlteracaoLog[]>(this.apiUrl);
+  listarTodas(): Observable<Historico[]> {
+    return this.http.get<Historico[]>(this.apiUrl);
   }
 
-  inserir(alteracao: AlteracaoLog): Observable<AlteracaoLog> {
-    return this.http.post<AlteracaoLog>(this.apiUrl, alteracao);
+  inserir(alteracao: Historico): Observable<Historico> {
+    return this.http.post<Historico>(this.apiUrl, alteracao);
   }
 
-  buscarPorId(id: number): Observable<AlteracaoLog[]> {
-    return this.http.get<AlteracaoLog[]>(`${this.apiUrl}${id}`);
+  buscarPorId(id: number): Observable<Historico[]> {
+    return this.http.get<Historico[]>(`${this.apiUrl}${id}`);
   }
   
-  buscarPorSolicitacao(id: number): Observable<AlteracaoLog[]> {
-    return this.http.get<AlteracaoLog[]>(`${this.apiUrl}/solicitacoes/${id}`);
+  buscarPorSolicitacao(id: number): Observable<Historico[]> {
+    return this.http.get<Historico[]>(`${this.apiUrl}/solicitacoes/${id}`);
   }
 
-  atualizar(alteracao: AlteracaoLog): Observable<AlteracaoLog> {
-    return this.http.put<AlteracaoLog>(`${this.apiUrl}/${alteracao.id}`, alteracao);
+  atualizar(alteracao: Historico): Observable<Historico> {
+    return this.http.put<Historico>(`${this.apiUrl}/${alteracao.id}`, alteracao);
   }
 
-  remover(id: number): Observable<AlteracaoLog> {
-    return this.http.delete<AlteracaoLog>(`${this.apiUrl}/${id}`);
+  remover(id: number): Observable<Historico> {
+    return this.http.delete<Historico>(`${this.apiUrl}/${id}`);
   }
 }

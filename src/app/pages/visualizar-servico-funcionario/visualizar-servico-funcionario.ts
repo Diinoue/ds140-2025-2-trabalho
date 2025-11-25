@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Solicitacao } from '../../shared/models/solicitacao.model';
 import { Cliente } from '../../shared/models/cliente.model';
 import { Funcionario } from '../../shared/models/funcionario.model';
-import { AlteracaoLog } from '../../shared/models/alteracao-log';
+import { Historico } from '../../shared/models/historico';
 import { Usuario } from '../../shared/models/usuario.model';
 import { Solicitacaoservice } from '../../services/solicitacaoservice';
 import { Loginservice } from '../../services/loginservice';
@@ -22,10 +22,10 @@ import { Alteracaoservice } from '../../services/alteracaoservice';
 export class VisualizarServicoFuncionario implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
   funcionarios: Funcionario[] = [];
-  alteracaoHist: AlteracaoLog[] = [];
+  alteracaoHist: Historico[] = [];
   funcionarioLogin: Usuario = new Usuario();
   redirecionar: boolean = false;
-  novaAlteracao: AlteracaoLog = new AlteracaoLog();
+  novaAlteracao: Historico = new Historico();
   descricaoManutencao: string = '';
   orientacoesCliente: string = '';
 
