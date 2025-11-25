@@ -20,7 +20,7 @@
                   <!-- Colunas -->
                   <tr>
                     <th scope="col">Horário de abertura</th>
-                    <th scope="col">Cliente</th>
+                    <th scope="col">defeito</th>
                     <th scope="col">Descrição do produto</th>
                     <th scope="col">Estado atual</th>
                     <th scope="col">Ação</th>
@@ -31,8 +31,8 @@
                     @if(s.estado === 'ABERTA') {
                       <tr>
                         <td>{{ (s.dataInicio ?? null) | dataptbr }}</td>
-                        <td>{{ s.clienteId }}</td>
-                        <td>{{ s.nome | slice:0:30 }}</td>
+                        <td>{{ s.defeito }}</td>
+                        <td>{{ s.descricao| slice:0:30 }}</td>
                         <td>
                           <i class="fa-solid fa-square" style="color: #8b8b8b;"></i> ABERTA
                         </td>

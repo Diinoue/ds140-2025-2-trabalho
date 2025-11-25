@@ -123,7 +123,6 @@ export class VisualizarServicoFuncionario implements OnInit {
     novaAlteracao.data = new Date();
     novaAlteracao.tipo = tipo;
     novaAlteracao.descricao = desc;
-    novaAlteracao.nomeFuncionario = this.funcionarioLogin.nome;
 
     this.alteracaoService.inserir(novaAlteracao).subscribe({
       next: () => this.carregarAlteracoes(this.solicitacao.id!),

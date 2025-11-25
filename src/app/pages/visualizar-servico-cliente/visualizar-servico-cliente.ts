@@ -8,6 +8,8 @@ import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { Alteracaoservice } from '../../services/alteracaoservice';
 import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
+import { EquipamentoService } from '../../services/equipamento-service';
+import { Equipamento } from '../../shared/models/equipamento.model';
 
 @Component({
   selector: 'visualizar-servico-cliente',
@@ -20,13 +22,15 @@ export class VisualizarServicoCliente implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
   alteracaoHist: AlteracaoLog[] = [];
   alteracao: AlteracaoLog = new AlteracaoLog();
+  equipamento: Equipamento = new Equipamento();
   id: number = 0;
 
   constructor(
     private solicitacaoService: Solicitacaoservice,
     private route: ActivatedRoute,
     private router: Router,
-    private alteracaoService: Alteracaoservice
+    private alteracaoService: Alteracaoservice,
+    private equipamentoService: EquipamentoService,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +47,13 @@ export class VisualizarServicoCliente implements OnInit {
     this.solicitacaoService.buscarPorId(id).subscribe(data => {
       this.solicitacao = data;
       this.carregarAlteracoes(this.solicitacao.id!);
+      this.carregarEquipamento(this.solicitacao.equipamentoId);
+    });
+  }
+
+  carregarEquipamento(id: number) {
+    this.equipamentoService.buscarPorId(id).subscribe(data => {
+      this.equipamento = data;
     });
   }
 

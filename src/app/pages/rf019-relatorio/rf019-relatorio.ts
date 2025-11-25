@@ -18,7 +18,6 @@ export class Rf019Relatorio implements OnInit {
   totalGeral: number = 0; 
 
   constructor(
-    private funcionarioService: Funcionarioservice,
     private solicitacaoService: Solicitacaoservice
   ) {}
 
