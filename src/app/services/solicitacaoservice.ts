@@ -41,7 +41,6 @@ export class Solicitacaoservice {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // 🔎 Métodos auxiliares para ordenação e filtragem
 
   listarTodosOrdenadoData(): Observable<Solicitacao[]> {
     return this.listarTodas().pipe(
