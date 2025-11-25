@@ -13,9 +13,9 @@
         <div class="card-body">
           <p class="mb-2"><strong>Cliente:</strong> <span class="text-muted">{{ solicitacao.clienteId }}</span></p>
           <hr>
-          <p class="mb-2"><strong>Equipamento:</strong> <span class="text-muted">{{ solicitacao.defeito }}</span></p>
+          <p class="mb-2"><strong>Equipamento:</strong> <span class="text-muted">{{ solicitacao.descricao }}</span></p>
           <p class="mb-2"><strong>Categoria:</strong> <span class="text-muted">{{ equipamento.nome }}</span></p>
-          <p class="mb-2"><strong>Defeito Relatado:</strong> <span class="text-muted">{{ solicitacao.descricao }}</span></p>
+          <p class="mb-2"><strong>Defeito Relatado:</strong> <span class="text-muted">{{ solicitacao.defeito }}</span></p>
           <p class="mb-0"><strong>Data da Solicitação:</strong> 
             <span class="text-muted">{{ (solicitacao.dataInicio ?? null) | dataptbr }}</span>
           </p>

@@ -12,17 +12,6 @@ import { Loginservice } from '../../services/loginservice';
 import { Funcionarioservice } from '../../services/funcionarioservice';
 import { Alteracaoservice } from '../../services/alteracaoservice';
 
-export enum EstadoSolicitacao {
-  ABERTA = 'ABERTA',
-  ORCADA = 'ORCADA',
-  REJEITADA = 'REJEITADA',
-  APROVADA = 'APROVADA',
-  REDIRECIONADA = 'REDIRECIONADA',
-  ARRUMADA = 'ARRUMADA',
-  PAGA = 'PAGA',
-  FINALIZADA = 'FINALIZADA'
-}
-
 @Component({
   selector: 'visualizar-servico-funcionario',
   standalone: true,
@@ -32,12 +21,11 @@ export enum EstadoSolicitacao {
 })
 export class VisualizarServicoFuncionario implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
-  cliente: Cliente = new Cliente(0, '', '', '', 'cliente', false, '', '', '');
   funcionarios: Funcionario[] = [];
   alteracaoHist: AlteracaoLog[] = [];
   funcionarioLogin: Usuario = new Usuario();
   redirecionar: boolean = false;
-
+  novaAlteracao: AlteracaoLog = new AlteracaoLog();
   descricaoManutencao: string = '';
   orientacoesCliente: string = '';
 
@@ -91,40 +79,41 @@ export class VisualizarServicoFuncionario implements OnInit {
   }
 
   efetuarManutencao(): void {
-    this.solicitacao.estado = EstadoSolicitacao.ARRUMADA;
-    this.solicitacao.orientacoes = (this.solicitacao.orientacoes || '') + '\n' + this.orientacoesCliente;
+    this.solicitacao.estado = 'ARRUMADA';
+    this.solicitacao.orientacoes = this.orientacoesCliente;
     this.atualizarSolicitacao();
     this.registrarAlteracao('Manutenção Efetuada', this.descricaoManutencao);
   }
 
   redirecionarManutencao(func: Funcionario): void {
     this.solicitacao.funcionarioId = func.id!;
-    this.solicitacao.estado = EstadoSolicitacao.REDIRECIONADA;
+    this.solicitacao.estado = 'REDIRECIONADA';
+    this.novaAlteracao.nomeFuncionario = func.nome;
     this.atualizarSolicitacao();
     this.registrarAlteracao('Serviço Redirecionado', `Redirecionado para ${func.nome}`);
   }
 
   salvarOrcamento(): void {
-    this.solicitacao.estado = EstadoSolicitacao.ORCADA;
+    this.solicitacao.estado = 'ORCADA';
     this.solicitacao.funcionarioId = this.funcionarioLogin.id!;
+    this.novaAlteracao.nomeFuncionario = this.funcionarioLogin.nome;
     this.atualizarSolicitacao();
     this.registrarAlteracao('Serviço Orçado', '');
   }
 
   finalizarSolicitacao(): void {
-    this.solicitacao.estado = EstadoSolicitacao.FINALIZADA;
+    this.solicitacao.estado = 'FINALIZADA';
     this.atualizarSolicitacao();
     this.registrarAlteracao('Serviço Finalizado', '');
   }
 
   registrarAlteracao(tipo: string, desc: string): void {
-    const novaAlteracao = new AlteracaoLog();
-    novaAlteracao.solicitacaoID = this.solicitacao.id!;
-    novaAlteracao.data = new Date();
-    novaAlteracao.tipo = tipo;
-    novaAlteracao.descricao = desc;
+    this.novaAlteracao.solicitacaoID = this.solicitacao.id!;
+    this.novaAlteracao.data = new Date();
+    this.novaAlteracao.tipo = tipo;
+    this.novaAlteracao.descricao = desc;
 
-    this.alteracaoService.inserir(novaAlteracao).subscribe({
+    this.alteracaoService.inserir(this.novaAlteracao).subscribe({
       next: () => this.carregarAlteracoes(this.solicitacao.id!),
       error: (err) => alert('Erro ao registrar alteração')
     });
