@@ -9,7 +9,7 @@ import { DataptbrPipe } from '../../shared/pipes/dataptbr-pipe';
 @Component
   ({
   selector: 'app-rf003-pagcliente',
-  imports: [SlicePipe, DataptbrPipe, DatePipe], 
+  imports: [SlicePipe, DataptbrPipe ], 
   templateUrl: './rf003-pagcliente.html',
   styleUrl: './rf003-pagcliente.css'
   })

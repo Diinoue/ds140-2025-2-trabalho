@@ -37,7 +37,7 @@ Nesta página, todas as solicitações criadas pelo cliente são listadas
                   {
                     <tr>
                       <td>{{ i + 1 }}</td>
-                      <td>{{ s.dataInicio | date:'short' }}</td>
+                      <td>{{ s.dataInicio! | dataptbr }}</td>
                       <td>{{ s.nome | slice:0:30 }}</td>
                       <td>{{ s.equipamentoId }}</td>
                       <td>{{ s.estado }}</td>

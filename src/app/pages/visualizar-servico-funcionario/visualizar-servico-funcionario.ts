@@ -7,6 +7,10 @@ import { Cliente } from '../../shared/models/cliente.model';
 import { Funcionario } from '../../shared/models/funcionario.model';
 import { AlteracaoLog } from '../../shared/models/alteracao-log';
 import { Usuario } from '../../shared/models/usuario.model';
+import { Solicitacaoservice } from '../../services/solicitacaoservice';
+import { Loginservice } from '../../services/loginservice';
+import { Funcionarioservice } from '../../services/funcionarioservice';
+import { Alteracaoservice } from '../../services/alteracaoservice';
 
 export enum EstadoSolicitacao {
   ABERTA = 'ABERTA',
